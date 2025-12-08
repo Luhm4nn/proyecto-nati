@@ -32,8 +32,8 @@ function Admin() {
     setLoading(true)
     try {
       const url = filtro === 'todas' 
-        ? 'http://localhost:3000/solicitudes'
-        : `http://localhost:3000/solicitudes?estado=${filtro}`
+        ? `${import.meta.env.VITE_API_URL}/solicitudes`
+        : `${import.meta.env.VITE_API_URL}/solicitudes?estado=${filtro}`
       
       const response = await fetch(url, {
         headers: getAuthHeaders()
@@ -57,7 +57,7 @@ function Admin() {
 
   const cambiarEstado = async (id, nuevoEstado) => {
     try {
-      await fetch(`http://localhost:3000/solicitudes/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/solicitudes/${id}`, {
         method: 'PATCH',
         headers: getAuthHeaders(),
         body: JSON.stringify({ estado: nuevoEstado }),
@@ -72,7 +72,7 @@ function Admin() {
     if (!confirm('¿Estás segura de eliminar esta solicitud?')) return
     
     try {
-      await fetch(`http://localhost:3000/solicitudes/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/solicitudes/${id}`, {
         method: 'DELETE',
         headers: getAuthHeaders(),
       })
