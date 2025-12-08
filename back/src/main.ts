@@ -37,12 +37,14 @@ async function bootstrap() {
   // Configuración de CORS para permitir requests desde el frontend
   // SameSite y origin validation protegen contra CSRF
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173' || 'https://deutsch-fur-dich.vercel.app',
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
     credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
   
-  await app.listen(process.env.PORT ?? 3000);
+  const port = process.env.PORT || 3000;
+  await app.listen(port, '0.0.0.0');
+  console.log(`Application is running on: http://0.0.0.0:${port}`);
 }
 bootstrap();
