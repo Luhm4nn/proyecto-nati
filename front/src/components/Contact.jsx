@@ -27,16 +27,27 @@ function Contact() {
     
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'https://proyecto-nati-backend.onrender.com'
+      
+      // Limpiar campos vacíos para que sean undefined en vez de ''
+      const cleanData = {
+        nombre: formData.nombre,
+        email: formData.email,
+        mensaje: formData.mensaje,
+        ...(formData.telefono && { telefono: formData.telefono })
+      }
+      
       const response = await fetch(`${apiUrl}/solicitudes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(cleanData),
       })
 
       if (!response.ok) {
-        throw new Error('Error al enviar la solicitud')
+        const errorData = await response.json()
+        console.error('Error del servidor:', errorData)
+        throw new Error(errorData.message || 'Error al enviar la solicitud')
       }
 
       setSubmitted(true)
