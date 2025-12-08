@@ -9,11 +9,11 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    // Rate limiting global: máximo 10 requests por minuto por IP
+    // Rate limiting global: máximo 30 requests por minuto por IP
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
-        limit: 10,
+        limit: 30,
       },
     ]),
     PrismaModule,
