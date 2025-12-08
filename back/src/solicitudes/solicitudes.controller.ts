@@ -10,10 +10,10 @@ export class SolicitudesController {
   constructor(private readonly solicitudesService: SolicitudesService) {}
 
   /**
-   * Crear solicitud con rate limiting: máximo 3 solicitudes por hora
+   * Crear solicitud con rate limiting: máximo 10 solicitudes por hora
    * Endpoint público para el formulario de contacto
    */
-  @Throttle({ default: { limit: 3, ttl: 3600000 } })
+  @Throttle({ default: { limit: 10, ttl: 3600000 } })
   @Post()
   create(@Body() createSolicitudDto: CreateSolicitudDto) {
     return this.solicitudesService.create(createSolicitudDto);
