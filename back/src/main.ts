@@ -37,7 +37,7 @@ async function bootstrap() {
   // Configuración de CORS para permitir requests desde el frontend
   // SameSite y origin validation protegen contra CSRF
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5173' || 'https://deutsch-fur-dich.vercel.app',
     credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],

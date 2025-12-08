@@ -67,7 +67,7 @@ npm run preview  # Probar el build
    - **Name:** `proyecto-nati-backend`
    - **Root Directory:** `back`
    - **Environment:** Node
-   - **Build Command:** `npm install && npx prisma generate && npm run build`
+   - **Build Command:** `npm install --include=dev && npx prisma generate && npm run build`
    - **Start Command:** `node dist/main.js`
    - **Instance Type:** Free
 
