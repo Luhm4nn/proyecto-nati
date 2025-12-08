@@ -26,7 +26,8 @@ function Contact() {
     setError(null)
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/solicitudes`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://proyecto-nati-backend.onrender.com'
+      const response = await fetch(`${apiUrl}/solicitudes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

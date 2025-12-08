@@ -31,9 +31,10 @@ function Admin() {
   const cargarSolicitudes = async () => {
     setLoading(true)
     try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://proyecto-nati-backend.onrender.com'
       const url = filtro === 'todas' 
-        ? `${import.meta.env.VITE_API_URL}/solicitudes`
-        : `${import.meta.env.VITE_API_URL}/solicitudes?estado=${filtro}`
+        ? `${apiUrl}/solicitudes`
+        : `${apiUrl}/solicitudes?estado=${filtro}`
       
       const response = await fetch(url, {
         headers: getAuthHeaders()
@@ -57,7 +58,8 @@ function Admin() {
 
   const cambiarEstado = async (id, nuevoEstado) => {
     try {
-      await fetch(`${import.meta.env.VITE_API_URL}/solicitudes/${id}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://proyecto-nati-backend.onrender.com'
+      await fetch(`${apiUrl}/solicitudes/${id}`, {
         method: 'PATCH',
         headers: getAuthHeaders(),
         body: JSON.stringify({ estado: nuevoEstado }),
@@ -72,7 +74,8 @@ function Admin() {
     if (!confirm('¿Estás segura de eliminar esta solicitud?')) return
     
     try {
-      await fetch(`${import.meta.env.VITE_API_URL}/solicitudes/${id}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://proyecto-nati-backend.onrender.com'
+      await fetch(`${apiUrl}/solicitudes/${id}`, {
         method: 'DELETE',
         headers: getAuthHeaders(),
       })
