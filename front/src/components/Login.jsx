@@ -1,63 +1,74 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import './Login.css'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "../contexts/ToastContext";
+import "./Login.css";
 
 function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  })
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'https://proyecto-nati-backend.onrender.com'
-      console.log('API URL:', apiUrl)
+      const apiUrl =
+        import.meta.env.VITE_API_URL ||
+        "https://proyecto-nati-backend.onrender.com";
+      console.log("API URL:", apiUrl);
       const response = await fetch(`${apiUrl}/auth/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-      })
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Error al iniciar sesión')
+        throw new Error(data.message || "Error al iniciar sesión");
       }
 
       // Guardar usuario y token en localStorage
-      localStorage.setItem('user', JSON.stringify(data.user))
-      localStorage.setItem('token', data.access_token)
-      
+      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("token", data.access_token);
+
+      showSuccess(`¡Bienvenida, ${data.user.nombre}!`);
+
       // Redirigir al panel de administración
-      navigate('/admin')
+      setTimeout(() => navigate("/admin"), 500);
     } catch (err) {
-      setError(err.message || 'Credenciales inválidas')
+      setError(err.message || "Credenciales inválidas");
+      showError(err.message || "Credenciales inválidas");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="login-page">
       <div className="login-container">
         <div className="login-header">
-          <img src="/natiluhmannlogofinal2022 (1).jpg" alt="Natalia Luhmann" className="login-logo" />
+          <img
+            src="/natiluhmannlogofinal2022 (1).jpg"
+            alt="Natalia Luhmann"
+            className="login-logo"
+          />
           <h1>Panel de Administración</h1>
           <p>Inicia sesión para gestionar las solicitudes</p>
         </div>
@@ -91,23 +102,21 @@ function Login() {
             />
           </div>
 
-          {error && (
-            <div className="error-message">
-              {error}
-            </div>
-          )}
+          {error && <div className="error-message">{error}</div>}
 
           <button type="submit" className="login-btn" disabled={loading}>
-            {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
+            {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
           </button>
         </form>
 
         <div className="login-footer">
-          <a href="/" className="back-link">← Volver a la página principal</a>
+          <a href="/" className="back-link">
+            ← Volver a la página principal
+          </a>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;

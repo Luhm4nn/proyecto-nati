@@ -1,76 +1,95 @@
-import { useState } from 'react'
-import './Contact.css'
+import { useState } from "react";
+import { useToast } from "../contexts/ToastContext";
+import "./Contact.css";
 
 function Contact() {
+  const { showSuccess, showError, showWarning } = useToast();
   const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    telefono: '',
-    mensaje: ''
-  })
+    nombre: "",
+    email: "",
+    telefono: "",
+    mensaje: "",
+  });
 
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError(null)
-    
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'https://proyecto-nati-backend.onrender.com'
-      
+      const apiUrl =
+        import.meta.env.VITE_API_URL ||
+        "https://proyecto-nati-backend.onrender.com";
+
       // Limpiar campos vacíos para que sean undefined en vez de ''
       const cleanData = {
         nombre: formData.nombre,
         email: formData.email,
         mensaje: formData.mensaje,
-        ...(formData.telefono && { telefono: formData.telefono })
-      }
-      
+        ...(formData.telefono && { telefono: formData.telefono }),
+      };
+
       const response = await fetch(`${apiUrl}/solicitudes`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(cleanData),
-      })
+      });
 
       if (!response.ok) {
-        const errorData = await response.json()
-        console.error('Error del servidor:', errorData)
-        throw new Error(errorData.message || 'Error al enviar la solicitud')
+        const errorData = await response.json();
+        console.error("Error del servidor:", errorData);
+
+        if (errorData.message.includes("Ya has enviado")) {
+          showWarning(errorData.message, 6000);
+        } else {
+          showError(errorData.message || "Error al enviar la solicitud");
+        }
+        throw new Error(errorData.message || "Error al enviar la solicitud");
       }
 
-      setSubmitted(true)
+      showSuccess("¡Solicitud enviada! Te contactaré pronto.", 5000);
+      setSubmitted(true);
       setTimeout(() => {
-        setSubmitted(false)
-        setFormData({ nombre: '', email: '', telefono: '', mensaje: '' })
-      }, 3000)
+        setSubmitted(false);
+        setFormData({ nombre: "", email: "", telefono: "", mensaje: "" });
+      }, 3000);
     } catch (err) {
-      setError('Hubo un error al enviar tu solicitud. Por favor, intenta nuevamente.')
-      console.error('Error:', err)
+      setError(
+        "Hubo un error al enviar tu solicitud. Por favor, intenta nuevamente."
+      );
+      if (!err.message.includes("Ya has enviado")) {
+        showError(
+          "Hubo un error al enviar tu solicitud. Por favor, intenta nuevamente."
+        );
+      }
+      console.error("Error:", err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <section id="contact" className="contact">
       <div className="contact-container">
         <h2 className="contact-title">Contacta Conmigo</h2>
         <p className="contact-subtitle">
-          Completa el formulario y te responderé a la brevedad para coordinar tu primera clase
+          Completa el formulario y te responderé a la brevedad para coordinar tu
+          primera clase
         </p>
-        
+
         <form className="contact-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="nombre">Nombre completo</label>
@@ -123,16 +142,20 @@ function Contact() {
             />
           </div>
 
-          <button type="submit" className="submit-btn" disabled={submitted || loading}>
-            {loading ? 'Enviando...' : submitted ? '✓ Mensaje Enviado' : 'Enviar Solicitud'}
+          <button
+            type="submit"
+            className="submit-btn"
+            disabled={submitted || loading}
+          >
+            {loading
+              ? "Enviando..."
+              : submitted
+              ? "✓ Mensaje Enviado"
+              : "Enviar Solicitud"}
           </button>
         </form>
 
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
-        )}
+        {error && <div className="error-message">{error}</div>}
 
         {submitted && (
           <div className="success-message">
@@ -141,7 +164,7 @@ function Contact() {
         )}
       </div>
     </section>
-  )
+  );
 }
 
-export default Contact
+export default Contact;
