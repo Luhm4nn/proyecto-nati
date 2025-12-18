@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches: [main, develop, feat/**]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Backend Tests
+        working-directory: ./back
+        run: |
+          npm ci
+          npx prisma generate
+          npm test
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5432/test
+          JWT_SECRET: test-secret
+
+      - name: Frontend Build
+        working-directory: ./front
+        run: |
+          npm ci
+          npm run build

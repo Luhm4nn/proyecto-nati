@@ -1,10 +1,14 @@
 # 🇩🇪 Proyecto Natalia Luhmann
 
+[![Tests](https://github.com/Luhm4nn/proyecto-nati/actions/workflows/tests.yml/badge.svg)](https://github.com/Luhm4nn/proyecto-nati/actions/workflows/tests.yml)
+[![CI/CD](https://github.com/Luhm4nn/proyecto-nati/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Luhm4nn/proyecto-nati/actions/workflows/ci-cd.yml)
+
 Sistema de gestión de solicitudes de clases de alemán con autenticación y panel de administración.
 
 ## 🚀 Inicio Rápido
 
 ### Backend
+
 ```bash
 cd back
 npm install
@@ -15,6 +19,7 @@ npm run start:dev     # http://localhost:3000
 ```
 
 ### Frontend
+
 ```bash
 cd front
 npm install
@@ -32,10 +37,12 @@ npm run dev          # http://localhost:5173
 ## 📚 API Endpoints
 
 ### Públicos
+
 - `POST /auth/login` - Login
 - `POST /solicitudes` - Crear solicitud
 
 ### Protegidos (requieren JWT)
+
 - `GET /solicitudes` - Listar
 - `PATCH /solicitudes/:id` - Actualizar
 - `DELETE /solicitudes/:id` - Eliminar
