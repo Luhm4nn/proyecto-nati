@@ -1,4 +1,13 @@
 {
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  },
+  "github": {
+    "enabled": false,
+    "autoAlias": false
+  },
   "rewrites": [
     {
       "source": "/(.*)",
