@@ -61,7 +61,7 @@
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #D00;
+  border-color: #d00;
   box-shadow: 0 0 0 3px rgba(208, 0, 0, 0.1);
 }
 
@@ -73,7 +73,7 @@
 .submit-btn {
   width: 100%;
   padding: 1rem;
-  background: #D00;
+  background: #d00;
   color: white;
   border: none;
   border-radius: 4px;
@@ -128,15 +128,29 @@
   }
 }
 
+/* Estilos para errores de validación */
+.input-error {
+  border-color: #ef4444 !important;
+  background-color: #fef2f2 !important;
+}
+
+.error-text {
+  display: block;
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin-top: 0.35rem;
+  animation: slideIn 0.2s ease-out;
+}
+
 @media (max-width: 768px) {
   .contact {
     padding: 2rem 1rem;
   }
-  
+
   .contact-title {
     font-size: 2rem;
   }
-  
+
   .contact-form {
     padding: 1.5rem;
   }

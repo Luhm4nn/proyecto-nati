@@ -13,19 +13,63 @@ function Contact() {
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
+    // Limpiar error del campo cuando el usuario empieza a escribir
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: "",
+      });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Nombre: mínimo 3 caracteres
+    if (formData.nombre.trim().length < 3) {
+      newErrors.nombre = "El nombre debe tener al menos 3 caracteres";
+    }
+
+    // Email: formato válido
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Ingresá un email válido";
+    }
+
+    // Mensaje: mínimo 10 caracteres
+    if (formData.mensaje.trim().length < 10) {
+      newErrors.mensaje = "El mensaje debe tener al menos 10 caracteres";
+    }
+
+    // Teléfono opcional: si lo pone, validar formato básico
+    if (formData.telefono && formData.telefono.length < 8) {
+      newErrors.telefono = "El teléfono debe tener al menos 8 dígitos";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validar antes de enviar
+    if (!validateForm()) {
+      showWarning("Por favor, corregí los errores del formulario");
+      return;
+    }
+
     setLoading(true);
-    setError(null);
+    setErrors({});
 
     try {
       const apiUrl =
@@ -50,31 +94,27 @@ function Contact() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Error del servidor:", errorData);
 
-        if (errorData.message.includes("Ya has enviado")) {
-          showWarning(errorData.message, 6000);
+        if (errorData.message?.includes("Ya has enviado")) {
+          showWarning(
+            "Ya enviaste una solicitud recientemente. Esperá 24 horas.",
+            6000
+          );
         } else {
-          showError(errorData.message || "Error al enviar la solicitud");
+          showError("No se pudo enviar la solicitud. Intentá de nuevo.");
         }
-        throw new Error(errorData.message || "Error al enviar la solicitud");
+        throw new Error("Error al enviar");
       }
 
       showSuccess("¡Solicitud enviada! Te contactaré pronto.", 5000);
       setSubmitted(true);
+      setFormData({ nombre: "", email: "", telefono: "", mensaje: "" });
+
       setTimeout(() => {
         setSubmitted(false);
-        setFormData({ nombre: "", email: "", telefono: "", mensaje: "" });
       }, 3000);
     } catch (err) {
-      setError(
-        "Hubo un error al enviar tu solicitud. Por favor, intenta nuevamente."
-      );
-      if (!err.message.includes("Ya has enviado")) {
-        showError(
-          "Hubo un error al enviar tu solicitud. Por favor, intenta nuevamente."
-        );
-      }
+      // El error ya se mostró con toast arriba
       console.error("Error:", err);
     } finally {
       setLoading(false);
@@ -99,9 +139,12 @@ function Contact() {
               name="nombre"
               value={formData.nombre}
               onChange={handleChange}
-              required
               placeholder="Tu nombre"
+              className={errors.nombre ? "input-error" : ""}
             />
+            {errors.nombre && (
+              <span className="error-text">{errors.nombre}</span>
+            )}
           </div>
 
           <div className="form-group">
@@ -112,9 +155,10 @@ function Contact() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              required
               placeholder="tu@email.com"
+              className={errors.email ? "input-error" : ""}
             />
+            {errors.email && <span className="error-text">{errors.email}</span>}
           </div>
 
           <div className="form-group">
@@ -126,20 +170,27 @@ function Contact() {
               value={formData.telefono}
               onChange={handleChange}
               placeholder="+54 9 11 1234-5678"
+              className={errors.telefono ? "input-error" : ""}
             />
+            {errors.telefono && (
+              <span className="error-text">{errors.telefono}</span>
+            )}
           </div>
 
           <div className="form-group">
-            <label htmlFor="mensaje">Mensaje</label>
+            <label htmlFor="mensaje">Mensaje (mín. 10 caracteres)</label>
             <textarea
               id="mensaje"
               name="mensaje"
               value={formData.mensaje}
               onChange={handleChange}
-              required
               rows="5"
               placeholder="Cuéntame sobre tu nivel actual, objetivos y disponibilidad..."
+              className={errors.mensaje ? "input-error" : ""}
             />
+            {errors.mensaje && (
+              <span className="error-text">{errors.mensaje}</span>
+            )}
           </div>
 
           <button
@@ -154,8 +205,6 @@ function Contact() {
               : "Enviar Solicitud"}
           </button>
         </form>
-
-        {error && <div className="error-message">{error}</div>}
 
         {submitted && (
           <div className="success-message">
