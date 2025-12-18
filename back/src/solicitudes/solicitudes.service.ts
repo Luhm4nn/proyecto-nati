@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateSolicitudDto } from './dto/create-solicitud.dto';
 import { UpdateSolicitudDto } from './dto/update-solicitud.dto';
@@ -35,7 +39,9 @@ export class SolicitudesService {
     const dataSanitizada = {
       nombre: xss(createSolicitudDto.nombre),
       email: createSolicitudDto.email.toLowerCase().trim(),
-      telefono: createSolicitudDto.telefono ? xss(createSolicitudDto.telefono) : null,
+      telefono: createSolicitudDto.telefono
+        ? xss(createSolicitudDto.telefono)
+        : null,
       mensaje: xss(createSolicitudDto.mensaje),
     };
 
@@ -58,6 +64,14 @@ export class SolicitudesService {
   }
 
   async update(id: number, updateSolicitudDto: UpdateSolicitudDto) {
+    const solicitud = await this.prisma.solicitud.findUnique({
+      where: { id },
+    });
+
+    if (!solicitud) {
+      throw new NotFoundException(`Solicitud con ID ${id} no encontrada`);
+    }
+
     return this.prisma.solicitud.update({
       where: { id },
       data: updateSolicitudDto,
@@ -65,6 +79,14 @@ export class SolicitudesService {
   }
 
   async remove(id: number) {
+    const solicitud = await this.prisma.solicitud.findUnique({
+      where: { id },
+    });
+
+    if (!solicitud) {
+      throw new NotFoundException(`Solicitud con ID ${id} no encontrada`);
+    }
+
     return this.prisma.solicitud.delete({
       where: { id },
     });

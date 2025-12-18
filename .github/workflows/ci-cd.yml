@@ -1,0 +1,64 @@
+name: CI/CD Pipeline
+
+on:
+  # Solo en push a main para deploy automático
+  push:
+    branches: [main]
+  # En PR para validar antes de mergear
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  # Validar código (solo en PRs, no en cada push)
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Backend
+      - name: Backend - Install & Build
+        working-directory: ./back
+        run: |
+          npm ci
+          npx prisma generate
+          npm run build
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5432/test
+
+      # Frontend
+      - name: Frontend - Install & Build
+        working-directory: ./front
+        run: |
+          npm ci
+          npm run build
+        env:
+          VITE_API_URL: https://proyecto-nati-backend.onrender.com
+
+  # Deploy automático solo cuando se hace push a main
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy Frontend (Vercel)
+        if: vars.VERCEL_TOKEN != ''
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./front
+          vercel-args: "--prod"
+
+      - name: Deploy Backend (Render)
+        if: secrets.RENDER_DEPLOY_HOOK != ''
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
