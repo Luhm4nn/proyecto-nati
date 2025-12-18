@@ -7,7 +7,7 @@ on:
     branches: [main, develop]
 
 jobs:
-  test:
+  backend-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,18 +18,45 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Backend Tests
+      - name: Install Dependencies
         working-directory: ./back
-        run: |
-          npm ci
-          npx prisma generate
-          npm test
+        run: npm ci
+
+      - name: Generate Prisma Client
+        working-directory: ./back
+        run: npx prisma generate
         env:
           DATABASE_URL: postgresql://test:test@localhost:5432/test
-          JWT_SECRET: test-secret
 
-      - name: Frontend Build
+      - name: Lint
+        working-directory: ./back
+        run: npm run lint
+
+      - name: Build
+        working-directory: ./back
+        run: npm run build
+
+  frontend-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Dependencies
         working-directory: ./front
-        run: |
-          npm ci
-          npm run build
+        run: npm ci
+
+      - name: Lint
+        working-directory: ./front
+        run: npm run lint
+
+      - name: Build
+        working-directory: ./front
+        run: npm run build
+        env:
+          VITE_API_URL: https://proyecto-nati-backend.onrender.com

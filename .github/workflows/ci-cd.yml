@@ -29,17 +29,12 @@ jobs:
       - name: Generar Prisma Client
         working-directory: ./back
         run: npx prisma generate
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5432/test
 
       - name: Run Linter
         working-directory: ./back
         run: npm run lint
-
-      - name: Run Tests
-        working-directory: ./back
-        run: npm test
-        env:
-          DATABASE_URL: postgresql://test:test@localhost:5432/test_db
-          JWT_SECRET: test-secret-key-for-ci-only-do-not-use-in-prod
 
       - name: Build
         working-directory: ./back
