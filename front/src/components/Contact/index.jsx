@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useToast } from "../contexts/ToastContext";
+import { useToast } from "../../contexts/ToastContext";
 import "./Contact.css";
 
 function Contact() {

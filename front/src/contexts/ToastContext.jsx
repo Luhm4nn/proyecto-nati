@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback } from "react";
 import PropTypes from "prop-types";
-import Toast from "../components/Toast";
+import Toast from "../components/shared/Toast";
 
 const ToastContext = createContext();
 

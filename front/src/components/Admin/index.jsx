@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
-import { useSessionTimeout } from "../hooks/useSessionTimeout";
-import { useToast } from "../contexts/ToastContext";
+import { useSessionTimeout } from "../../hooks/useSessionTimeout";
+import { useToast } from "../../contexts/ToastContext";
 import "./Admin.css";
 
 function Admin() {
