@@ -1,34 +1,65 @@
+import { useState, useEffect } from 'react';
 import './Hero.css';
 
 function Hero() {
+  const [currentImage, setCurrentImage] = useState(0);
+  
+  // Imágenes del carrusel - agregá tus propias imágenes en public/hero/
+  const images = [
+    '/hero/image1.png',
+    '/hero/image2.png',
+    '/hero/image3.png',
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 8000); 
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   const scrollToContact = () => {
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <section id="hero" className="hero-section">
+      {/* Carrusel de imágenes de fondo */}
+      <div className="hero-background">
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`hero-bg-image ${index === currentImage ? 'active' : ''}`}
+            style={{ backgroundImage: `url(${image})` }}
+          />
+        ))}
+        <div className="hero-overlay" />
+      </div>
       {/* Editorial Header */}
       <div className="hero-header container">
         <div className="hero-top-row">
-          <span>Clases Online</span>
-          <span>A1 - C2</span>
-          <span>Exámenes</span>
+          <span>Clases de Alemán Online</span>
+          <span>Todos los Niveles: A1 - C2</span>
+          <span>Preparación de Exámenes</span>
         </div>
 
         <div className="hero-logo-container">
           <img
             src="/natiluhmannlogofinal2022 (1).jpg"
-            alt="Natalia Luhmann Logo"
+            alt="Natalia Luhmann - Clases de Alemán"
             className="hero-logo-large"
           />
         </div>
 
+        <h1 className="hero-main-title">Aprendé Alemán con Clases Personalizadas</h1>
+
         <p className="hero-subtitle">
-          Clases personalizadas para tu desarrollo profesional y personal.
+          Clases online 1 a 1 adaptadas a tus objetivos: trabajo, estudios o viajes. Con profesora nativa y certificada.
         </p>
 
         <button className="hero-cta-main" onClick={scrollToContact}>
-          Reserva tu lugar
+          Reservá tu Primera Clase
         </button>
       </div>
 
