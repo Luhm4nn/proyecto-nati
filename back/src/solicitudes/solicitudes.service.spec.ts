@@ -26,6 +26,7 @@ describe('SolicitudesService', () => {
       findUnique: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
+      count: jest.fn(),
     },
   };
 
@@ -133,27 +134,46 @@ describe('SolicitudesService', () => {
   });
 
   describe('findAll', () => {
-    it('debería retornar todas las solicitudes ordenadas por fecha', async () => {
+    it('debería retornar todas las solicitudes ordenadas por fecha con paginación', async () => {
       const mockSolicitudes = [mockSolicitud, { ...mockSolicitud, id: 2 }];
       mockPrismaService.solicitud.findMany.mockResolvedValue(mockSolicitudes);
+      mockPrismaService.solicitud.count.mockResolvedValue(20);
 
-      const result = await service.findAll();
+      const result = await service.findAll(undefined, 1, 10);
 
-      expect(result).toEqual(mockSolicitudes);
+      expect(result).toEqual({
+        data: mockSolicitudes,
+        pagination: {
+          page: 1,
+          limit: 10,
+          total: 20,
+          totalPages: 2,
+        },
+      });
       expect(prismaService.solicitud.findMany).toHaveBeenCalledWith({
         where: undefined,
         orderBy: { createdAt: 'desc' },
+        skip: 0,
+        take: 10,
+      });
+      expect(prismaService.solicitud.count).toHaveBeenCalledWith({
+        where: undefined,
       });
     });
 
     it('debería filtrar por estado cuando se proporciona', async () => {
       mockPrismaService.solicitud.findMany.mockResolvedValue([mockSolicitud]);
+      mockPrismaService.solicitud.count.mockResolvedValue(5);
 
-      await service.findAll('pendiente');
+      const result = await service.findAll('pendiente', 1, 10);
 
+      expect(result.data).toEqual([mockSolicitud]);
+      expect(result.pagination.total).toBe(5);
       expect(prismaService.solicitud.findMany).toHaveBeenCalledWith({
         where: { estado: 'pendiente' },
         orderBy: { createdAt: 'desc' },
+        skip: 0,
+        take: 10,
       });
     });
   });
