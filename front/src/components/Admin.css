@@ -159,6 +159,7 @@
 .solicitud-body p {
   margin: 0.5rem 0;
   color: #333;
+  white-space: pre-line;
 }
 
 .solicitud-body strong {

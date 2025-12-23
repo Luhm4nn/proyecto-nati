@@ -26,9 +26,7 @@ function Login() {
     setError("");
 
     try {
-      const apiUrl =
-        import.meta.env.VITE_API_URL ||
-        "https://proyecto-nati-backend.onrender.com";
+      const apiUrl = import.meta.env.VITE_API_URL;
       console.log("API URL:", apiUrl);
       const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",

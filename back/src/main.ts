@@ -37,13 +37,13 @@ async function bootstrap() {
   // Configuración de CORS para permitir requests desde el frontend
   // SameSite y origin validation protegen contra CSRF
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
   
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT;
   await app.listen(port, '0.0.0.0');
   console.log(`Application is running on: http://0.0.0.0:${port}`);
 }

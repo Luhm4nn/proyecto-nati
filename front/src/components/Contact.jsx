@@ -25,17 +25,17 @@ function Contact() {
     setLoading(true);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || "https://proyecto-nati-backend.onrender.com";
+      const apiUrl = import.meta.env.VITE_API_URL;
 
       // Adaptation to match backend expected fields
       // Backend expects: nombre, email, mensaje (and optional telefono)
       // I will combine nivel/objetivo into the message for now
-      const finalMessage = `
-        Nivel: ${formData.nivel}
-        Objetivo: ${formData.objetivo}
-        
-        Mensaje adicional: ${formData.mensaje}
-      `;
+      const finalMessage = `Nivel: ${formData.nivel}
+
+Objetivo: ${formData.objetivo}
+
+Mensaje adicional:
+${formData.mensaje}`;
 
       const cleanData = {
         nombre: formData.nombre,
@@ -101,6 +101,7 @@ function Contact() {
                 <select name="nivel" value={formData.nivel} onChange={handleChange} required>
                   <option value="">Tu Nivel Actual</option>
                   <option value="Principiante (A1-A2)">Principiante (A1-A2)</option>
+                  <option value="Sin conocimientos previos">Sin conocimientos previos</option>
                   <option value="Intermedio (B1-B2)">Intermedio (B1-B2)</option>
                   <option value="Avanzado (C1-C2)">Avanzado (C1-C2)</option>
                 </select>
