@@ -50,7 +50,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Deploy Frontend (Vercel)
-        run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --cwd ./front
+        run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
