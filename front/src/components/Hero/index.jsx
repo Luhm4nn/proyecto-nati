@@ -4,7 +4,6 @@ import './Hero.css';
 function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
   
-  // Imágenes del carrusel - agregá tus propias imágenes en public/hero/
   const images = [
     '/hero/image1.png',
     '/hero/image2.png',
@@ -14,7 +13,7 @@ function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 8000); 
+    }, 8000);
 
     return () => clearInterval(interval);
   }, [images.length]);
@@ -25,7 +24,6 @@ function Hero() {
 
   return (
     <section id="hero" className="hero-section">
-      {/* Carrusel de imágenes de fondo */}
       <div className="hero-background">
         {images.map((image, index) => (
           <div
@@ -36,7 +34,6 @@ function Hero() {
         ))}
         <div className="hero-overlay" />
       </div>
-      {/* Editorial Header */}
       <div className="hero-header container">
         <div className="hero-top-row">
           <span>Clases de Alemán Online</span>
@@ -63,7 +60,6 @@ function Hero() {
         </button>
       </div>
 
-      {/* Red Banner Section */}
       <div className="hero-banner">
         <div className="container">
           <h2 className="banner-text">

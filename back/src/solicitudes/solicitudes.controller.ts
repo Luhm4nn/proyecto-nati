@@ -24,8 +24,14 @@ export class SolicitudesController {
    */
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(@Query('estado') estado?: string) {
-    return this.solicitudesService.findAll(estado);
+  findAll(
+    @Query('estado') estado?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    const pageNum = page ? parseInt(page, 10) : 1;
+    const limitNum = limit ? parseInt(limit, 10) : 10;
+    return this.solicitudesService.findAll(estado, pageNum, limitNum);
   }
 
   /**

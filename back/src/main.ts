@@ -34,8 +34,6 @@ async function bootstrap() {
     }),
   );
   
-  // Configuración de CORS para permitir requests desde el frontend
-  // SameSite y origin validation protegen contra CSRF
   app.enableCors({
     origin: process.env.CORS_ORIGIN,
     credentials: true,

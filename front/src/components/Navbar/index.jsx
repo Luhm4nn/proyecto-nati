@@ -28,7 +28,6 @@ function Navbar() {
                 <div className="navbar-logo">
                     <Link to="/">
                         <span className="logo-text">Deutsch für dich</span>
-                        {/* <img src="/natiluhmannlogofinal2022 (1).jpg" alt="Logo" /> */}
                     </Link>
                 </div>
 

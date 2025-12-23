@@ -30,3 +30,15 @@ model User {
 
   @@map("users")
 }
+
+// Modelo para testimonios de alumnos
+model Testimonio {
+  id             Int      @id @default(autoincrement())
+  nombreCompleto String
+  texto          String   @db.Text
+  activo         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("testimonios")
+}
