@@ -43,7 +43,7 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
   
-  const port = process.env.PORT;
+  const port = parseInt(process.env.PORT!, 10);
   await app.listen(port, '0.0.0.0');
   console.log(`Application is running on: http://0.0.0.0:${port}`);
 }
