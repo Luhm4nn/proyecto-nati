@@ -1,0 +1,92 @@
+.section-title {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-bottom: 4rem;
+    color: var(--color-black);
+}
+
+.section-title .italic {
+    font-style: italic;
+    font-family: var(--font-serif);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--color-black);
+}
+
+.feature-card {
+    padding: 3rem 2rem;
+    border: 1px solid var(--color-black);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 250px;
+    transition: all 0.3s ease;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+/* Grid Art Layout - Mondrian / Bauhaus inspired Grid */
+.card-0 {
+    /* White */
+    background-color: var(--bg-primary);
+}
+
+.card-1 {
+    /* Gold */
+    background-color: var(--color-gold);
+}
+
+.card-2 {
+    /* White */
+    background-color: var(--bg-primary);
+}
+
+.card-3 {
+    /* White */
+    background-color: var(--bg-primary);
+}
+
+.card-4 {
+    /* Black */
+    background-color: var(--color-black);
+    color: white !important;
+}
+
+.card-4 h3,
+.card-4 p {
+    color: white;
+}
+
+.card-5 {
+    /* White */
+    background-color: var(--bg-primary);
+}
+
+@media (max-width: 900px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+}

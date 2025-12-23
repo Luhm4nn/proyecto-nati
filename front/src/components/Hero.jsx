@@ -1,40 +1,62 @@
-import { Link } from 'react-router-dom'
-import './Hero.css'
+import './Hero.css';
 
 function Hero() {
   const scrollToContact = () => {
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })
-  }
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <section className="hero">
-      <Link to="/login" className="admin-link">
-        Admin
-      </Link>
-      <div className="hero-content">
-        <div className="hero-logo">
-          <img src="/natiluhmannlogofinal2022 (1).jpg" alt="Natalia Luhmann - Deutsch für dich" />
+    <section id="hero" className="hero-section">
+      {/* Editorial Header */}
+      <div className="hero-header container">
+        <div className="hero-top-row">
+          <span>Clases Online</span>
+          <span>A1 - C2</span>
+          <span>Exámenes</span>
         </div>
-        <h1 className="hero-title">Natalia Luhmann</h1>
-        <p className="hero-subtitle">Deutsch für dich</p>
-        <div className="hero-description">
-          <p>
-            ¿Quieres dominar el alemán y abrir nuevas oportunidades? 
-            Te ofrezco clases personalizadas adaptadas a tu nivel y objetivos.
-          </p>
-          <ul className="hero-features">
-            <li>✓ Clases online</li>
-            <li>✓ Todos los niveles (A1 - C2)</li>
-            <li>✓ Preparación para exámenes oficiales</li>
-            <li>✓ Material didáctico incluido</li>
-          </ul>
+
+        <div className="hero-logo-container">
+          <img
+            src="/natiluhmannlogofinal2022 (1).jpg"
+            alt="Natalia Luhmann Logo"
+            className="hero-logo-large"
+          />
         </div>
-        <button className="hero-cta" onClick={scrollToContact}>
-          Solicitar Información
+
+        <p className="hero-subtitle">
+          Clases personalizadas para tu desarrollo profesional y personal.
+        </p>
+
+        <button className="hero-cta-main" onClick={scrollToContact}>
+          Reserva tu lugar
         </button>
       </div>
+
+      {/* Red Banner Section */}
+      <div className="hero-banner">
+        <div className="container">
+          <h2 className="banner-text">
+            "El idioma abre puertas. <span className="italic">Nosotros te damos la llave.</span>"
+          </h2>
+
+          <div className="banner-grid">
+            <div className="banner-item">
+              <span className="banner-label">Metodología</span>
+              <p>Enfoque comunicativo y práctico</p>
+            </div>
+            <div className="banner-item border-left">
+              <span className="banner-label">Para quién</span>
+              <p>Estudiantes y Profesionales</p>
+            </div>
+            <div className="banner-item border-left">
+              <span className="banner-label">Resultados</span>
+              <p>Certificaciones Oficiales</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-  )
+  );
 }
 
-export default Hero
+export default Hero;

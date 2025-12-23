@@ -1,154 +1,127 @@
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background: #ffffff;
-  position: relative;
+.hero-section {
+  padding-top: 120px;
+  /* Space for fixed navbar */
+  background-color: var(--bg-primary);
 }
 
-.admin-link {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  padding: 0.5rem 1rem;
-  background: transparent;
-  color: #999;
-  text-decoration: none;
-  font-size: 0.9rem;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  opacity: 0.5;
-}
-
-.admin-link:hover {
-  opacity: 1;
-  color: #666;
-  background: #f5f5f5;
-}
-
-.hero-content {
-  max-width: 800px;
+.hero-header {
   text-align: center;
-  color: #1a1a1a;
+  padding-bottom: 4rem;
 }
 
-.hero-logo {
+.hero-top-row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   margin-bottom: 2rem;
-  animation: fadeInDown 0.8s ease-out;
+  color: var(--text-secondary);
 }
 
-.hero-logo img {
-  max-width: 400px;
+.hero-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.hero-logo-large {
+  max-width: 500px;
   width: 100%;
   height: auto;
-}
-
-.hero-title {
-  font-size: 3rem;
-  font-weight: 300;
-  margin-bottom: 0.5rem;
-  animation: fadeInUp 0.8s ease-out;
-  letter-spacing: 2px;
+  mix-blend-mode: multiply;
+  /* Optional: filter to match the aesthetic if needed, but keeping original for now */
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  font-weight: 400;
-  color: #666;
-  animation: fadeInUp 0.8s ease-out 0.2s backwards;
-}
-
-.hero-description {
-  margin-bottom: 2.5rem;
-  animation: fadeInUp 0.8s ease-out 0.4s backwards;
-}
-
-.hero-description p {
+  max-width: 600px;
+  margin: 0 auto 3rem;
   font-size: 1.2rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
 }
 
-.hero-features {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 0.8rem;
-  text-align: left;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.hero-features li {
-  font-size: 1.1rem;
-  padding: 0.5rem;
-  background: #f9f9f9;
-  border-left: 3px solid #D00;
-  border-radius: 4px;
-}
-
-.hero-cta {
-  background: #D00;
+.hero-cta-main {
+  background-color: var(--color-red);
   color: white;
-  padding: 1rem 2.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
   border: none;
-  border-radius: 4px;
+  padding: 1rem 3rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
-  animation: fadeInUp 0.8s ease-out 0.6s backwards;
 }
 
-.hero-cta:hover {
-  background: #b00;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(208, 0, 0, 0.3);
+.hero-cta-main:hover {
+  background-color: var(--color-black);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Red Banner */
+.hero-banner {
+  background-color: var(--color-red);
+  color: white;
+  padding: 5rem 0;
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.banner-text {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 4rem;
+  font-family: var(--font-serif);
+  font-weight: 400;
 }
 
+.banner-text .italic {
+  font-style: italic;
+}
+
+.banner-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.banner-item {
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.border-left {
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.banner-label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.banner-item p {
+  font-size: 1.2rem;
+  font-family: var(--font-serif);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .hero-logo img {
-    max-width: 200px;
-  }
-  
   .hero-title {
-    font-size: 2rem;
+    font-size: 4rem;
   }
-  
-  .hero-subtitle {
-    font-size: 1.2rem;
+
+  .banner-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
-  
-  .hero-description p {
-    font-size: 1rem;
-  }
-  
-  .hero-features li {
-    font-size: 1rem;
+
+  .border-left {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding-top: 2rem;
   }
 }

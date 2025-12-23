@@ -1,37 +1,51 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Hero from './components/Hero'
-import Contact from './components/Contact'
-import Admin from './components/Admin'
-import Login from './components/Login'
-import ProtectedRoute from './components/ProtectedRoute'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Features from './components/Features';
+import Testimonials from './components/Testimonials';
+import FAQ from './components/FAQ';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import Admin from './components/Admin';
+import Login from './components/Login';
+import ProtectedRoute from './components/ProtectedRoute';
+import { ToastProvider } from './contexts/ToastContext';
 
-// Página principal con hero y formulario de contacto
+
+// Landing Page Composition
 function LandingPage() {
   return (
     <>
+      <Navbar />
       <Hero />
+      <Features />
+      <Testimonials />
+      <FAQ />
       <Contact />
+      <Footer />
     </>
-  )
+  );
 }
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route 
-          path="/admin" 
-          element={
-            <ProtectedRoute>
-              <Admin />
-            </ProtectedRoute>
-          } 
-        />
-      </Routes>
-    </BrowserRouter>
-  )
+    <ToastProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </ToastProvider>
+  );
 }
 
-export default App
+export default App;
