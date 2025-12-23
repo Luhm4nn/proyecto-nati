@@ -11,12 +11,9 @@ export default defineConfig(({ mode }) => {
   
   if (missingEnvVars.length > 0) {
     throw new Error(
-      `❌ Faltan las siguientes variables de entorno:\n${missingEnvVars.map(v => `  - ${v}`).join('\n')}\n\nCrea un archivo .env con estas variables.`
+      `Faltan las siguientes variables de entorno:\n${missingEnvVars.map(v => `  - ${v}`).join('\n')}\n\nCrea un archivo .env con estas variables.`
     );
   }
-
-  console.log('✅ Variables de entorno validadas correctamente');
-  console.log(`📡 API URL: ${env.VITE_API_URL}`);
 
   return {
     plugins: [react()],

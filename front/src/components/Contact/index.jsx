@@ -27,9 +27,6 @@ function Contact() {
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
 
-      // Adaptation to match backend expected fields
-      // Backend expects: nombre, email, mensaje (and optional telefono)
-      // I will combine nivel/objetivo into the message for now
       const finalMessage = `Nivel: ${formData.nivel}
 
 Objetivo: ${formData.objetivo}

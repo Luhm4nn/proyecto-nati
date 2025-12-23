@@ -36,10 +36,11 @@ back/src/
 
 **Cobertura actual:**
 
-- ✅ 20 tests pasando
-- ✅ Auth: Login, validación, JWT
-- ✅ Solicitudes: CRUD, validación duplicados, sanitización XSS
-- ✅ E2E: Endpoints completos con autenticación
+- ✅ **35 tests pasando**
+- ✅ **Auth:** Login, validación, JWT, rate limiting
+- ✅ **Solicitudes:** CRUD, paginación, validación duplicados, sanitización XSS
+- ✅ **Testimonios:** CRUD completo, sanitización XSS, toggle activo/inactivo
+- ✅ **E2E:** Endpoints completos con autenticación
 
 **Crear nuevos tests:**
 

@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { SolicitudesModule } from './solicitudes/solicitudes.module';
 import { AuthModule } from './auth/auth.module';
+import { TestimoniosModule } from './testimonios/testimonios.module';
 import { envValidationSchema } from './config/env.validation';
 
 @Module({
@@ -29,6 +30,7 @@ import { envValidationSchema } from './config/env.validation';
     PrismaModule,
     SolicitudesModule,
     AuthModule,
+    TestimoniosModule,
   ],
   controllers: [AppController],
   providers: [

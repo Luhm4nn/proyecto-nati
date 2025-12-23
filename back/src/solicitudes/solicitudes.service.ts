@@ -50,11 +50,30 @@ export class SolicitudesService {
     });
   }
 
-  async findAll(estado?: string) {
-    return this.prisma.solicitud.findMany({
-      where: estado ? { estado } : undefined,
-      orderBy: { createdAt: 'desc' },
-    });
+  async findAll(estado?: string, page: number = 1, limit: number = 10) {
+    const skip = (page - 1) * limit;
+    
+    const where = estado ? { estado } : undefined;
+    
+    const [data, total] = await Promise.all([
+      this.prisma.solicitud.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+      }),
+      this.prisma.solicitud.count({ where }),
+    ]);
+    
+    return {
+      data,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   async findOne(id: number) {
