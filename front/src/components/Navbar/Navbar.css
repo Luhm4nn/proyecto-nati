@@ -208,4 +208,12 @@
     .menu-toggle {
         display: block;
     }
+
+    .navbar-links .nav-link {
+        color: var(--color-black);
+    }
+
+    .navbar.scrolled .navbar-links .nav-link {
+        color: var(--text-primary);
+    }
 }
