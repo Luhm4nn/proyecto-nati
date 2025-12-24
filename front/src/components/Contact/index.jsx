@@ -97,8 +97,8 @@ ${formData.mensaje}`;
               <div className="form-group">
                 <select name="nivel" value={formData.nivel} onChange={handleChange} required>
                   <option value="">Tu Nivel Actual</option>
-                  <option value="Principiante (A1-A2)">Principiante (A1-A2)</option>
                   <option value="Sin conocimientos previos">Sin conocimientos previos</option>
+                  <option value="Principiante (A1-A2)">Principiante (A1-A2)</option>
                   <option value="Intermedio (B1-B2)">Intermedio (B1-B2)</option>
                   <option value="Avanzado (C1-C2)">Avanzado (C1-C2)</option>
                 </select>

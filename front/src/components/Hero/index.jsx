@@ -35,24 +35,15 @@ function Hero() {
         <div className="hero-overlay" />
       </div>
       <div className="hero-header container">
-        <div className="hero-top-row">
-          <span>Clases de Alemán Online</span>
-          <span>Todos los Niveles: A1 - C2</span>
-          <span>Preparación de Exámenes</span>
+
+        <div className="hero-logo-title-container">
+          <h1 className="hero-brand-name">Alemán para vos<span className="hero-brand-subtitle">Natalia Luhmann</span></h1>
         </div>
 
-        <div className="hero-logo-container">
-          <img
-            src="/natiluhmannlogofinal2022 (1).jpg"
-            alt="Natalia Luhmann - Clases de Alemán"
-            className="hero-logo-large"
-          />
-        </div>
-
-        <h1 className="hero-main-title">Aprendé Alemán con Clases Personalizadas</h1>
+        <h2 className="hero-main-title">Aprendé Alemán con Clases Personalizadas</h2>
 
         <p className="hero-subtitle">
-          Clases online 1 a 1 adaptadas a tus objetivos: trabajo, estudios o viajes. Con profesora nativa y certificada.
+          Clases online 1 a 1 adaptadas a tus objetivos: trabajo, estudios o viajes. Con profesora certificada.
         </p>
 
         <button className="hero-cta-main" onClick={scrollToContact}>
@@ -63,7 +54,7 @@ function Hero() {
       <div className="hero-banner">
         <div className="container">
           <h2 className="banner-text">
-            "El idioma abre puertas. <span className="italic">Nosotros te damos la llave.</span>"
+           ¿Estás listo para llevar tu alemán al siguiente nivel?
           </h2>
 
           <div className="banner-grid">

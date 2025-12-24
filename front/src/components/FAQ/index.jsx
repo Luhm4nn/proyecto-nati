@@ -7,7 +7,7 @@ function FAQ() {
     const faqs = [
         {
             question: "¿Necesito conocimientos previos?",
-            answer: "No, ofrecemos cursos desde nivel A1 (principiante absoluto) hasta C2 (perfeccionamiento)."
+            answer: "No, ofrecemos cursos para personas sin conocimientos (nivel A1) hasta C2 (perfeccionamiento)."
         },
         {
             question: "¿Cómo son las clases online?",

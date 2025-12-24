@@ -24,10 +24,29 @@
     align-items: center;
 }
 
+.navbar-logo-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+}
+
+.navbar-logo-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .logo-text {
     font-family: var(--font-serif);
     font-size: 1.5rem;
     font-weight: 700;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.navbar.scrolled .logo-text {
     color: var(--color-black);
 }
 
@@ -42,11 +61,15 @@
     border: none;
     font-family: var(--font-sans);
     font-size: 0.9rem;
-    color: var(--text-primary);
+    color: white;
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: color 0.3s ease;
+}
+
+.navbar.scrolled .nav-link {
+    color: var(--text-primary);
 }
 
 .nav-link:hover {
@@ -63,6 +86,12 @@
     font-size: 0.9rem;
     text-transform: uppercase;
     font-weight: 600;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.navbar.scrolled .nav-login {
+    color: var(--text-primary);
 }
 
 .nav-cta {
@@ -99,8 +128,13 @@
     display: block;
     width: 25px;
     height: 2px;
-    background-color: var(--color-black);
+    background-color: white;
     position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.navbar.scrolled .hamburger {
+    background-color: var(--color-black);
 }
 
 .hamburger::before,
@@ -109,8 +143,14 @@
     position: absolute;
     width: 100%;
     height: 2px;
-    background-color: var(--color-black);
+    background-color: white;
     left: 0;
+    transition: background-color 0.3s ease;
+}
+
+.navbar.scrolled .hamburger::before,
+.navbar.scrolled .hamburger::after {
+    background-color: var(--color-black);
 }
 
 .hamburger::before {
@@ -122,6 +162,15 @@
 }
 
 @media (max-width: 768px) {
+    .navbar-logo-img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .logo-text {
+        font-size: 1.2rem;
+    }
+
     .navbar-links {
         position: fixed;
         top: 70px;

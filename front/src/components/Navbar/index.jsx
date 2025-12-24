@@ -26,7 +26,12 @@ function Navbar() {
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="navbar-container">
                 <div className="navbar-logo">
-                    <Link to="/">
+                    <Link to="/" className="navbar-logo-link">
+                        <img
+                            src="/natiluhmannlogofinal2022 (1).jpg"
+                            alt="Logo"
+                            className="navbar-logo-img"
+                        />
                         <span className="logo-text">Deutsch für dich</span>
                     </Link>
                 </div>

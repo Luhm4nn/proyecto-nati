@@ -7,7 +7,7 @@ function Footer() {
                 <div className="footer-content">
                     <div className="footer-logo">
                         <span className="logo-text">Deutsch für dich</span>
-                        <p>Deutsch für dich</p>
+                        <p>Natalia Luhmann</p>
                     </div>
 
                     <div className="footer-copyright">
