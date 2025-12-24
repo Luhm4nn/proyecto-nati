@@ -107,12 +107,38 @@
 }
 
 @media (max-width: 768px) {
+    .testimonials-carousel {
+        height: 400px;
+        min-height: 400px;
+        overflow: hidden;
+    }
+
     .testimonial-card {
         padding: 2rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .testimonial-text {
         font-size: 1.1rem;
+        max-height: 200px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-gold) rgba(255, 255, 255, 0.1);
+    }
+
+    .testimonial-text::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .testimonial-text::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .testimonial-text::-webkit-scrollbar-thumb {
+        background: var(--color-gold);
+        border-radius: 3px;
     }
 
     .quote-icon {
