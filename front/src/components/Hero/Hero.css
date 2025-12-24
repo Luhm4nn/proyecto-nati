@@ -13,6 +13,12 @@
   color: var(--color-gold);
 }
 
+.text-small {
+  font-size: 0.9em;
+  opacity: 0.95;
+}
+
+
 
 /* Carrusel de imágenes de fondo */
 .hero-background {

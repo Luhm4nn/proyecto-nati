@@ -59,7 +59,7 @@ function Hero() {
         <h2 className="hero-main-title">Aprendé <span className="text-red">Alemán</span> con Clases <span className="text-gold">Personalizadas</span></h2>
 
         <p className="hero-subtitle">
-          Clases <span className="text-gold">online 1 a 1</span> adaptadas a tus objetivos: <span className="text-gold">trabajo, estudios o viajes</span>. Con profesora <span className="text-gold">certificada</span>.
+          Clases <span className="text-small">online 1 a 1</span> adaptadas a tus objetivos: trabajo, estudios o viajes. Con profesora certificada.
         </p>
 
         <button className="hero-cta-main" onClick={scrollToContact}>
@@ -70,7 +70,7 @@ function Hero() {
       <div className="hero-banner">
         <div className="container">
           <h2 className="banner-text">
-           ¿Estás listo para llevar tu <span className="text-gold">alemán</span> al <span className="text-gold">siguiente nivel</span>?
+           ¿Estás listo para llevar tu <span className="text-gold">alemán</span> al siguiente nivel?
           </h2>
 
           <div className="banner-grid">
