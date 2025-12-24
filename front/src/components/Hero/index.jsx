@@ -3,12 +3,28 @@ import './Hero.css';
 
 function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
-  
-  const images = [
-    '/hero/image1.png',
-    '/hero/image2.png',
-    '/hero/image3.png',
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  const imagesDesktop = [
+    '/hero/desktop/image1.png',
+    '/hero/desktop/image2.png',
+    '/hero/desktop/image3.png',
   ];
+  const imagesMobile = [
+    '/hero/mobile/image1m.png',
+    '/hero/mobile/image2m.png',
+    '/hero/mobile/image3m.png',
+  ];
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const images = isMobile ? imagesMobile : imagesDesktop;
 
   useEffect(() => {
     const interval = setInterval(() => {
