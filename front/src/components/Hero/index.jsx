@@ -59,7 +59,7 @@ function Hero() {
         <h2 className="hero-main-title">Aprendé <span className="text-red">Alemán</span> con Clases <span className="text-gold">Personalizadas</span></h2>
 
         <p className="hero-subtitle">
-          Clases <span className="text-small">online 1 a 1</span> adaptadas a tus objetivos: trabajo, estudios o viajes. Con profesora certificada.
+          Clases online 1 a 1 adaptadas a tus objetivos: trabajo, estudios o viajes. Con profesora certificada.
         </p>
 
         <button className="hero-cta-main" onClick={scrollToContact}>
