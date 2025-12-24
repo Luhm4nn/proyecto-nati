@@ -20,11 +20,12 @@ import { envValidationSchema } from './config/env.validation';
         abortEarly: true, // Detener en el primer error
       },
     }),
-    // Rate limiting global: máximo 30 requests por minuto por IP
+    // Rate limiting global: máximo 100 requests por minuto por IP
+    // Los endpoints críticos (login, crear solicitud) tienen sus propios límites más estrictos
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
-        limit: 30,
+        limit: 100,
       },
     ]),
     PrismaModule,
