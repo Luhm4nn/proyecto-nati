@@ -56,7 +56,7 @@
 
 .card-3 {
     /* White */
-    background-color: var(--bg-primary);
+    background-color: var(--color-gold);
 }
 
 .card-4 {
@@ -66,13 +66,15 @@
 }
 
 .card-4 h3,
-.card-4 p {
+.card-4 p,
+.card-5 p,
+.card-5 h3 {
     color: white;
 }
 
 .card-5 {
     /* White */
-    background-color: var(--bg-primary);
+    background-color: var(--color-red);
 }
 
 @media (max-width: 900px) {

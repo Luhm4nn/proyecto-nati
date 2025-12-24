@@ -195,6 +195,9 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .hero-header {
+    padding-top: 90px;
+  }
 
   .hero-section {
     padding-top: 0;
