@@ -4,6 +4,7 @@
 [![CI/CD](https://github.com/Luhm4nn/proyecto-nati/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Luhm4nn/proyecto-nati/actions/workflows/ci-cd.yml)
 
 Sistema de gestión de solicitudes para clases de alemán con autenticación JWT y panel de administración.
+Enlace productivo (deploy en Vercel): https://deutsch-fur-dich.vercel.app
 
 ## 🚀 Inicio Rápido
 
