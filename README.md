@@ -1,9 +1,7 @@
-# 🇩🇪 Proyecto Natalia Luhmann
-
-[![Tests](https://github.com/Luhm4nn/proyecto-nati/actions/workflows/tests.yml/badge.svg)](https://github.com/Luhm4nn/proyecto-nati/actions/workflows/tests.yml)
-[![CI/CD](https://github.com/Luhm4nn/proyecto-nati/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Luhm4nn/proyecto-nati/actions/workflows/ci-cd.yml)
+# Proyecto Deutch für dich (Alemán para vos)
 
 Sistema de gestión de solicitudes para clases de alemán con autenticación JWT y panel de administración.
+Enlace productivo (deploy en Vercel): https://deutsch-fur-dich.vercel.app
 
 ## 🚀 Inicio Rápido
 
@@ -25,8 +23,6 @@ cd front
 npm install
 npm run dev          # http://localhost:5173
 ```
-
-**Credenciales Admin:** `natalia@luhmann.com` / `natalia2024`
 
 ## 🛠️ Stack
 
