@@ -5,6 +5,21 @@
   overflow: hidden;
 }
 
+.text-red {
+  color: var(--color-red);
+}
+
+.text-gold {
+  color: var(--color-gold);
+}
+
+.text-small {
+  font-size: 0.9em;
+  opacity: 0.95;
+}
+
+
+
 /* Carrusel de imágenes de fondo */
 .hero-background {
   position: absolute;
@@ -114,7 +129,7 @@
 .hero-subtitle {
   max-width: 650px;
   margin: 0 auto 3rem;
-  font-size: 1.15rem;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.95);
   line-height: 1.6;
 }
@@ -195,6 +210,9 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .hero-header {
+    padding-top: 90px;
+  }
 
   .hero-section {
     padding-top: 0;

@@ -1,22 +1,43 @@
-# Proyecto Deutch für dich (Alemán para vos)
+# 🇩🇪 Proyecto Natalia Luhmann
 
 Sistema de gestión de solicitudes para clases de alemán con autenticación JWT y panel de administración.
-Enlace productivo (deploy en Vercel): https://deutsch-fur-dich.vercel.app
+
+🔗 Live Demo: https://deutsch-fur-dich.vercel.app
 
 ## 🚀 Inicio Rápido
 
-### Backend
+### Prerrequisitos
+
+- Node.js 18+
+- Docker (Opcional, para la base de datos)
+- PostgreSQL (si no usas Docker)
+
+### 1. Base de Datos (Opción Docker)
+
+Si tienes Docker instalado, levantar la base de datos es trivial:
+
+```bash
+docker-compose up -d
+```
+
+### 2. Backend
 
 ```bash
 cd back
 npm install
-cp .env.example .env  # Configurar DATABASE_URL y JWT_SECRET
+cp .env.example .env
+
+# Configura tu .env con la URL de la base de datos y tus credenciales de admin seguras:
+# DATABASE_URL="postgresql://admin:securepassword@localhost:5432/proyecto_nati"
+# ADMIN_EMAIL="tu@email.com"
+# ADMIN_PASSWORD="tu_password_segura"
+
 npx prisma db push
-npx prisma generate
+npm run create:admin  # Crea el usuario admin usando las variables del .env
 npm run start:dev     # http://localhost:3000
 ```
 
-### Frontend
+### 3. Frontend
 
 ```bash
 cd front
@@ -32,6 +53,14 @@ npm run dev          # http://localhost:5173
 - **Testing:** Jest (35 tests)
 - **Deployment:** Vercel (frontend) + Render (backend)
 
+## 🔐 Seguridad Admin
+
+La creación de administradores está protegida y desacoplada de la API pública:
+
+1. **Sin rutas públicas:** No existe endpoint HTTP para crear admins.
+2. **Script seguro:** Se utiliza `npm run create:admin` que lee credenciales de Variables de Entorno.
+3. **Validación estricta:** El servidor no inicia si faltan las configuraciones de seguridad (`ADMIN_EMAIL`, etc).
+
 ## 🎯 Features
 
 ### ✅ Implementadas
@@ -42,20 +71,17 @@ npm run dev          # http://localhost:5173
   - Filtros por estado (pendiente/revisada/contactada)
   - Contadores en tiempo real
   - Validación de duplicados (24h)
-  
 - **Gestión de Testimonios**
   - CRUD completo
   - Toggle activo/inactivo
   - Vista pública filtrada
   - Validación cliente y servidor
-  
 - **Panel de Administración**
   - Autenticación JWT
   - Tabs: Solicitudes y Testimonios
   - Session timeout (30 minutos)
   - Toast notifications
   - Responsive design
-  
 - **Seguridad**
   - Rate limiting (5 login/min, 10 solicitudes/hora)
   - Sanitización XSS (backend y frontend)
@@ -83,27 +109,18 @@ npm run dev          # http://localhost:5173
 ### Protegidos (requieren JWT)
 
 **Solicitudes:**
+
 - `GET /solicitudes?estado=pendiente&page=1&limit=10` - Listar con paginación
 - `GET /solicitudes/:id` - Ver detalle
 - `PATCH /solicitudes/:id` - Actualizar estado
 - `DELETE /solicitudes/:id` - Eliminar
 
 **Testimonios:**
+
 - `GET /testimonios?todos=true` - Listar todos (incluyendo inactivos)
 - `POST /testimonios` - Crear
 - `PATCH /testimonios/:id` - Actualizar
 - `DELETE /testimonios/:id` - Eliminar
-
-## 🔐 Seguridad
-
-- ✅ JWT con expiración (30 minutos)
-- ✅ Rate limiting configurable por endpoint
-- ✅ Sanitización XSS (xss + DOMPurify)
-- ✅ Timeout de sesión (30 minutos de inactividad)
-- ✅ Headers seguros (Helmet con CSP)
-- ✅ Prevención de duplicados (24 horas)
-- ✅ Validación de DTOs (class-validator)
-- ✅ Validación de variables de entorno (Joi)
 
 ## 🧪 Testing
 
@@ -114,6 +131,7 @@ npm run test:cov      # Con cobertura
 ```
 
 **Cobertura actual:**
+
 - ✅ 35 tests pasando
 - ✅ Auth: Login, validación, JWT
 - ✅ Solicitudes: CRUD, paginación, sanitización XSS
@@ -128,8 +146,8 @@ cd back
 npm run start:dev        # Desarrollo
 npm run build            # Build producción
 npm test                 # Tests
-npm run create:admin     # Crear usuario admin
-npm run seed:solicitudes # Crear 20 solicitudes de prueba
+npm run create:admin     # Crea admin desde ENV vars
+npm run seed:solicitudes # Crea 20 solicitudes de prueba
 
 # Frontend
 cd front

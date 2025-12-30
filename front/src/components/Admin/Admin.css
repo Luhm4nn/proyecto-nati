@@ -574,10 +574,10 @@
   .btn-eliminar {
     width: 100%;
     padding: 0.6rem;
-    font-size: 0.9rem;
-  }
-
-  .fecha {
+      border: 2px solid #e0e0e0;
+      border-radius: 4px;
+      font-size: 1rem;
+      color: #1a1a1a !important;
     font-size: 0.85rem;
   }
 }

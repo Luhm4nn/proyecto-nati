@@ -56,19 +56,27 @@ function Admin() {
         fetch(
           `${apiUrl}/solicitudes?${estado !== 'todas' ? `estado=${estado}&` : ''}page=1&limit=1`,
           { headers: getAuthHeaders() }
-        ).then(r => r.json())
+        ).then(async r => {
+          if (!r.ok) return null;
+          return r.json();
+        })
       );
       
       const results = await Promise.all(requests);
       
       setContadores({
-        todas: results[0].pagination.total,
-        pendiente: results[1].pagination.total,
-        revisada: results[2].pagination.total,
-        contactada: results[3].pagination.total,
+        todas: results[0]?.pagination?.total || 0,
+        pendiente: results[1]?.pagination?.total || 0,
+        revisada: results[2]?.pagination?.total || 0,
+        contactada: results[3]?.pagination?.total || 0,
       });
     } catch (error) {
-      // Silenciar error de contadores
+      setContadores({
+        todas: 0,
+        pendiente: 0,
+        revisada: 0,
+        contactada: 0,
+      });
     }
   };
 
@@ -111,14 +119,19 @@ function Admin() {
       }
 
       const result = await response.json();
-      setSolicitudes(result.data);
-      setPaginacion(result.pagination);
       
-      // Actualizar contador del filtro actual
-      setContadores(prev => ({
-        ...prev,
-        [filtro]: result.pagination.total
-      }));
+      if (result?.data && result?.pagination) {
+        setSolicitudes(result.data);
+        setPaginacion(result.pagination);
+        
+        setContadores(prev => ({
+          ...prev,
+          [filtro]: result.pagination.total
+        }));
+      } else {
+        setSolicitudes([]);
+        showError("Error al cargar las solicitudes");
+      }
     } catch (error) {
       showError("Error al cargar las solicitudes");
     } finally {

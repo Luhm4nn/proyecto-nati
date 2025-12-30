@@ -14,7 +14,7 @@ function Testimonials() {
         if (testimonios.length > 0) {
             const interval = setInterval(() => {
                 setCurrentIndex((prev) => (prev + 1) % testimonios.length);
-            }, 6000);
+            }, 12000);
 
             return () => clearInterval(interval);
         }

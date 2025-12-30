@@ -38,9 +38,9 @@
 .form-group textarea {
   width: 100%;
   padding: 1rem;
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
+  background-color: white !important;
+  border: 1.5px solid #e0e0e0 !important;
+  color: #1a1a1a !important;
   font-family: var(--font-sans);
   font-size: 1rem;
   transition: border-color 0.3s ease;
@@ -53,6 +53,33 @@
   border-color: var(--color-gold);
   background-color: rgba(255, 255, 255, 0.02);
 }
+
+.form-group textarea {
+  resize: none;
+  min-height: 150px;
+  max-height: 150px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gold) #e0e0e0;
+}
+
+.form-group textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.form-group textarea::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+
+.form-group textarea::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 4px;
+}
+
+.form-group textarea::-webkit-scrollbar-thumb:hover {
+  background: #b8941f;
+}
+
 
 /* Fix for select options color */
 .form-group select option {
