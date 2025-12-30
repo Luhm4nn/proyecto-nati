@@ -8,10 +8,10 @@ Esta guía explica cómo usar el sistema de gestión de solicitudes de clases de
 
 ## 🔐 Iniciar Sesión
 
-1. Ir a: **https://tu-sitio.com/login** (o http://localhost:5173/login en desarrollo)
+1. Ir a: **[https://deutsch-fur-dich.vercel.app/login](https://deutsch-fur-dich.vercel.app/login)**
 2. Ingresar credenciales:
-   - **Email:** natalia@luhmann.com
-   - **Contraseña:** natalia2024
+   - **Email:** (La que configuraste en el servidor)
+   - **Contraseña:** (La que configuraste en el servidor)
 3. Click en "Iniciar Sesión"
 
 **⚠️ Importante:** Por seguridad, la sesión se cerrará automáticamente después de 30 minutos de inactividad.
@@ -23,6 +23,7 @@ Esta guía explica cómo usar el sistema de gestión de solicitudes de clases de
 ### Vista Principal
 
 Al iniciar sesión, verás:
+
 - **Barra superior:** Tu nombre y botón de "Cerrar Sesión"
 - **Filtros:** Botones para filtrar solicitudes por estado
 - **Lista de solicitudes:** Todas las peticiones de clases
@@ -42,9 +43,11 @@ Cada solicitud puede tener 3 estados:
 ### Ver Solicitudes
 
 **Todas las solicitudes:**
+
 - Click en el botón "Todas" (muestra el número total)
 
 **Filtrar por estado:**
+
 - Click en "Pendientes" - solo las no revisadas
 - Click en "Revisadas" - las que ya leíste
 - Click en "Contactadas" - alumnos ya contactados
@@ -52,6 +55,7 @@ Cada solicitud puede tener 3 estados:
 ### Información de Cada Solicitud
 
 Cada tarjeta muestra:
+
 - ✅ Nombre del interesado
 - ✅ Email de contacto
 - ✅ Teléfono (si lo proporcionó)
@@ -82,6 +86,7 @@ Cada tarjeta muestra:
 ## 🛡️ Seguridad
 
 ### ✅ El sistema te protege de:
+
 - Intentos de hackeo (máximo 5 intentos de login por minuto)
 - Spam de solicitudes (máximo 3 por hora por persona)
 - Solicitudes duplicadas (no se puede enviar la misma solicitud 2 veces en 24h)
@@ -89,6 +94,7 @@ Cada tarjeta muestra:
 - Acceso no autorizado (todos los endpoints admin requieren login)
 
 ### 🔒 Buenas Prácticas
+
 1. **Cerrar sesión** cuando termines de trabajar
 2. **No compartir** tu contraseña
 3. La sesión se cierra sola después de 30 minutos sin actividad
@@ -99,6 +105,7 @@ Cada tarjeta muestra:
 ## 📱 Acceso desde Cualquier Dispositivo
 
 El panel funciona en:
+
 - 💻 Computadora (Windows, Mac, Linux)
 - 📱 Celular (Android, iOS)
 - 📟 Tablet
@@ -110,20 +117,23 @@ Solo necesitas un navegador moderno (Chrome, Firefox, Safari, Edge).
 ## 🆘 Problemas Comunes
 
 ### "Credenciales inválidas"
-- Verifica que el email sea: `natalia@luhmann.com`
-- Verifica que la contraseña sea correcta
-- Si olvidaste la contraseña, contacta al desarrollador
+
+- Verifica que el email sea el correcto.
+- Si olvidaste la contraseña, contacta al desarrollador para que ejecute el script de reinicio de credenciales.
 
 ### "No autorizado" / "401"
+
 - Tu sesión expiró
 - Vuelve a iniciar sesión
 - La sesión dura 30 minutos desde la última actividad
 
 ### "Demasiadas solicitudes"
+
 - Estás haciendo muchas acciones muy rápido
 - Espera 1 minuto e intenta de nuevo
 
 ### La página se ve rara
+
 - Refresca el navegador (F5 o Ctrl+R)
 - Limpia el caché del navegador
 - Prueba en otro navegador
@@ -133,6 +143,7 @@ Solo necesitas un navegador moderno (Chrome, Firefox, Safari, Edge).
 ## 📊 Flujo de Trabajo Recomendado
 
 ### Diariamente:
+
 1. Iniciar sesión en el panel
 2. Click en "Pendientes" para ver nuevas solicitudes
 3. Leer cada solicitud
@@ -141,10 +152,12 @@ Solo necesitas un navegador moderno (Chrome, Firefox, Safari, Edge).
 6. Cambiar estado a "Contactada"
 
 ### Semanalmente:
+
 - Revisar solicitudes "Revisadas" que aún no fueron contactadas
 - Limpiar solicitudes antiguas (opcional)
 
 ### Tips:
+
 - 📧 Puedes copiar el email directamente desde la tarjeta
 - 📞 Si hay teléfono, aparecerá en la información
 - 📅 Las fechas están ordenadas (más recientes arriba)
@@ -154,15 +167,9 @@ Solo necesitas un navegador moderno (Chrome, Firefox, Safari, Edge).
 
 ## 🌐 URLs Importantes
 
-### Desarrollo (local)
-- **Landing page:** http://localhost:5173
-- **Panel admin:** http://localhost:5173/admin
-- **Login:** http://localhost:5173/login
-
-### Producción (cuando esté deployado)
-- **Landing page:** https://tu-dominio.com
-- **Panel admin:** https://tu-dominio.com/admin
-- **Login:** https://tu-dominio.com/login
+- **Landing page:** https://deutsch-fur-dich.vercel.app
+- **Panel admin:** https://deutsch-fur-dich.vercel.app/admin
+- **Login:** https://deutsch-fur-dich.vercel.app/login
 
 ---
 
@@ -171,10 +178,20 @@ Solo necesitas un navegador moderno (Chrome, Firefox, Safari, Edge).
 **Desarrollador:** Emiliano Luhmann
 
 **Para reportar problemas:**
+
 1. Describe qué estabas haciendo
 2. Qué mensaje de error apareció (si hay)
 3. En qué dispositivo/navegador estás
 4. Captura de pantalla (si es posible)
+
+**Reset de Contraseña (Solo Admin):**
+Si necesitas resetear la contraseña del administrador, pide al desarrollador que ejecute:
+
+```bash
+npm run create:admin
+```
+
+(Con las nuevas credenciales configuradas en el servidor).
 
 ---
 
@@ -191,6 +208,7 @@ Solo necesitas un navegador moderno (Chrome, Firefox, Safari, Edge).
 ## 📈 Estadísticas
 
 En la vista "Todas", el número entre paréntesis muestra:
+
 - Total de solicitudes en el sistema
 
 Ejemplo: **Todas (15)** significa que hay 15 solicitudes en total.

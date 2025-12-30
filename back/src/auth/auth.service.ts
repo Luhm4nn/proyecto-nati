@@ -49,30 +49,4 @@ export class AuthService {
     return result;
   }
 
-  /**
-   * Crea el usuario administrador inicial
-   * Credenciales: natalia@luhmann.com / natalia2024
-   */
-  async createInitialUser() {
-    const existingUser = await this.prisma.user.findUnique({
-      where: { email: 'natalia@luhmann.com' },
-    });
-
-    if (existingUser) {
-      return { message: 'Usuario ya existe' };
-    }
-
-    const hashedPassword = await bcrypt.hash('natalia2024', 10);
-    
-    const user = await this.prisma.user.create({
-      data: {
-        email: 'natalia@luhmann.com',
-        password: hashedPassword,
-        nombre: 'Natalia Luhmann',
-      },
-    });
-
-    const { password, ...result } = user;
-    return result;
-  }
 }

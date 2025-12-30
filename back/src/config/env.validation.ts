@@ -26,4 +26,14 @@ export const envValidationSchema = Joi.object({
     'string.empty': 'CORS_ORIGIN es requerida',
     'any.required': 'CORS_ORIGIN es requerida',
   }),
+
+  // Admin Setup
+  ADMIN_EMAIL: Joi.string().email().required().messages({
+    'string.email': 'ADMIN_EMAIL debe ser un email válido',
+    'any.required': 'ADMIN_EMAIL es requerida para scripts de administración',
+  }),
+  ADMIN_PASSWORD: Joi.string().required().messages({
+    'any.required': 'ADMIN_PASSWORD es requerida para scripts de administración',
+  }),
+  ADMIN_NAME: Joi.string().default('Admin'),
 });
