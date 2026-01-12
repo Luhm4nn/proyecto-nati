@@ -6,6 +6,7 @@ function Novedades() {
   const [novedades, setNovedades] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [resetTimer, setResetTimer] = useState(0);
 
   useEffect(() => {
     const fetchNovedades = async () => {
@@ -31,23 +32,26 @@ function Novedades() {
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % novedades.length);
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(interval);
-  }, [novedades.length]);
+  }, [novedades.length, resetTimer]);
 
   const goToSlide = (index) => {
     setCurrentIndex(index);
+    setResetTimer(prev => prev + 1);
   };
 
   const goToPrevious = () => {
     setCurrentIndex((prev) => 
       prev === 0 ? novedades.length - 1 : prev - 1
     );
+    setResetTimer(prev => prev + 1);
   };
 
   const goToNext = () => {
     setCurrentIndex((prev) => (prev + 1) % novedades.length);
+    setResetTimer(prev => prev + 1);
   };
 
   if (loading) {
