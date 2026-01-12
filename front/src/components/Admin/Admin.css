@@ -1,7 +1,7 @@
 .admin {
   min-height: 100vh;
   padding: 2rem;
-  background: #f5f5f5;
+  background-color: var(--bg-primary);
 }
 
 .admin-container {
@@ -13,82 +13,92 @@
   display: flex;
   justify-content: space-between;
   align-items: start;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .user-info span {
-  color: #666;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .logout-btn {
-  padding: 0.5rem 1rem;
-  background: #666;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  background: white;
+  color: var(--text-secondary);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-full);
   cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s ease;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
 }
 
 .logout-btn:hover {
-  background: #444;
+  background: #f1f5f9;
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
 }
 
 .admin-title {
   font-size: 2.5rem;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
+  font-family: var(--font-heading);
 }
 
 .admin-subtitle {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 2rem;
 }
 
 .filtros {
   display: flex;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   flex-wrap: wrap;
 }
 
 .filtro-btn {
   padding: 0.75rem 1.5rem;
-  border: 2px solid #ddd;
+  border: 1px solid transparent;
   background: white;
-  border-radius: 4px;
+  border-radius: var(--radius-full);
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-sm);
   transition: all 0.3s ease;
 }
 
 .filtro-btn:hover {
-  border-color: #D00;
-  color: #D00;
+  transform: translateY(-2px);
+  color: var(--color-primary);
 }
 
 .filtro-btn.active {
-  background: #D00;
-  border-color: #D00;
+  background: var(--color-primary);
   color: white;
+  box-shadow: var(--shadow-md);
 }
 
-.loading, .empty-state {
+.loading,
+.empty-state {
   text-align: center;
-  padding: 3rem;
+  padding: 4rem;
   font-size: 1.2rem;
-  color: #666;
+  color: var(--text-secondary);
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .solicitudes-table {
@@ -98,170 +108,146 @@
 
 .solicitud-card {
   background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 .solicitud-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
 }
 
 .solicitud-header {
   display: flex;
   justify-content: space-between;
-  align-items: start;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #eee;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--bg-primary);
 }
 
 .solicitud-header h3 {
-  margin: 0 0 0.5rem 0;
-  color: #1a1a1a;
-  font-size: 1.3rem;
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 
 .estado-badge {
   display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
   font-weight: 600;
-  text-transform: capitalize;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .estado-pendiente {
-  background: #fff3cd;
-  color: #856404;
+  background: #fff7ed;
+  color: #9a3412;
 }
 
 .estado-revisada {
-  background: #cfe2ff;
-  color: #084298;
+  background: #eff6ff;
+  color: #1e40af;
 }
 
 .estado-contactada {
-  background: #d1e7dd;
-  color: #0f5132;
+  background: #f0fdf4;
+  color: #166534;
 }
 
 .fecha {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
-.solicitud-body {
-  margin-bottom: 1rem;
-}
-
 .solicitud-body p {
-  margin: 0.5rem 0;
-  color: #333;
-  white-space: pre-line;
+  margin: 0.8rem 0;
+  color: var(--text-primary);
+  line-height: 1.6;
 }
 
 .solicitud-body strong {
-  color: #666;
+  color: var(--color-primary);
   font-weight: 600;
 }
 
 .solicitud-actions {
   display: flex;
   gap: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bg-primary);
 }
 
 .estado-select {
   flex: 1;
-  padding: 0.5rem;
-  border: 2px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
+  padding: 0.6rem;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: border-color 0.3s ease;
+  color: var(--text-primary);
 }
 
 .estado-select:focus {
   outline: none;
-  border-color: #D00;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
 }
 
 .btn-eliminar {
-  padding: 0.5rem 1.5rem;
-  background: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  padding: 0.6rem 1.5rem;
+  background: white;
+  color: var(--color-secondary);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-weight: 600;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-eliminar:hover {
-  background: #c82333;
+  background: var(--color-secondary);
+  color: white;
 }
 
-@media (max-width: 768px) {
-  .admin {
-    padding: 1rem;
-  }
-
-  .admin-title {
-    font-size: 2rem;
-  }
-
-  .solicitud-header {
-    flex-direction: column;
-  }
-
-  .solicitud-actions {
-    flex-direction: column;
-  }
-
-  .filtros {
-    gap: 0.5rem;
-  }
-
-  .filtro-btn {
-    font-size: 0.9rem;
-    padding: 0.6rem 1rem;
-  }
-}
-
-/* === TABS === */
+/* Tabs */
 .tabs {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  border-bottom: 2px solid #e0e0e0;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .tab-btn {
-  padding: 1rem 2rem;
+  padding: 1rem 0.5rem;
   background: none;
   border: none;
   border-bottom: 3px solid transparent;
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
-  color: #666;
+  color: var(--text-secondary);
   transition: all 0.3s ease;
 }
 
 .tab-btn:hover {
-  color: var(--color-red);
+  color: var(--color-primary);
 }
 
 .tab-btn.active {
-  color: var(--color-red);
-  border-bottom-color: var(--color-red);
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
 }
 
+/* Tab Content Animation */
 .tab-content {
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.4s ease-out;
 }
 
 @keyframes fadeIn {
@@ -269,24 +255,25 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* === TESTIMONIOS === */
+/* Testimonials Admin - Form */
 .testimonio-form-section {
   background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  margin-bottom: 2.5rem;
+  box-shadow: var(--shadow-md);
 }
 
 .testimonio-form-section h2 {
   margin-bottom: 1.5rem;
-  color: #1a1a1a;
+  color: var(--text-primary);
   font-size: 1.5rem;
 }
 
@@ -300,46 +287,39 @@
   align-items: center;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .char-count {
   font-size: 0.85rem;
   font-weight: 400;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .testimonio-form input[type="text"],
 .testimonio-form textarea {
   width: 100%;
-  padding: 0.75rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 4px;
+  padding: 0.8rem;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
   font-size: 1rem;
-  color: #1a1a1a;
-  transition: border-color 0.3s ease;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  font-family: var(--font-body);
 }
 
 .testimonio-form input[type="text"]:focus,
 .testimonio-form textarea:focus {
   outline: none;
-  border-color: var(--color-red);
-}
-
-.testimonio-form textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.checkbox-group {
-  display: flex;
-  align-items: flex-start;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
 }
 
 .checkbox-group label {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: flex-start;
+  gap: 0.8rem;
   cursor: pointer;
 }
 
@@ -347,60 +327,73 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+  accent-color: var(--color-primary);
 }
 
 .form-actions {
   display: flex;
   gap: 1rem;
+  margin-top: 2rem;
 }
 
-.btn-guardar,
-.btn-cancelar {
-  padding: 0.75rem 2rem;
+.btn-guardar {
+  background: var(--color-primary);
+  color: white;
+  padding: 0.8rem 2rem;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-full);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.btn-guardar {
-  background: var(--color-red);
-  color: white;
-}
-
 .btn-guardar:hover {
-  background: #a01c1c;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  filter: brightness(1.1);
 }
 
 .btn-cancelar {
-  background: #666;
-  color: white;
+  background: #f1f5f9;
+  color: var(--text-secondary);
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .btn-cancelar:hover {
-  background: #444;
+  background: #e2e8f0;
+  color: var(--text-primary);
 }
 
+/* Testimonials Admin - List */
 .testimonios-list {
   background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .testimonios-list h2 {
-  margin-bottom: 1.5rem;
-  color: #1a1a1a;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
   font-size: 1.5rem;
 }
 
 .testimonio-card {
-  background: #f9f9f9;
+  background: var(--bg-primary);
   padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  border: 1px solid #e0e0e0;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.testimonio-card:hover {
+  background: white;
+  box-shadow: var(--shadow-md);
 }
 
 .testimonio-header {
@@ -411,137 +404,113 @@
 }
 
 .testimonio-header h3 {
-  color: #1a1a1a;
-  font-size: 1.2rem;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .status-badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
 .status-badge.activo {
-  background: #d4edda;
-  color: #155724;
+  background: #dcfce7;
+  color: #166534;
 }
 
 .status-badge.inactivo {
-  background: #f8d7da;
-  color: #721c24;
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 .testimonio-texto {
-  color: #555;
+  color: var(--text-secondary);
   line-height: 1.6;
   font-style: italic;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  background: white;
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-primary);
 }
 
 .testimonio-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .testimonio-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 .btn-editar {
   padding: 0.5rem 1rem;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  background: white;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-weight: 600;
-  transition: background 0.3s ease;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
 .btn-editar:hover {
-  background: #0056b3;
+  background: var(--color-primary);
+  color: white;
 }
 
-/* === RESPONSIVE TESTIMONIOS === */
-@media (max-width: 768px) {
-  .admin {
-    padding: 1rem;
-  }
+/* Pagination */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 3rem 0 1rem;
+}
 
+.paginacion-btn {
+  padding: 0.7rem 1.5rem;
+  background: white;
+  color: var(--text-primary);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.paginacion-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.paginacion-btn:disabled {
+  background: #f1f5f9;
+  color: #cbd5e1;
+  cursor: not-allowed;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.paginacion-info {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
   .admin-header-bar {
     flex-direction: column;
     gap: 1rem;
-    align-items: flex-start;
-  }
-
-  .admin-title {
-    font-size: 1.8rem;
-  }
-
-  .admin-subtitle {
-    font-size: 0.9rem;
-  }
-
-  .user-info {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .tabs {
-    gap: 0.5rem;
-    border-bottom: 1px solid #e0e0e0;
-  }
-
-  .tab-btn {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  .testimonio-form-section,
-  .testimonios-list {
-    padding: 1rem;
-  }
-
-  .testimonio-form-section h2,
-  .testimonios-list h2 {
-    font-size: 1.2rem;
-  }
-
-  .testimonio-form input[type="text"],
-  .testimonio-form textarea {
-    font-size: 0.95rem;
-    padding: 0.6rem;
-  }
-
-  .testimonio-form label {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-  }
-
-  .char-count {
-    font-size: 0.75rem;
-  }
-
-  .form-actions {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .btn-guardar,
-  .btn-cancelar {
-    width: 100%;
-    padding: 0.75rem;
-  }
-
-  .testimonio-card {
-    padding: 1rem;
   }
 
   .testimonio-header {
@@ -550,88 +519,14 @@
     gap: 0.5rem;
   }
 
-  .testimonio-header h3 {
-    font-size: 1rem;
-  }
-
-  .testimonio-texto {
-    font-size: 0.9rem;
-  }
-
   .testimonio-footer {
     flex-direction: column;
-    gap: 1rem;
     align-items: flex-start;
+    gap: 1rem;
   }
 
   .testimonio-actions {
     width: 100%;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .btn-editar,
-  .btn-eliminar {
-    width: 100%;
-    padding: 0.6rem;
-      border: 2px solid #e0e0e0;
-      border-radius: 4px;
-      font-size: 1rem;
-      color: #1a1a1a !important;
-    font-size: 0.85rem;
-  }
-}
-
-/* === PAGINACIÓN === */
-.paginacion {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  padding: 2rem 0;
-}
-
-.paginacion-btn {
-  padding: 0.75rem 1.5rem;
-  background: var(--color-red);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.paginacion-btn:hover:not(:disabled) {
-  background: #a01c1c;
-  transform: translateY(-2px);
-}
-
-.paginacion-btn:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.paginacion-info {
-  font-weight: 600;
-  color: #333;
-  padding: 0 1rem;
-}
-
-@media (max-width: 768px) {
-  .paginacion {
-    gap: 0.5rem;
-    padding: 1rem 0;
-  }
-
-  .paginacion-btn {
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  .paginacion-info {
-    font-size: 0.9rem;
-    padding: 0 0.5rem;
+    justify-content: flex-end;
   }
 }

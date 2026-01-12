@@ -7,13 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Modelo para almacenar las solicitudes de clases de alemán
 model Solicitud {
   id        Int      @id @default(autoincrement())
   nombre    String
   email     String
   telefono  String?
-  mensaje   String   @db.Text
+  mensaje   String
   estado    String   @default("pendiente")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -21,7 +20,6 @@ model Solicitud {
   @@map("solicitudes")
 }
 
-// Modelo para usuarios administradores
 model User {
   id       Int    @id @default(autoincrement())
   email    String @unique
@@ -31,11 +29,10 @@ model User {
   @@map("users")
 }
 
-// Modelo para testimonios de alumnos
 model Testimonio {
   id             Int      @id @default(autoincrement())
   nombreCompleto String
-  texto          String   @db.Text
+  texto          String
   activo         Boolean  @default(true)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt

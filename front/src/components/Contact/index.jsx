@@ -8,7 +8,7 @@ function Contact() {
     nombre: "",
     email: "",
     nivel: "",
-    objetivo: "",
+    pais: "",
     mensaje: "",
   });
 
@@ -29,7 +29,7 @@ function Contact() {
 
       const finalMessage = `Nivel: ${formData.nivel}
 
-Objetivo: ${formData.objetivo}
+País/Ubicación: ${formData.pais}
 
 Mensaje adicional:
 ${formData.mensaje}`;
@@ -50,7 +50,7 @@ ${formData.mensaje}`;
 
       showSuccess("¡Solicitud enviada! Te contactaré pronto.", 5000);
       setSubmitted(true);
-      setFormData({ nombre: "", email: "", nivel: "", objetivo: "", mensaje: "" });
+      setFormData({ nombre: "", email: "", nivel: "", pais: "", mensaje: "" });
       setTimeout(() => setSubmitted(false), 3000);
     } catch (err) {
       showError("Hubo un error al enviar tu solicitud.");
@@ -65,11 +65,8 @@ ${formData.mensaje}`;
         <div className="contact-wrapper">
           <div className="contact-header">
             <h2 className="section-title white">
-              ¿Listo para romper <span className="italic">barreras?</span>
+              ¿Tienes consultas? Envianos un mensaje y te contactaré pronto.
             </h2>
-            <p className="contact-subtitle">
-              Reserva tu primera clase y habla con confianza.
-            </p>
           </div>
 
           <form className="contact-form" onSubmit={handleSubmit}>
@@ -102,14 +99,37 @@ ${formData.mensaje}`;
                   <option value="Intermedio (B1-B2)">Intermedio (B1-B2)</option>
                   <option value="Avanzado (C1-C2)">Avanzado (C1-C2)</option>
                 </select>
+                <div className="test-link-wrapper">
+                  <a
+                    href="https://www.esl-idiomas.com/es/test-idiomas/aleman/test-linea"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="test-link"
+                  >
+                    ¿No sabes tu nivel? Haz un test rápido aquí
+                  </a>
+                </div>
               </div>
               <div className="form-group">
-                <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
-                  <option value="">Tu Objetivo Principal</option>
-                  <option value="Trabajo/Carrera">Trabajo / Carrera</option>
-                  <option value="Estudios/Universidad">Estudios / Universidad</option>
-                  <option value="Turismo/Hobby">Turismo / Hobby</option>
-                  <option value="Examen Oficial">Examen Oficial</option>
+                <select name="pais" value={formData.pais} onChange={handleChange} required>
+                  <option value="">¿Desde dónde tomarás las clases?</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Bolivia">Bolivia</option>
+                  <option value="Chile">Chile</option>
+                  <option value="Colombia">Colombia</option>
+                  <option value="Costa Rica">Costa Rica</option>
+                  <option value="Ecuador">Ecuador</option>
+                  <option value="El Salvador">El Salvador</option>
+                  <option value="España">España</option>
+                  <option value="Estados Unidos">Estados Unidos</option>
+                  <option value="Guatemala">Guatemala</option>
+                  <option value="México">México</option>
+                  <option value="Panamá">Panamá</option>
+                  <option value="Paraguay">Paraguay</option>
+                  <option value="Perú">Perú</option>
+                  <option value="Uruguay">Uruguay</option>
+                  <option value="Venezuela">Venezuela</option>
+                  <option value="Otro">Otro</option>
                 </select>
               </div>
             </div>
