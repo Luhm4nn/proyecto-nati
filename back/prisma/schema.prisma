@@ -46,6 +46,8 @@ model Novedad {
   descripcion String   @db.Text
   imagenUrl   String
   imagenPublicId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map("novedades")
 }
