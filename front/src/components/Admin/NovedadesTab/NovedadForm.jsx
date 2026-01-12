@@ -1,3 +1,5 @@
+import "../../Novedades/Novedades.css";
+
 function NovedadForm({ 
   formNovedad, 
   previewImagen, 
@@ -6,6 +8,8 @@ function NovedadForm({
   onSubmit, 
   onCancelar 
 }) {
+  const showPreview = previewImagen && (formNovedad.titulo || formNovedad.descripcion);
+
   return (
     <div className="form-section">
       <h2>
@@ -65,12 +69,47 @@ function NovedadForm({
             onChange={onImagenChange}
             required={!formNovedad.id}
           />
-          {previewImagen && (
-            <div className="image-preview">
-              <img src={previewImagen} alt="Preview" />
-            </div>
-          )}
         </div>
+
+        {showPreview && (
+          <div className="novedad-preview-section">
+            <div className="preview-label">
+              Vista previa del carrusel
+            </div>
+            <div className="carousel-preview">
+              <button className="carousel-preview-btn carousel-preview-btn-prev">
+                ‹
+              </button>
+              <div className="carousel-preview-track">
+                <div className="novedad-card-public">
+                  <div className="novedad-image-container">
+                    <img 
+                      src={previewImagen} 
+                      alt="Preview"
+                      className="novedad-image"
+                    />
+                  </div>
+                  <div className="novedad-content-public">
+                    <h3 className="novedad-title">
+                      {formNovedad.titulo || "Tu título aquí"}
+                    </h3>
+                    <p className="novedad-description">
+                      {formNovedad.descripcion || "Tu descripción aquí"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <button className="carousel-preview-btn carousel-preview-btn-next">
+                ›
+              </button>
+              <div className="carousel-preview-dots">
+                <span className="carousel-preview-dot"></span>
+                <span className="carousel-preview-dot"></span>
+                <span className="carousel-preview-dot"></span>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="form-actions">
           <button type="submit" className="btn-guardar">

@@ -55,6 +55,7 @@
   z-index: 2;
 }
 
+/* Estilos base de card - reutilizables */
 .novedad-card-public {
   background: white;
   border-radius: var(--radius-xl);
