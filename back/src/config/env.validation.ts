@@ -36,4 +36,18 @@ export const envValidationSchema = Joi.object({
     'any.required': 'ADMIN_PASSWORD es requerida para scripts de administración',
   }),
   ADMIN_NAME: Joi.string().default('Admin'),
+
+  // Cloudinary
+  CLOUDINARY_CLOUD_NAME: Joi.string().required().messages({
+    'string.empty': 'CLOUDINARY_CLOUD_NAME es requerida',
+    'any.required': 'CLOUDINARY_CLOUD_NAME es requerida para subir imágenes',
+  }),
+  CLOUDINARY_API_KEY: Joi.string().required().messages({
+    'string.empty': 'CLOUDINARY_API_KEY es requerida',
+    'any.required': 'CLOUDINARY_API_KEY es requerida para subir imágenes',
+  }),
+  CLOUDINARY_API_SECRET: Joi.string().required().messages({
+    'string.empty': 'CLOUDINARY_API_SECRET es requerida',
+    'any.required': 'CLOUDINARY_API_SECRET es requerida para subir imágenes',
+  }),
 });
