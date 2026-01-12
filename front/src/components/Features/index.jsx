@@ -13,7 +13,7 @@ function Features() {
         <section id="features" className="features-section section-padding">
             <div className="container">
                 <h2 className="section-title">
-                    ¿Por qué elegir <span className="italic">Deutsch für dich?</span>
+                    🌟 ¿Por qué elegir <span className="italic">Deutsch für dich?</span>
                 </h2>
 
                 <div className="features-grid">

@@ -40,7 +40,7 @@ function Testimonials() {
             <section id="testimonials" className="testimonials-section section-padding">
                 <div className="container">
                     <h2 className="section-title">
-                        Lo que dicen <span className="italic">nuestros estudiantes</span>
+                        💬 Lo que dicen <span className="italic">nuestros estudiantes</span>
                     </h2>
                     <div className="loading-testimonials">Cargando testimonios...</div>
                 </div>
@@ -56,7 +56,7 @@ function Testimonials() {
         <section id="testimonials" className="testimonials-section section-padding">
             <div className="container">
                 <h2 className="section-title">
-                    Lo que dicen <span className="italic">nuestros estudiantes</span>
+                    💬 Lo que dicen <span className="italic">nuestros estudiantes</span>
                 </h2>
 
                 <div className="testimonials-carousel">
