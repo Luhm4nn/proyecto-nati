@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Novedades from './components/Novedades';
 import Features from './components/Features';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
@@ -18,6 +19,7 @@ function LandingPage() {
     <>
       <Navbar />
       <Hero />
+      <Novedades />
       <Features />
       <Testimonials />
       <FAQ />
