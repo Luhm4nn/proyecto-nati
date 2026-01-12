@@ -54,9 +54,16 @@
 }
 
 /* Modern Friendly Palette Map */
-.card-0,
-.card-2 {
-    background-color: white;
+/* Modern Friendly Palette Map */
+.card-0 {
+    background-color: var(--color-primary);
+    /* Indigo */
+    color: white;
+}
+
+.card-0 h3,
+.card-0 p {
+    color: white;
 }
 
 .card-1 {
@@ -70,31 +77,31 @@
     color: white;
 }
 
-.card-3 {
-    background-color: var(--color-gold);
-    /* Warmth */
-    color: var(--text-primary);
-}
-
-.card-4 {
-    background-color: var(--color-primary);
-    /* Indigo */
-    color: white !important;
-}
-
-.card-4 h3,
-.card-4 p {
-    color: white;
-}
-
-.card-5 {
+.card-2 {
     background-color: var(--color-secondary);
     /* Rose */
     color: white;
 }
 
-.card-5 h3,
-.card-5 p {
+.card-2 h3,
+.card-2 p {
+    color: white;
+}
+
+.card-3 {
+    background-color: var(--color-gold);
+    /* Amber */
+    color: var(--text-primary);
+}
+
+.card-4 {
+    background-color: #3b82f6;
+    /* Blue 500 - Added for variety */
+    color: white;
+}
+
+.card-4 h3,
+.card-4 p {
     color: white;
 }
 

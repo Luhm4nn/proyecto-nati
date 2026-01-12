@@ -1,12 +1,16 @@
+
 import { useState } from "react";
 import { useToast } from "../../contexts/ToastContext";
 import "./Contact.css";
+import CustomSelect from "../shared/CustomSelect";
+import { countries } from "../shared/CustomSelect/countries";
 
 function Contact() {
   const { showSuccess, showError, showWarning } = useToast();
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
+    telefono: "",
     nivel: "",
     pais: "",
     mensaje: "",
@@ -14,6 +18,13 @@ function Contact() {
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const levelOptions = [
+    "Sin conocimientos previos",
+    "Principiante (A1-A2)",
+    "Intermedio (B1-B2)",
+    "Avanzado (C1-C2)"
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,19 +51,28 @@ ${formData.mensaje}`;
         mensaje: finalMessage
       };
 
+      if (formData.telefono && formData.telefono.trim() !== '') {
+        cleanData.telefono = formData.telefono.trim();
+      }
+
       const response = await fetch(`${apiUrl}/solicitudes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(cleanData),
       });
 
-      if (!response.ok) throw new Error("Error al enviar");
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("API Error details:", errorData);
+        throw new Error(errorData.message || "Error al enviar");
+      }
 
       showSuccess("¡Solicitud enviada! Te contactaré pronto.", 5000);
       setSubmitted(true);
-      setFormData({ nombre: "", email: "", nivel: "", pais: "", mensaje: "" });
+      setFormData({ nombre: "", email: "", telefono: "", nivel: "", pais: "", mensaje: "" });
       setTimeout(() => setSubmitted(false), 3000);
     } catch (err) {
+      console.error("Submission error:", err);
       showError("Hubo un error al enviar tu solicitud.");
     } finally {
       setLoading(false);
@@ -92,13 +112,24 @@ ${formData.mensaje}`;
                 />
               </div>
               <div className="form-group">
-                <select name="nivel" value={formData.nivel} onChange={handleChange} required>
-                  <option value="">Tu Nivel Actual</option>
-                  <option value="Sin conocimientos previos">Sin conocimientos previos</option>
-                  <option value="Principiante (A1-A2)">Principiante (A1-A2)</option>
-                  <option value="Intermedio (B1-B2)">Intermedio (B1-B2)</option>
-                  <option value="Avanzado (C1-C2)">Avanzado (C1-C2)</option>
-                </select>
+                <input
+                  type="tel"
+                  name="telefono"
+                  value={formData.telefono}
+                  onChange={handleChange}
+                  placeholder="Tu Teléfono (Opcional)"
+                  maxLength="20"
+                />
+              </div>
+              <div className="form-group">
+                <CustomSelect
+                  name="nivel"
+                  value={formData.nivel}
+                  onChange={handleChange}
+                  options={levelOptions}
+                  placeholder="Tu Nivel Actual"
+                  required
+                />
                 <div className="test-link-wrapper">
                   <a
                     href="https://www.esl-idiomas.com/es/test-idiomas/aleman/test-linea"
@@ -111,26 +142,14 @@ ${formData.mensaje}`;
                 </div>
               </div>
               <div className="form-group">
-                <select name="pais" value={formData.pais} onChange={handleChange} required>
-                  <option value="">¿Desde dónde tomarás las clases?</option>
-                  <option value="Argentina">Argentina</option>
-                  <option value="Bolivia">Bolivia</option>
-                  <option value="Chile">Chile</option>
-                  <option value="Colombia">Colombia</option>
-                  <option value="Costa Rica">Costa Rica</option>
-                  <option value="Ecuador">Ecuador</option>
-                  <option value="El Salvador">El Salvador</option>
-                  <option value="España">España</option>
-                  <option value="Estados Unidos">Estados Unidos</option>
-                  <option value="Guatemala">Guatemala</option>
-                  <option value="México">México</option>
-                  <option value="Panamá">Panamá</option>
-                  <option value="Paraguay">Paraguay</option>
-                  <option value="Perú">Perú</option>
-                  <option value="Uruguay">Uruguay</option>
-                  <option value="Venezuela">Venezuela</option>
-                  <option value="Otro">Otro</option>
-                </select>
+                <CustomSelect
+                  name="pais"
+                  value={formData.pais}
+                  onChange={handleChange}
+                  options={countries}
+                  placeholder="¿Desde dónde tomarás las clases?"
+                  required
+                />
               </div>
             </div>
 
