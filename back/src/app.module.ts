@@ -8,6 +8,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { SolicitudesModule } from './solicitudes/solicitudes.module';
 import { AuthModule } from './auth/auth.module';
 import { TestimoniosModule } from './testimonios/testimonios.module';
+import { NovedadesModule } from './novedades/novedades.module';
 import { envValidationSchema } from './config/env.validation';
 
 @Module({
@@ -32,6 +33,7 @@ import { envValidationSchema } from './config/env.validation';
     SolicitudesModule,
     AuthModule,
     TestimoniosModule,
+    NovedadesModule,
   ],
   controllers: [AppController],
   providers: [

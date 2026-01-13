@@ -39,3 +39,15 @@ model Testimonio {
 
   @@map("testimonios")
 }
+
+model Novedad {
+  id          Int      @id @default(autoincrement())
+  titulo      String
+  descripcion String   @db.Text
+  imagenUrl   String
+  imagenPublicId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("novedades")
+}

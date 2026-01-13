@@ -47,6 +47,12 @@ function Navbar() {
             Inicio
           </button>
           <button
+            onClick={() => scrollToSection("novedades")}
+            className="nav-link"
+          >
+            Novedades
+          </button>
+          <button
             onClick={() => scrollToSection("features")}
             className="nav-link"
           >

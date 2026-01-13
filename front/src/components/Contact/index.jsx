@@ -85,7 +85,7 @@ ${formData.mensaje}`;
         <div className="contact-wrapper">
           <div className="contact-header">
             <h2 className="section-title white">
-              ¿Tienes consultas? Envianos un mensaje y te contactaré pronto.
+              ✉️ ¿Tienes consultas? Envianos un mensaje y te contactaré pronto.
             </h2>
           </div>
 
