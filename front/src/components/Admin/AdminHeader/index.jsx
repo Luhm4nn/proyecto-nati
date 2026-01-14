@@ -5,7 +5,7 @@ function AdminHeader({ user, onLogout }) {
     <div className="admin-header-bar">
       <div>
         <h1 className="admin-title">Panel de Administración</h1>
-        <p className="admin-subtitle">Gestión de Solicitudes y Testimonios</p>
+        <p className="admin-subtitle">Gestión de Solicitudes, Testimonios, Novedades y Cursos</p>
       </div>
       <div className="user-info">
         <span>Hola, {user?.nombre}</span>

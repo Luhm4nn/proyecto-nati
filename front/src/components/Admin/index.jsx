@@ -50,87 +50,33 @@ function Admin() {
 
         {activeTab === "solicitudes" && (
           <SolicitudesTab
-            solicitudes={solicitudesData.solicitudes}
-            loading={solicitudesData.loading}
-            filtro={solicitudesData.filtro}
-            setFiltro={solicitudesData.setFiltro}
-            contadores={solicitudesData.contadores}
-            paginacion={solicitudesData.paginacion}
-            onCambiarEstado={solicitudesData.cambiarEstado}
-            onEliminar={solicitudesData.abrirModalEliminar}
-            onCambiarPagina={solicitudesData.cargarSolicitudes}
+            {...solicitudesData}
             formatearFecha={formatearFecha}
             getEstadoColor={getEstadoColor}
-            deleteModal={solicitudesData.deleteModal}
-            onCerrarModalEliminar={solicitudesData.cerrarModalEliminar}
-            onConfirmarEliminacion={solicitudesData.confirmarEliminacion}
           />
         )}
 
         {activeTab === "testimonios" && (
           <TestimoniosTab
-            testimonios={testimoniosData.testimonios}
-            loading={testimoniosData.loading}
-            formTestimonio={testimoniosData.formTestimonio}
-            onFormChange={testimoniosData.handleTestimonioChange}
-            onFormSubmit={testimoniosData.guardarTestimonio}
-            onCancelar={testimoniosData.cancelarEdicion}
-            onEditar={testimoniosData.editarTestimonio}
-            onEliminar={testimoniosData.abrirModalEliminar}
+            {...testimoniosData}
             formatearFecha={formatearFecha}
-            deleteModal={testimoniosData.deleteModal}
-            onCerrarModalEliminar={testimoniosData.cerrarModalEliminar}
-            onConfirmarEliminacion={testimoniosData.confirmarEliminacion}
           />
         )}
 
         {activeTab === "novedades" && (
           <NovedadesTab
-            novedades={novedadesData.novedades}
-            loading={novedadesData.loading}
-            formNovedad={novedadesData.formNovedad}
-            previewImagen={novedadesData.previewImagen}
-            onFormChange={novedadesData.handleNovedadChange}
-            onImagenChange={novedadesData.handleImagenChange}
-            onFormSubmit={novedadesData.guardarNovedad}
-            onCancelar={novedadesData.cancelarEdicion}
-            onEditar={novedadesData.editarNovedad}
-            onEliminar={novedadesData.abrirModalEliminar}
+            {...novedadesData}
             formatearFecha={formatearFecha}
-            deleteModal={novedadesData.deleteModal}
-            onCerrarModalEliminar={novedadesData.cerrarModalEliminar}
-            onConfirmarEliminacion={novedadesData.confirmarEliminacion}
           />
         )}
 
         {activeTab === "cursos" && (
           <CursosTab
-            cursos={cursosData.cursos}
-            loading={cursosData.loading}
-            formCurso={cursosData.formCurso}
-            onCursoChange={cursosData.handleCursoChange}
-            onItemChange={cursosData.handleItemChange}
-            onAgregarItem={cursosData.agregarItem}
-            onEliminarItem={cursosData.eliminarItem}
-            onCursoSubmit={cursosData.guardarCurso}
-            onCancelar={cursosData.cancelarEdicion}
-            onEditar={cursosData.editarCurso}
-            onEliminar={cursosData.abrirModalEliminarCurso}
-            showDictadoModal={cursosData.showDictadoModal}
-            cursoSeleccionado={cursosData.cursoSeleccionado}
-            formDictado={cursosData.formDictado}
-            onDictadoChange={cursosData.handleDictadoChange}
-            onToggleDia={cursosData.toggleDiaSemana}
-            onAbrirModalDictado={cursosData.abrirModalDictado}
-            onCerrarModalDictado={cursosData.cerrarModalDictado}
-            onDictadoSubmit={cursosData.guardarDictado}
-            onEliminarDictado={cursosData.abrirModalEliminarDictado}
+            {...cursosData}
             formatearFecha={formatearFecha}
-            deleteModal={cursosData.deleteModal}
-            onCerrarModalEliminar={cursosData.cerrarModalEliminar}
-            onConfirmarEliminacion={cursosData.confirmarEliminacion}
           />
         )}
+
 
         <LogoutConfirmationModal
           isOpen={showLogoutModal}
