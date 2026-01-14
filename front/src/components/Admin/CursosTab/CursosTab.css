@@ -45,12 +45,45 @@
   color: white;
 }
 
-.curso-descripcion {
+.curso-card {
+  background: var(--bg-primary);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.curso-card:hover {
+  background: white;
+  box-shadow: var(--shadow-md);
+}
+
+.curso-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.curso-header h3 {
   color: var(--text-primary);
+  font-size: 1.3rem;
+  font-family: var(--font-heading);
+  margin: 0;
+}
+
+.curso-actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.curso-descripcion {
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  background: white;
   padding: 1rem;
-  background: #f8fafc;
   border-radius: var(--radius-sm);
   border-left: 3px solid var(--color-primary);
 }
@@ -66,10 +99,11 @@
 .curso-items strong {
   display: block;
   color: var(--text-primary);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   margin-bottom: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-weight: 700;
 }
 
 .curso-items ul {
@@ -79,11 +113,12 @@
 }
 
 .curso-items li {
-  padding: 0.6rem 0;
+  padding: 0.5rem 0;
   padding-left: 1.5rem;
   position: relative;
   color: var(--text-secondary);
   border-bottom: 1px solid #f3f4f6;
+  line-height: 1.5;
 }
 
 .curso-items li:last-child {
@@ -96,48 +131,89 @@
   left: 0;
   color: var(--color-primary);
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .dictados-section {
-  margin-top: 1.5rem;
-  padding: 1.5rem;
-  background: #fefce8;
-  border-radius: var(--radius-md);
-  border: 2px solid #fde047;
+  margin: 1.5rem 0;
+  background: white;
+  border-radius: var(--radius-sm);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
 }
 
-.dictados-header {
+.dictados-toggle {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 0.8rem;
-  border-bottom: 2px solid #fde047;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.dictados-header strong {
+.dictados-toggle:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.dictados-toggle-content {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.dictados-toggle-content strong {
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-weight: 700;
 }
 
 .dictados-count {
   background: var(--color-primary);
   color: white;
-  padding: 0.3rem 0.8rem;
+  padding: 0.25rem 0.7rem;
   border-radius: var(--radius-full);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 700;
 }
 
+.toggle-icon {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.toggle-icon.expanded {
+  transform: rotate(180deg);
+}
+
+.dictados-list {
+  padding: 0 1rem 1rem 1rem;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .dictado-item {
-  background: white;
-  padding: 1.2rem;
+  background: var(--bg-primary);
+  padding: 1rem;
   border-radius: var(--radius-sm);
   margin-top: 0.8rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid rgba(0, 0, 0, 0.03);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -145,55 +221,47 @@
   transition: all 0.2s ease;
 }
 
+.dictado-item:first-child {
+  margin-top: 0;
+}
+
 .dictado-item:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: #f8fafc;
   border-color: var(--color-primary);
 }
 
-.dictado-content {
+.dictado-info {
   flex: 1;
 }
 
-.dictado-main {
+.dictado-horario {
   display: flex;
-  gap: 1.5rem;
+  gap: 0.8rem;
   align-items: center;
-  margin-bottom: 0.6rem;
-}
-
-.dictado-details {
-  display: flex;
-  gap: 1.5rem;
+  margin-bottom: 0.5rem;
   flex-wrap: wrap;
 }
 
-.dictado-horario {
-  font-weight: 700;
+.dictado-horario strong {
   color: var(--text-primary);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
 }
 
 .dictado-dias {
   background: var(--color-primary);
   color: white;
-  padding: 0.3rem 0.8rem;
+  padding: 0.25rem 0.7rem;
   border-radius: var(--radius-sm);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 
-.dictado-fechas,
-.dictado-duracion {
+.dictado-detalles {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
   color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-.dictado-fechas::before {
-  content: "📅 ";
-}
-
-.dictado-duracion::before {
-  content: "⏱️ ";
+  font-size: 0.85rem;
 }
 
 .dictado-actions {
@@ -201,52 +269,13 @@
   gap: 0.5rem;
 }
 
-.btn-editar-small,
-.btn-eliminar-small {
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.85rem;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.btn-editar-small {
-  background: #dbeafe;
-  color: #1e40af;
-}
-
-.btn-editar-small:hover {
-  background: #3b82f6;
-  color: white;
-}
-
-.btn-eliminar-small {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.btn-eliminar-small:hover {
-  background: #ef4444;
-  color: white;
-}
-
-.btn-secundario {
-  background: var(--bg-primary);
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.btn-secundario:hover {
-  background: var(--color-primary);
-  color: white;
+.curso-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  margin-top: 1.5rem;
 }
 
 .modal-overlay {
@@ -359,11 +388,21 @@
     grid-template-columns: 1fr;
   }
 
-  .dictado-main,
-  .dictado-details {
+  .curso-header {
     flex-direction: column;
-    gap: 0.5rem;
     align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .curso-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .curso-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 
   .dictado-item {
@@ -376,8 +415,7 @@
     justify-content: stretch;
   }
 
-  .btn-editar-small,
-  .btn-eliminar-small {
+  .dictado-actions button {
     flex: 1;
   }
 
@@ -391,9 +429,5 @@
 
   .dias-semana-grid {
     grid-template-columns: repeat(3, 1fr);
-  }
-
-  .card-actions {
-    flex-wrap: wrap;
   }
 }

@@ -12,6 +12,7 @@ import { useTestimonios } from "./hooks/useTestimonios";
 import { useNovedades } from "./hooks/useNovedades";
 import { useCursos } from "./hooks/useCursos";
 import { formatearFecha, getEstadoColor } from "./utils/helpers";
+import LogoutConfirmationModal from "./LogoutConfirmationModal";
 import "./Admin.css";
 
 function Admin() {
@@ -19,6 +20,7 @@ function Admin() {
   useSessionTimeout();
   const [activeTab, setActiveTab] = useState("solicitudes");
   const [user, setUser] = useState(null);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const solicitudesData = useSolicitudes();
   const testimoniosData = useTestimonios();
@@ -36,12 +38,13 @@ function Admin() {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     navigate("/login");
+    setShowLogoutModal(false);
   };
 
   return (
     <div className="admin">
       <div className="admin-container">
-        <AdminHeader user={user} onLogout={handleLogout} />
+        <AdminHeader user={user} onLogout={() => setShowLogoutModal(true)} />
 
         <AdminTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
@@ -54,10 +57,13 @@ function Admin() {
             contadores={solicitudesData.contadores}
             paginacion={solicitudesData.paginacion}
             onCambiarEstado={solicitudesData.cambiarEstado}
-            onEliminar={solicitudesData.eliminarSolicitud}
+            onEliminar={solicitudesData.abrirModalEliminar}
             onCambiarPagina={solicitudesData.cargarSolicitudes}
             formatearFecha={formatearFecha}
             getEstadoColor={getEstadoColor}
+            deleteModal={solicitudesData.deleteModal}
+            onCerrarModalEliminar={solicitudesData.cerrarModalEliminar}
+            onConfirmarEliminacion={solicitudesData.confirmarEliminacion}
           />
         )}
 
@@ -70,8 +76,11 @@ function Admin() {
             onFormSubmit={testimoniosData.guardarTestimonio}
             onCancelar={testimoniosData.cancelarEdicion}
             onEditar={testimoniosData.editarTestimonio}
-            onEliminar={testimoniosData.eliminarTestimonio}
+            onEliminar={testimoniosData.abrirModalEliminar}
             formatearFecha={formatearFecha}
+            deleteModal={testimoniosData.deleteModal}
+            onCerrarModalEliminar={testimoniosData.cerrarModalEliminar}
+            onConfirmarEliminacion={testimoniosData.confirmarEliminacion}
           />
         )}
 
@@ -86,8 +95,11 @@ function Admin() {
             onFormSubmit={novedadesData.guardarNovedad}
             onCancelar={novedadesData.cancelarEdicion}
             onEditar={novedadesData.editarNovedad}
-            onEliminar={novedadesData.eliminarNovedad}
+            onEliminar={novedadesData.abrirModalEliminar}
             formatearFecha={formatearFecha}
+            deleteModal={novedadesData.deleteModal}
+            onCerrarModalEliminar={novedadesData.cerrarModalEliminar}
+            onConfirmarEliminacion={novedadesData.confirmarEliminacion}
           />
         )}
 
@@ -103,7 +115,7 @@ function Admin() {
             onCursoSubmit={cursosData.guardarCurso}
             onCancelar={cursosData.cancelarEdicion}
             onEditar={cursosData.editarCurso}
-            onEliminar={cursosData.eliminarCurso}
+            onEliminar={cursosData.abrirModalEliminarCurso}
             showDictadoModal={cursosData.showDictadoModal}
             cursoSeleccionado={cursosData.cursoSeleccionado}
             formDictado={cursosData.formDictado}
@@ -112,10 +124,19 @@ function Admin() {
             onAbrirModalDictado={cursosData.abrirModalDictado}
             onCerrarModalDictado={cursosData.cerrarModalDictado}
             onDictadoSubmit={cursosData.guardarDictado}
-            onEliminarDictado={cursosData.eliminarDictado}
+            onEliminarDictado={cursosData.abrirModalEliminarDictado}
             formatearFecha={formatearFecha}
+            deleteModal={cursosData.deleteModal}
+            onCerrarModalEliminar={cursosData.cerrarModalEliminar}
+            onConfirmarEliminacion={cursosData.confirmarEliminacion}
           />
         )}
+
+        <LogoutConfirmationModal
+          isOpen={showLogoutModal}
+          onClose={() => setShowLogoutModal(false)}
+          onConfirm={handleLogout}
+        />
       </div>
     </div>
   );

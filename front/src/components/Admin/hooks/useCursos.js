@@ -24,6 +24,12 @@ export function useCursos() {
     duracionEstimada: 1,
     diasSemana: [],
   });
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    type: null,
+    id: null,
+    name: "",
+  });
 
   const getAuthHeaders = () => {
     const token = localStorage.getItem("token");
@@ -151,9 +157,43 @@ export function useCursos() {
     });
   };
 
-  const eliminarCurso = async (id) => {
-    if (!window.confirm("¿Estás seguro de eliminar este curso?")) return;
+  const abrirModalEliminarCurso = (curso) => {
+    setDeleteModal({
+      isOpen: true,
+      type: "curso",
+      id: curso.id,
+      name: curso.titulo,
+    });
+  };
 
+  const abrirModalEliminarDictado = (dictado, cursoTitulo) => {
+    setDeleteModal({
+      isOpen: true,
+      type: "dictado",
+      id: dictado.id,
+      name: `${cursoTitulo} - ${dictado.horarioInicio}`,
+    });
+  };
+
+  const cerrarModalEliminar = () => {
+    setDeleteModal({
+      isOpen: false,
+      type: null,
+      id: null,
+      name: "",
+    });
+  };
+
+  const confirmarEliminacion = async () => {
+    if (deleteModal.type === "curso") {
+      await eliminarCurso(deleteModal.id);
+    } else if (deleteModal.type === "dictado") {
+      await eliminarDictado(deleteModal.id);
+    }
+    cerrarModalEliminar();
+  };
+
+  const eliminarCurso = async (id) => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/cursos/${id}`, {
@@ -308,8 +348,6 @@ export function useCursos() {
   };
 
   const eliminarDictado = async (dictadoId) => {
-    if (!window.confirm("¿Estás seguro de eliminar este dictado?")) return;
-
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/cursos/dictados/${dictadoId}`, {
@@ -347,7 +385,7 @@ export function useCursos() {
     eliminarItem,
     guardarCurso,
     editarCurso,
-    eliminarCurso,
+    abrirModalEliminarCurso,
     cancelarEdicion,
     showDictadoModal,
     cursoSeleccionado,
@@ -357,6 +395,9 @@ export function useCursos() {
     abrirModalDictado,
     cerrarModalDictado,
     guardarDictado,
-    eliminarDictado,
+    abrirModalEliminarDictado,
+    deleteModal,
+    cerrarModalEliminar,
+    confirmarEliminacion,
   };
 }

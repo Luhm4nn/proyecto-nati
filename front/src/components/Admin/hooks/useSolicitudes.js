@@ -20,6 +20,11 @@ export function useSolicitudes() {
     revisada: 0,
     contactada: 0,
   });
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    id: null,
+    name: "",
+  });
 
   const getAuthHeaders = () => {
     const token = localStorage.getItem("token");
@@ -123,9 +128,28 @@ export function useSolicitudes() {
     }
   };
 
-  const eliminarSolicitud = async (id) => {
-    if (!confirm("¿Estás segura de eliminar esta solicitud?")) return;
+  const abrirModalEliminar = (solicitud) => {
+    setDeleteModal({
+      isOpen: true,
+      id: solicitud.id,
+      name: solicitud.nombreCompleto,
+    });
+  };
 
+  const cerrarModalEliminar = () => {
+    setDeleteModal({
+      isOpen: false,
+      id: null,
+      name: "",
+    });
+  };
+
+  const confirmarEliminacion = async () => {
+    await eliminarSolicitud(deleteModal.id);
+    cerrarModalEliminar();
+  };
+
+  const eliminarSolicitud = async (id) => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/solicitudes/${id}`, {
@@ -160,7 +184,10 @@ export function useSolicitudes() {
     paginacion,
     contadores,
     cambiarEstado,
-    eliminarSolicitud,
+    abrirModalEliminar,
     cargarSolicitudes,
+    deleteModal,
+    cerrarModalEliminar,
+    confirmarEliminacion,
   };
 }

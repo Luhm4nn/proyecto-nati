@@ -1,6 +1,7 @@
 import CursoForm from "./CursoForm";
 import CursoCard from "./CursoCard";
 import DictadoModal from "./DictadoModal";
+import DeleteConfirmationModal from "../DeleteConfirmationModal";
 import "./CursosTab.css";
 
 function CursosTab({
@@ -25,7 +26,17 @@ function CursosTab({
   onDictadoSubmit,
   onEliminarDictado,
   formatearFecha,
+  deleteModal,
+  onCerrarModalEliminar,
+  onConfirmarEliminacion,
 }) {
+  const getDeleteMessage = () => {
+    if (deleteModal.type === "curso") {
+      return "¿Estás seguro de que deseas eliminar este curso? Se eliminarán también todos sus dictados asociados.";
+    }
+    return "¿Estás seguro de que deseas eliminar este dictado?";
+  };
+
   return (
     <div className="tab-content">
       <CursoForm
@@ -69,6 +80,15 @@ function CursosTab({
         onSubmit={onDictadoSubmit}
         onClose={onCerrarModalDictado}
         onEliminarDictado={onEliminarDictado}
+      />
+
+      <DeleteConfirmationModal
+        isOpen={deleteModal.isOpen}
+        onClose={onCerrarModalEliminar}
+        onConfirm={onConfirmarEliminacion}
+        title={deleteModal.type === "curso" ? "Eliminar Curso" : "Eliminar Dictado"}
+        message={getDeleteMessage()}
+        itemName={deleteModal.name}
       />
     </div>
   );
