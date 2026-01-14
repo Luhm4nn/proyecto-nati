@@ -31,6 +31,7 @@
     text-decoration: none;
     cursor: pointer;
     transition: transform 0.3s ease;
+    margin-left: -4px; /* Slight shift left */
 }
 
 .navbar-logo-link:hover {
@@ -72,6 +73,7 @@
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
+    margin-right: 2rem; /* Added margin to separate from actions */
 }
 
 .navbar.scrolled .navbar-links {
@@ -245,6 +247,13 @@
         border-radius: 0;
         border: none;
         backdrop-filter: none;
+    }
+
+    .navbar.scrolled .navbar-links {
+        background: white;
+        border: none;
+        backdrop-filter: none;
+        padding: 3rem;
     }
 
     .navbar-links.active {
