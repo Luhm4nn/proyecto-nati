@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,8 +16,26 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (location.pathname === "/" && location.hash) {
+      const id = location.hash.replace("#", "");
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+          // Clear hash after scroll to avoid re-triggering if not needed? 
+          // Usually better to leave it but for React it might be better to clean up
+        }
+      }, 100);
+    }
+  }, [location]);
+
   const scrollToSection = (id) => {
     setMenuOpen(false);
+    if (location.pathname !== "/") {
+      navigate(`/#${id}`);
+      return;
+    }
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -23,9 +43,13 @@ function Navbar() {
   };
 
   const handleLogoClick = (e) => {
-    e.preventDefault();
     setMenuOpen(false);
-    scrollToSection("hero");
+    if (location.pathname !== "/") {
+      navigate("/");
+    } else {
+      e.preventDefault();
+      scrollToSection("hero");
+    }
   };
 
   return (

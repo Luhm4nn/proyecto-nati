@@ -1,33 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Novedades from './components/Novedades';
-import Features from './components/Features';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import Admin from './components/Admin';
+import LandingPage from './pages/LandingPage';
+import AboutMe from './pages/AboutMe';
 import Login from './components/Login';
+import Admin from './components/Admin';
 import ProtectedRoute from './components/shared/ProtectedRoute';
 import { ToastProvider } from './contexts/ToastContext';
 
 
-// Landing Page Composition
-function LandingPage() {
-  return (
-    <>
-      <Navbar />
-      <Hero />
-      <Novedades />
-      <Features />
-      <Testimonials />
-      <FAQ />
-      <Contact />
-      <Footer />
-    </>
-  );
-}
 
 function App() {
   return (
@@ -35,6 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/sobre-mi" element={<AboutMe />} />
           <Route path="/login" element={<Login />} />
           <Route
             path="/admin"

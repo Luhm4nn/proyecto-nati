@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Features.css';
 
 function Features() {
@@ -24,6 +25,16 @@ function Features() {
                         </div>
                     ))}
                 </div>
+
+                <Link to="/sobre-mi" className="about-me-banner-card">
+                    <div className="about-me-banner-content">
+                        <div className="about-me-banner-text">
+                            <h3>Conocé a tu profesora Natalia</h3>
+                            <p>Descubrí mi trayectoria, mi pasión por la enseñanza del alemán y cómo puedo acompañarte a lograr tus objetivos con un enfoque personalizado.</p>
+                        </div>
+                        <span className="about-me-banner-link">Saber más sobre mí →</span>
+                    </div>
+                </Link>
             </div>
         </section>
     );

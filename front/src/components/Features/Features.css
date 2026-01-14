@@ -105,6 +105,105 @@
     color: white;
 }
 
+.about-me-banner-card {
+    margin-top: 3rem;
+    background: linear-gradient(135deg, var(--color-primary), #4f46e5);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: var(--shadow-lg);
+}
+
+.about-me-banner-card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    width: 300px;
+    height: 300px;
+    background: url('/natiluhmannlogofinal2022 (1).jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    transform: translateY(-50%) scale(1.5);
+    opacity: 0.1;
+    transition: all 0.4s ease;
+}
+
+.about-me-banner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+    filter: brightness(1.05);
+}
+
+.about-me-banner-card:hover::before {
+    opacity: 0.15;
+    transform: translateY(-50%) scale(1.6);
+}
+
+.about-me-banner-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+}
+
+.about-me-banner-text {
+    flex: 1;
+}
+
+.about-me-banner-text h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.about-me-banner-text p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 700px;
+}
+
+.about-me-banner-link {
+    font-weight: 700;
+    font-family: var(--font-heading);
+    background: white;
+    color: var(--color-primary);
+    padding: 1rem 2rem;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.about-me-banner-card:hover .about-me-banner-link {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 900px) {
+    .about-me-banner-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .about-me-banner-text p {
+        margin: 0 auto;
+    }
+
+    .about-me-banner-card::before {
+        right: 50%;
+        transform: translate(50%, -50%) scale(1.5);
+    }
+}
+
 
 @media (max-width: 900px) {
     .features-grid {
