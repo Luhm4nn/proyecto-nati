@@ -1,28 +1,41 @@
 import "./AdminTabs.css";
 
 function AdminTabs({ activeTab, setActiveTab }) {
+  const tabs = [
+    { id: "solicitudes", label: "Solicitudes" },
+    { id: "testimonios", label: "Testimonios" },
+    { id: "novedades", label: "Novedades" },
+    { id: "cursos", label: "Cursos" }
+  ];
+
   return (
-    <div className="tabs">
-      <button
-        className={activeTab === "solicitudes" ? "tab-btn active" : "tab-btn"}
-        onClick={() => setActiveTab("solicitudes")}
+    <>
+      <select 
+        className="tabs-dropdown"
+        value={activeTab}
+        onChange={(e) => setActiveTab(e.target.value)}
       >
-        Solicitudes
-      </button>
-      <button
-        className={activeTab === "testimonios" ? "tab-btn active" : "tab-btn"}
-        onClick={() => setActiveTab("testimonios")}
-      >
-        Testimonios
-      </button>
-      <button
-        className={activeTab === "novedades" ? "tab-btn active" : "tab-btn"}
-        onClick={() => setActiveTab("novedades")}
-      >
-        Novedades
-      </button>
-    </div>
+        {tabs.map(tab => (
+          <option key={tab.id} value={tab.id}>
+            {tab.label}
+          </option>
+        ))}
+      </select>
+
+      <div className="tabs tabs-buttons">
+        {tabs.map(tab => (
+          <button
+            key={tab.id}
+            className={activeTab === tab.id ? "tab-btn active" : "tab-btn"}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+    </>
   );
 }
 
 export default AdminTabs;
+

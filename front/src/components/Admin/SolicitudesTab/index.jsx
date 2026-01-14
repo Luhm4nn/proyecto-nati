@@ -2,6 +2,7 @@ import "./SolicitudesTab.css";
 import FiltrosSolicitudes from "./FiltrosSolicitudes";
 import SolicitudCard from "./SolicitudCard";
 import Paginacion from "./Paginacion";
+import DeleteConfirmationModal from "../DeleteConfirmationModal";
 
 function SolicitudesTab({
   solicitudes,
@@ -15,6 +16,9 @@ function SolicitudesTab({
   onCambiarPagina,
   formatearFecha,
   getEstadoColor,
+  deleteModal,
+  onCerrarModalEliminar,
+  onConfirmarEliminacion,
 }) {
   return (
     <div className="tab-content">
@@ -52,8 +56,18 @@ function SolicitudesTab({
           />
         </>
       )}
+
+      <DeleteConfirmationModal
+        isOpen={deleteModal.isOpen}
+        onClose={onCerrarModalEliminar}
+        onConfirm={onConfirmarEliminacion}
+        title="Eliminar Solicitud"
+        message="¿Estás seguro de que deseas eliminar esta solicitud?"
+        itemName={deleteModal.name}
+      />
     </div>
   );
 }
 
 export default SolicitudesTab;
+

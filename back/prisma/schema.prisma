@@ -51,3 +51,31 @@ model Novedad {
 
   @@map("novedades")
 }
+
+model Curso {
+  id              Int             @id @default(autoincrement())
+  titulo          String
+  descripcion     String          @db.Text
+  items           String[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  dictadosCurso   DictadoCurso[]
+
+  @@map("cursos")
+}
+
+model DictadoCurso {
+  id                Int      @id @default(autoincrement())
+  cursoId           Int
+  curso             Curso    @relation(fields: [cursoId], references: [id], onDelete: Cascade)
+  horarioInicio     String
+  horarioFin        String
+  fechaInicio       DateTime
+  fechaFin          DateTime
+  duracionEstimada  Int
+  diasSemana        String[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("dictados_curso")
+}

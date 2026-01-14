@@ -14,6 +14,11 @@ export function useNovedades() {
     imagen: null,
   });
   const [previewImagen, setPreviewImagen] = useState(null);
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    id: null,
+    name: "",
+  });
 
   const getAuthHeaders = () => {
     const token = localStorage.getItem("token");
@@ -177,9 +182,28 @@ export function useNovedades() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const eliminarNovedad = async (id) => {
-    if (!confirm("¿Estás segura de eliminar esta novedad?")) return;
+  const abrirModalEliminar = (novedad) => {
+    setDeleteModal({
+      isOpen: true,
+      id: novedad.id,
+      name: novedad.titulo,
+    });
+  };
 
+  const cerrarModalEliminar = () => {
+    setDeleteModal({
+      isOpen: false,
+      id: null,
+      name: "",
+    });
+  };
+
+  const confirmarEliminacion = async () => {
+    await eliminarNovedad(deleteModal.id);
+    cerrarModalEliminar();
+  };
+
+  const eliminarNovedad = async (id) => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/novedades/${id}`, {
@@ -223,8 +247,11 @@ export function useNovedades() {
     handleImagenChange,
     guardarNovedad,
     editarNovedad,
-    eliminarNovedad,
+    abrirModalEliminar,
     cancelarEdicion,
     cargarNovedades,
+    deleteModal,
+    cerrarModalEliminar,
+    confirmarEliminacion,
   };
 }

@@ -13,6 +13,11 @@ export function useTestimonios() {
     texto: "",
     activo: true,
   });
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    id: null,
+    name: "",
+  });
 
   const getAuthHeaders = () => {
     const token = localStorage.getItem("token");
@@ -129,9 +134,28 @@ export function useTestimonios() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const eliminarTestimonio = async (id) => {
-    if (!confirm("¿Estás segura de eliminar este testimonio?")) return;
+  const abrirModalEliminar = (testimonio) => {
+    setDeleteModal({
+      isOpen: true,
+      id: testimonio.id,
+      name: testimonio.nombreCompleto,
+    });
+  };
 
+  const cerrarModalEliminar = () => {
+    setDeleteModal({
+      isOpen: false,
+      id: null,
+      name: "",
+    });
+  };
+
+  const confirmarEliminacion = async () => {
+    await eliminarTestimonio(deleteModal.id);
+    cerrarModalEliminar();
+  };
+
+  const eliminarTestimonio = async (id) => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/testimonios/${id}`, {
@@ -168,7 +192,10 @@ export function useTestimonios() {
     handleTestimonioChange,
     guardarTestimonio,
     editarTestimonio,
-    eliminarTestimonio,
+    abrirModalEliminar,
     cancelarEdicion,
+    deleteModal,
+    cerrarModalEliminar,
+    confirmarEliminacion,
   };
 }

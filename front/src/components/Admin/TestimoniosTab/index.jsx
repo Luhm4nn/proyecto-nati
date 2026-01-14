@@ -1,6 +1,7 @@
 import "./TestimoniosTab.css";
 import TestimonioForm from "./TestimonioForm";
 import TestimonioCard from "./TestimonioCard";
+import DeleteConfirmationModal from "../DeleteConfirmationModal";
 
 function TestimoniosTab({
   testimonios,
@@ -12,6 +13,9 @@ function TestimoniosTab({
   onEditar,
   onEliminar,
   formatearFecha,
+  deleteModal,
+  onCerrarModalEliminar,
+  onConfirmarEliminacion,
 }) {
   return (
     <div className="tab-content">
@@ -40,8 +44,18 @@ function TestimoniosTab({
           ))}
         </div>
       )}
+
+      <DeleteConfirmationModal
+        isOpen={deleteModal.isOpen}
+        onClose={onCerrarModalEliminar}
+        onConfirm={onConfirmarEliminacion}
+        title="Eliminar Testimonio"
+        message="¿Estás seguro de que deseas eliminar este testimonio?"
+        itemName={deleteModal.name}
+      />
     </div>
   );
 }
 
 export default TestimoniosTab;
+

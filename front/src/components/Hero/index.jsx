@@ -34,8 +34,8 @@ function Hero() {
     return () => clearInterval(interval);
   }, [images.length]);
 
-  const scrollToContact = () => {
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  const scrollToCursos = () => {
+    document.getElementById('cursos').scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -62,7 +62,7 @@ function Hero() {
           Clases online 1 a 1 adaptadas a tus objetivos: trabajo, estudios o viajes. Con profesora certificada.
         </p>
 
-        <button className="hero-cta-main" onClick={scrollToContact}>
+        <button className="hero-cta-main" onClick={scrollToCursos}>
           Reservá tu Primera Clase
         </button>
       </div>

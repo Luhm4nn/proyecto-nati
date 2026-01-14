@@ -1,6 +1,7 @@
 import "./NovedadesTab.css";
 import NovedadForm from "./NovedadForm";
 import NovedadCard from "./NovedadCard";
+import DeleteConfirmationModal from "../DeleteConfirmationModal";
 
 function NovedadesTab({
   novedades,
@@ -14,6 +15,9 @@ function NovedadesTab({
   onEditar,
   onEliminar,
   formatearFecha,
+  deleteModal,
+  onCerrarModalEliminar,
+  onConfirmarEliminacion,
 }) {
   return (
     <div className="tab-content">
@@ -44,8 +48,18 @@ function NovedadesTab({
           ))}
         </div>
       )}
+
+      <DeleteConfirmationModal
+        isOpen={deleteModal.isOpen}
+        onClose={onCerrarModalEliminar}
+        onConfirm={onConfirmarEliminacion}
+        title="Eliminar Novedad"
+        message="¿Estás seguro de que deseas eliminar esta novedad?"
+        itemName={deleteModal.name}
+      />
     </div>
   );
 }
 
 export default NovedadesTab;
+
