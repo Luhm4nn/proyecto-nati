@@ -1,13 +1,11 @@
 .contact-section {
   background-color: var(--bg-primary);
-  /* Changed from black */
   color: var(--text-primary);
   padding-bottom: 8rem;
   position: relative;
   overflow: hidden;
 }
 
-/* Background blob aesthetics */
 .contact-section::before {
   content: '';
   position: absolute;
@@ -23,7 +21,6 @@
 
 .section-title.white {
   color: var(--text-primary);
-  /* Changed to primary dark text */
   margin-bottom: 0.5rem;
   font-size: 2.5rem;
 }
@@ -62,17 +59,26 @@
   margin-bottom: 1.5rem;
 }
 
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  text-align: left;
+}
+
 .form-group input,
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 1rem;
-  background-color: var(--bg-primary) !important;
-  border: 1px solid transparent !important;
-  color: var(--text-primary) !important;
+  padding: 0.8rem 1rem;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  color: var(--text-primary);
   font-family: var(--font-body);
-  font-size: 0.95rem;
-  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  border-radius: var(--radius-md);
   transition: all 0.3s ease;
 }
 
@@ -80,17 +86,15 @@
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  background-color: white !important;
-  border-color: var(--color-primary) !important;
+  border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .form-group textarea {
-  resize: none;
-  min-height: 150px;
-  max-height: 150px;
-  overflow-y: auto;
+  resize: vertical;
+  min-height: 120px;
 }
+
 
 /* Scrollbar tweaks */
 .form-group textarea::-webkit-scrollbar {

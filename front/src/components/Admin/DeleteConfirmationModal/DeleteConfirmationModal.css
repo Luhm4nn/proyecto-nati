@@ -1,0 +1,133 @@
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.delete-modal-content {
+  background: white;
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delete-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.delete-modal-header h2 {
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  margin: 0;
+  font-family: var(--font-heading);
+}
+
+.delete-modal-body {
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.delete-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.delete-message {
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+}
+
+.delete-item-name {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-primary);
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+.delete-warning {
+  color: var(--color-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.delete-modal-actions {
+  display: flex;
+  gap: 0.8rem;
+  padding: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.btn-delete-confirm {
+  flex: 1;
+  background: var(--color-secondary);
+  color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-delete-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
+  filter: brightness(1.1);
+}
+
+@media (max-width: 768px) {
+  .delete-modal-content {
+    max-width: 100%;
+  }
+
+  .delete-modal-actions {
+    flex-direction: column;
+  }
+
+  .btn-delete-confirm,
+  .btn-cancelar {
+    width: 100%;
+  }
+}

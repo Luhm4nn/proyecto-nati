@@ -1,4 +1,11 @@
 import DOMPurify from "dompurify";
+import CustomSelect from "../../shared/CustomSelect";
+
+const ESTADO_OPTIONS = [
+  { value: "pendiente", label: "Pendiente" },
+  { value: "revisada", label: "Revisada" },
+  { value: "contactada", label: "Contactada" },
+];
 
 function SolicitudCard({ solicitud, onCambiarEstado, onEliminar, formatearFecha, getEstadoColor }) {
   return (
@@ -32,15 +39,15 @@ function SolicitudCard({ solicitud, onCambiarEstado, onEliminar, formatearFecha,
       </div>
 
       <div className="solicitud-actions">
-        <select
-          value={solicitud.estado}
-          onChange={(e) => onCambiarEstado(solicitud.id, e.target.value)}
-          className="estado-select"
-        >
-          <option value="pendiente">Pendiente</option>
-          <option value="revisada">Revisada</option>
-          <option value="contactada">Contactada</option>
-        </select>
+        <div style={{ width: '200px' }}>
+            <CustomSelect
+                value={solicitud.estado}
+                options={ESTADO_OPTIONS}
+                onChange={(e) => onCambiarEstado(solicitud.id, e.target.value)}
+                placeholder="Estado"
+                name="estado"
+            />
+        </div>
         <button
           onClick={() => onEliminar(solicitud.id)}
           className="btn-eliminar"

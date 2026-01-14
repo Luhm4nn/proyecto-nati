@@ -10,15 +10,14 @@
 
 .custom-select-input {
     width: 100%;
-    padding: 1rem 1.5rem;
-    background: rgba(255, 255, 255, 0.9);
-    border: 2px solid transparent;
+    padding: 0.8rem 1rem;
+    background: white;
+    border: 1px solid #e2e8f0;
     border-radius: var(--radius-md);
     font-family: var(--font-body);
     font-size: 1rem;
     color: var(--text-primary);
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
     cursor: pointer;
 }
 
