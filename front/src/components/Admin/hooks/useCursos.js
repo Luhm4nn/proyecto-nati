@@ -155,7 +155,9 @@ export function useCursos() {
       descripcion: curso.descripcion,
       items: curso.items.length > 0 ? curso.items : [""],
     });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
 
   const abrirModalEliminarCurso = (curso) => {
     setDeleteModal({
