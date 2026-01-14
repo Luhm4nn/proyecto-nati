@@ -61,7 +61,7 @@ function Login() {
 
   return (
     <div className="login-page">
-      <div className="login-container">
+      <div className="login-container card">
         <div className="login-header">
           <img
             src="/natiluhmannlogofinal2022 (1).jpg"
@@ -122,7 +122,7 @@ function Login() {
 
           {error && <div className="error-message">{error}</div>}
 
-          <button type="submit" className="login-btn" disabled={loading}>
+          <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
             {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
           </button>
         </form>

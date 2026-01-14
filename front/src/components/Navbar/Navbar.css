@@ -31,7 +31,7 @@
     text-decoration: none;
     cursor: pointer;
     transition: transform 0.3s ease;
-    margin-left: -4px; /* Slight shift left */
+    margin-left: -4px;
 }
 
 .navbar-logo-link:hover {
@@ -73,7 +73,7 @@
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
-    margin-right: 2rem; /* Added margin to separate from actions */
+    margin-right: 2rem;
 }
 
 .navbar.scrolled .navbar-links {
@@ -160,7 +160,6 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Mobile */
 .menu-toggle {
     display: none;
     background: none;
@@ -231,7 +230,6 @@
 @media (max-width: 768px) {
     .navbar-links {
         display: none;
-        /* Default hidden */
         position: fixed;
         top: 0;
         right: 0;

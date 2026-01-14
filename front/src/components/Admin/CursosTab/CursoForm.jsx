@@ -62,14 +62,15 @@ function CursoForm({
                 <button
                   type="button"
                   onClick={() => onEliminarItem(index)}
-                  className="btn-eliminar-item"
+                  className="btn-eliminar"
+                  style={{ padding: '0.4rem 0.8rem' }}
                 >
                   ✕
                 </button>
               )}
             </div>
           ))}
-          <button type="button" onClick={onAgregarItem} className="btn-agregar-item">
+          <button type="button" onClick={onAgregarItem} className="btn-editar">
             + Agregar Item
           </button>
         </div>

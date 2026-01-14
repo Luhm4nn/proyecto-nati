@@ -92,8 +92,10 @@ ${formData.mensaje}`;
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-grid">
               <div className="form-group">
+                <label htmlFor="nombre">Nombre Completo</label>
                 <input
                   type="text"
+                  id="nombre"
                   name="nombre"
                   value={formData.nombre}
                   onChange={handleChange}
@@ -102,8 +104,10 @@ ${formData.mensaje}`;
                 />
               </div>
               <div className="form-group">
+                <label htmlFor="email">Correo Electrónico</label>
                 <input
                   type="email"
+                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
@@ -112,23 +116,25 @@ ${formData.mensaje}`;
                 />
               </div>
               <div className="form-group">
+                <label htmlFor="telefono">Teléfono (Opcional)</label>
                 <input
                   type="tel"
+                  id="telefono"
                   name="telefono"
                   value={formData.telefono}
                   onChange={handleChange}
-                  placeholder="Tu Teléfono (Opcional)"
+                  placeholder="Tu Teléfono"
                   maxLength="20"
                 />
               </div>
               <div className="form-group">
+                <label>Nivel Actual de Alemán</label>
                 <CustomSelect
                   name="nivel"
                   value={formData.nivel}
                   onChange={handleChange}
                   options={levelOptions}
-                  placeholder="Tu Nivel Actual"
-                  required
+                  placeholder="Selecciona tu nivel"
                 />
                 <div className="test-link-wrapper">
                   <a
@@ -142,19 +148,21 @@ ${formData.mensaje}`;
                 </div>
               </div>
               <div className="form-group">
+                <label>¿Desde dónde tomarás las clases?</label>
                 <CustomSelect
                   name="pais"
                   value={formData.pais}
                   onChange={handleChange}
                   options={countries}
-                  placeholder="¿Desde dónde tomarás las clases?"
-                  required
+                  placeholder="Selecciona tu ubicación"
                 />
               </div>
             </div>
 
             <div className="form-group full-width">
+              <label htmlFor="mensaje">Tu Mensaje o Consulta</label>
               <textarea
+                id="mensaje"
                 name="mensaje"
                 value={formData.mensaje}
                 onChange={handleChange}

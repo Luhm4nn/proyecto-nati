@@ -1,6 +1,6 @@
 
 .inscripcion-page {
-    padding-top: 2rem; /* Reduced padding since no navbar */
+    padding-top: 2rem;
     min-height: 100vh;
     background-color: var(--bg-primary);
 }
@@ -34,7 +34,7 @@
 .inscripcion-title {
     font-size: 2.5rem;
     color: var(--text-primary);
-    margin-bottom: 0.5rem; /* Less margin since description is moved */
+    margin-bottom: 0.5rem;
     background: linear-gradient(135deg, var(--color-primary), #818cf8);
     -webkit-background-clip: text;
     background-clip: text;
@@ -47,13 +47,12 @@
     gap: 3rem;
 }
 
-/* Feature Card (Description + Points) */
 .inscripcion-feature-card {
     background: white;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
     display: grid;
-    grid-template-columns: 1fr 340px; /* Description wide, points column fixed width */
+    grid-template-columns: 1fr 340px;
     overflow: hidden;
 }
 
@@ -113,7 +112,6 @@
     margin-top: 2px;
 }
 
-/* Dictados Section (Full Width Grid) */
 .inscripcion-dictados-section {
     background: transparent;
 }
@@ -234,7 +232,6 @@
     }
 }
 
-/* Loading Spinner */
 .loading-spinner-container {
     display: flex;
     justify-content: center;

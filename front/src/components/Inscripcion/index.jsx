@@ -14,7 +14,6 @@ function Inscripcion() {
         const fetchCurso = async () => {
             try {
                 const apiUrl = import.meta.env.VITE_API_URL;
-                // GET /cursos/:id in backend returns the course with dictadosCurso included
                 const response = await fetch(`${apiUrl}/cursos/${id}`);
                 
                 if (!response.ok) {
@@ -85,7 +84,6 @@ function Inscripcion() {
                     </div>
 
                     <div className="inscripcion-content">
-                        {/* Curso Details Card */}
                         <div className="inscripcion-feature-card">
                             <div className="feature-card-left">
                                 <h2 className="inscripcion-section-title">
@@ -112,7 +110,6 @@ function Inscripcion() {
                             </div>
                         </div>
 
-                        {/* Dictados Section (Full Width) */}
                         <div className="inscripcion-dictados-section">
                             <h2 className="inscripcion-section-title">
                                 Horarios de Cursado

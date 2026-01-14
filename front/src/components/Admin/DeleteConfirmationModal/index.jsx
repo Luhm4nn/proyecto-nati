@@ -40,7 +40,7 @@ function DeleteConfirmationModal({ isOpen, onClose, onConfirm, title, message, i
           <button onClick={onClose} className="btn-cancelar">
             Cancelar
           </button>
-          <button onClick={onConfirm} className="btn-delete-confirm">
+          <button onClick={onConfirm} className="btn-eliminar">
             Eliminar
           </button>
         </div>

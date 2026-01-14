@@ -84,7 +84,6 @@ function Admin() {
           />
         )}
 
-
         {activeTab === "novedades" && (
           <NovedadesTab
             novedades={novedadesData.novedades}
