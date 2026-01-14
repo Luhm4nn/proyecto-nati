@@ -6,9 +6,11 @@ import AdminTabs from "./AdminTabs";
 import SolicitudesTab from "./SolicitudesTab";
 import TestimoniosTab from "./TestimoniosTab";
 import NovedadesTab from "./NovedadesTab";
+import CursosTab from "./CursosTab";
 import { useSolicitudes } from "./hooks/useSolicitudes";
 import { useTestimonios } from "./hooks/useTestimonios";
 import { useNovedades } from "./hooks/useNovedades";
+import { useCursos } from "./hooks/useCursos";
 import { formatearFecha, getEstadoColor } from "./utils/helpers";
 import "./Admin.css";
 
@@ -21,6 +23,7 @@ function Admin() {
   const solicitudesData = useSolicitudes();
   const testimoniosData = useTestimonios();
   const novedadesData = useNovedades();
+  const cursosData = useCursos();
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -84,6 +87,32 @@ function Admin() {
             onCancelar={novedadesData.cancelarEdicion}
             onEditar={novedadesData.editarNovedad}
             onEliminar={novedadesData.eliminarNovedad}
+            formatearFecha={formatearFecha}
+          />
+        )}
+
+        {activeTab === "cursos" && (
+          <CursosTab
+            cursos={cursosData.cursos}
+            loading={cursosData.loading}
+            formCurso={cursosData.formCurso}
+            onCursoChange={cursosData.handleCursoChange}
+            onItemChange={cursosData.handleItemChange}
+            onAgregarItem={cursosData.agregarItem}
+            onEliminarItem={cursosData.eliminarItem}
+            onCursoSubmit={cursosData.guardarCurso}
+            onCancelar={cursosData.cancelarEdicion}
+            onEditar={cursosData.editarCurso}
+            onEliminar={cursosData.eliminarCurso}
+            showDictadoModal={cursosData.showDictadoModal}
+            cursoSeleccionado={cursosData.cursoSeleccionado}
+            formDictado={cursosData.formDictado}
+            onDictadoChange={cursosData.handleDictadoChange}
+            onToggleDia={cursosData.toggleDiaSemana}
+            onAbrirModalDictado={cursosData.abrirModalDictado}
+            onCerrarModalDictado={cursosData.cerrarModalDictado}
+            onDictadoSubmit={cursosData.guardarDictado}
+            onEliminarDictado={cursosData.eliminarDictado}
             formatearFecha={formatearFecha}
           />
         )}

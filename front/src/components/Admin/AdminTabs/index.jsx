@@ -21,6 +21,12 @@ function AdminTabs({ activeTab, setActiveTab }) {
       >
         Novedades
       </button>
+      <button
+        className={activeTab === "cursos" ? "tab-btn active" : "tab-btn"}
+        onClick={() => setActiveTab("cursos")}
+      >
+        Cursos
+      </button>
     </div>
   );
 }

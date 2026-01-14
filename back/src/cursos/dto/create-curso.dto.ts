@@ -3,14 +3,14 @@ import { IsArray, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-valid
 export class CreateCursoDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(3)
-  @MaxLength(150)
+  @MinLength(2)
+  @MaxLength(50)
   titulo: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(10)
-  @MaxLength(1000)
+  @MaxLength(500)
   descripcion: string;
 
   @IsArray()
