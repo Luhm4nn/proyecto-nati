@@ -24,8 +24,9 @@ export class CursosService {
       titulo: xss(createCursoDto.titulo),
       descripcion: xss(createCursoDto.descripcion),
       items: createCursoDto.items.map((item) => xss(item)),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
-
     return this.prisma.curso.create({
       data: dataSanitizada,
     });
@@ -37,7 +38,7 @@ export class CursosService {
   async findAll() {
     return this.prisma.curso.findMany({
       include: {
-        dictadosCurso: true,
+        dictados_curso: true,
       },
       orderBy: {
         createdAt: 'desc',
@@ -52,7 +53,7 @@ export class CursosService {
     const curso = await this.prisma.curso.findUnique({
       where: { id },
       include: {
-        dictadosCurso: true,
+        dictados_curso: true,
       },
     });
 
@@ -82,9 +83,12 @@ export class CursosService {
 
     return this.prisma.curso.update({
       where: { id },
-      data: dataSanitizada,
+      data: {
+        ...dataSanitizada,
+        updatedAt: new Date(),
+      },
       include: {
-        dictadosCurso: true,
+        dictados_curso: true,
       },
     });
   }
@@ -135,6 +139,8 @@ export class CursosService {
         fechaFin: fechaFin,
         duracionEstimada: createDictadoDto.duracionEstimada,
         diasSemana: createDictadoDto.diasSemana,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       include: {
         curso: true,
@@ -217,6 +223,7 @@ export class CursosService {
         fechaFin: updateDictadoDto.fechaFin ? new Date(updateDictadoDto.fechaFin) : undefined,
         duracionEstimada: updateDictadoDto.duracionEstimada,
         diasSemana: updateDictadoDto.diasSemana,
+        updatedAt: new Date(),
       },
       include: {
         curso: true,

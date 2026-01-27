@@ -87,6 +87,8 @@ export class NovedadesService {
       descripcion: xss(createNovedadDto.descripcion),
       imagenUrl: url,
       imagenPublicId: publicId,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     return this.prisma.novedad.create({
@@ -170,7 +172,10 @@ export class NovedadesService {
 
     return this.prisma.novedad.update({
       where: { id },
-      data: dataSanitizada,
+      data: {
+        ...dataSanitizada,
+        updatedAt: new Date(),
+      },
     });
   }
 

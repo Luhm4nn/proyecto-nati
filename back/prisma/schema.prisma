@@ -41,41 +41,37 @@ model Testimonio {
 }
 
 model Novedad {
-  id          Int      @id @default(autoincrement())
-  titulo      String
-  descripcion String   @db.Text
-  imagenUrl   String
+  id             Int      @id @default(autoincrement())
+  titulo         String
+  descripcion    String
+  imagenUrl      String
   imagenPublicId String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime
 
   @@map("novedades")
 }
 
 model Curso {
-  id              Int             @id @default(autoincrement())
-  titulo          String
-  descripcion     String          @db.Text
-  items           String[]
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  dictadosCurso   DictadoCurso[]
-
-  @@map("cursos")
+  id             Int              @id @default(autoincrement())
+  titulo         String
+  descripcion    String
+  items          String[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime
+  dictados_curso DictadoCurso[]
 }
 
 model DictadoCurso {
-  id                Int      @id @default(autoincrement())
-  cursoId           Int
-  curso             Curso    @relation(fields: [cursoId], references: [id], onDelete: Cascade)
-  horarioInicio     String
-  horarioFin        String
-  fechaInicio       DateTime
-  fechaFin          DateTime
-  duracionEstimada  Int
-  diasSemana        String[]
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-
-  @@map("dictados_curso")
+  id               Int      @id @default(autoincrement())
+  cursoId          Int
+  horarioInicio    String
+  horarioFin       String
+  fechaInicio      DateTime
+  fechaFin         DateTime
+  duracionEstimada Int
+  diasSemana       String[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime
+  curso           Curso   @relation(fields: [cursoId], references: [id], onDelete: Cascade)
 }
