@@ -34,8 +34,8 @@ function Hero() {
     return () => clearInterval(interval);
   }, [images.length]);
 
-  const scrollToContact = () => {
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  const scrollToCursos = () => {
+    document.getElementById('cursos').scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -56,13 +56,13 @@ function Hero() {
           <h1 className="hero-brand-name">Alemán para vos<span className="hero-brand-subtitle">Natalia Luhmann</span></h1>
         </div>
 
-        <h2 className="hero-main-title">Aprendé <span className="text-red">Alemán</span> con Clases <span className="text-gold">Personalizadas</span></h2>
+        <h2 className="hero-main-title">Aprendé <span className="text-highlight">Alemán</span> con Clases <span className="text-accent">Personalizadas</span></h2>
 
         <p className="hero-subtitle">
           Clases online 1 a 1 adaptadas a tus objetivos: trabajo, estudios o viajes. Con profesora certificada.
         </p>
 
-        <button className="hero-cta-main" onClick={scrollToContact}>
+        <button className="hero-cta-main" onClick={scrollToCursos}>
           Reservá tu Primera Clase
         </button>
       </div>
@@ -70,7 +70,7 @@ function Hero() {
       <div className="hero-banner">
         <div className="container">
           <h2 className="banner-text">
-           ¿Estás listo para llevar tu <span className="text-gold">alemán</span> al siguiente nivel?
+            ¿Estás listo para llevar tu <span className="text-gold">alemán</span> al siguiente nivel?
           </h2>
 
           <div className="banner-grid">

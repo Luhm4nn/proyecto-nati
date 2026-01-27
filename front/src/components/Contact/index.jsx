@@ -1,19 +1,30 @@
+
 import { useState } from "react";
 import { useToast } from "../../contexts/ToastContext";
 import "./Contact.css";
+import CustomSelect from "../shared/CustomSelect";
+import { countries } from "../shared/CustomSelect/countries";
 
 function Contact() {
   const { showSuccess, showError, showWarning } = useToast();
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
+    telefono: "",
     nivel: "",
-    objetivo: "",
+    pais: "",
     mensaje: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const levelOptions = [
+    "Sin conocimientos previos",
+    "Principiante (A1-A2)",
+    "Intermedio (B1-B2)",
+    "Avanzado (C1-C2)"
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +40,7 @@ function Contact() {
 
       const finalMessage = `Nivel: ${formData.nivel}
 
-Objetivo: ${formData.objetivo}
+País/Ubicación: ${formData.pais}
 
 Mensaje adicional:
 ${formData.mensaje}`;
@@ -40,19 +51,28 @@ ${formData.mensaje}`;
         mensaje: finalMessage
       };
 
+      if (formData.telefono && formData.telefono.trim() !== '') {
+        cleanData.telefono = formData.telefono.trim();
+      }
+
       const response = await fetch(`${apiUrl}/solicitudes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(cleanData),
       });
 
-      if (!response.ok) throw new Error("Error al enviar");
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("API Error details:", errorData);
+        throw new Error(errorData.message || "Error al enviar");
+      }
 
       showSuccess("¡Solicitud enviada! Te contactaré pronto.", 5000);
       setSubmitted(true);
-      setFormData({ nombre: "", email: "", nivel: "", objetivo: "", mensaje: "" });
+      setFormData({ nombre: "", email: "", telefono: "", nivel: "", pais: "", mensaje: "" });
       setTimeout(() => setSubmitted(false), 3000);
     } catch (err) {
+      console.error("Submission error:", err);
       showError("Hubo un error al enviar tu solicitud.");
     } finally {
       setLoading(false);
@@ -65,18 +85,17 @@ ${formData.mensaje}`;
         <div className="contact-wrapper">
           <div className="contact-header">
             <h2 className="section-title white">
-              ¿Listo para romper <span className="italic">barreras?</span>
+              ✉️ ¿Tienes consultas? Envianos un mensaje y te contactaré pronto.
             </h2>
-            <p className="contact-subtitle">
-              Reserva tu primera clase y habla con confianza.
-            </p>
           </div>
 
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-grid">
               <div className="form-group">
+                <label htmlFor="nombre">Nombre Completo</label>
                 <input
                   type="text"
+                  id="nombre"
                   name="nombre"
                   value={formData.nombre}
                   onChange={handleChange}
@@ -85,8 +104,10 @@ ${formData.mensaje}`;
                 />
               </div>
               <div className="form-group">
+                <label htmlFor="email">Correo Electrónico</label>
                 <input
                   type="email"
+                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
@@ -95,27 +116,53 @@ ${formData.mensaje}`;
                 />
               </div>
               <div className="form-group">
-                <select name="nivel" value={formData.nivel} onChange={handleChange} required>
-                  <option value="">Tu Nivel Actual</option>
-                  <option value="Sin conocimientos previos">Sin conocimientos previos</option>
-                  <option value="Principiante (A1-A2)">Principiante (A1-A2)</option>
-                  <option value="Intermedio (B1-B2)">Intermedio (B1-B2)</option>
-                  <option value="Avanzado (C1-C2)">Avanzado (C1-C2)</option>
-                </select>
+                <label htmlFor="telefono">Teléfono (Opcional)</label>
+                <input
+                  type="tel"
+                  id="telefono"
+                  name="telefono"
+                  value={formData.telefono}
+                  onChange={handleChange}
+                  placeholder="Tu Teléfono"
+                  maxLength="20"
+                />
               </div>
               <div className="form-group">
-                <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
-                  <option value="">Tu Objetivo Principal</option>
-                  <option value="Trabajo/Carrera">Trabajo / Carrera</option>
-                  <option value="Estudios/Universidad">Estudios / Universidad</option>
-                  <option value="Turismo/Hobby">Turismo / Hobby</option>
-                  <option value="Examen Oficial">Examen Oficial</option>
-                </select>
+                <label>Nivel Actual de Alemán</label>
+                <CustomSelect
+                  name="nivel"
+                  value={formData.nivel}
+                  onChange={handleChange}
+                  options={levelOptions}
+                  placeholder="Selecciona tu nivel"
+                />
+                <div className="test-link-wrapper">
+                  <a
+                    href="https://www.esl-idiomas.com/es/test-idiomas/aleman/test-linea"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="test-link"
+                  >
+                    ¿No sabes tu nivel? Haz un test rápido aquí
+                  </a>
+                </div>
+              </div>
+              <div className="form-group">
+                <label>¿Desde dónde tomarás las clases?</label>
+                <CustomSelect
+                  name="pais"
+                  value={formData.pais}
+                  onChange={handleChange}
+                  options={countries}
+                  placeholder="Selecciona tu ubicación"
+                />
               </div>
             </div>
 
             <div className="form-group full-width">
+              <label htmlFor="mensaje">Tu Mensaje o Consulta</label>
               <textarea
+                id="mensaje"
                 name="mensaje"
                 value={formData.mensaje}
                 onChange={handleChange}

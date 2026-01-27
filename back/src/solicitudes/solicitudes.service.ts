@@ -10,7 +10,7 @@ import xss from 'xss';
 
 @Injectable()
 export class SolicitudesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   /**
    * Crea una nueva solicitud verificando que no exista una duplicada en las últimas 24h
@@ -52,9 +52,9 @@ export class SolicitudesService {
 
   async findAll(estado?: string, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
-    
+
     const where = estado ? { estado } : undefined;
-    
+
     const [data, total] = await Promise.all([
       this.prisma.solicitud.findMany({
         where,
@@ -64,7 +64,7 @@ export class SolicitudesService {
       }),
       this.prisma.solicitud.count({ where }),
     ]);
-    
+
     return {
       data,
       pagination: {

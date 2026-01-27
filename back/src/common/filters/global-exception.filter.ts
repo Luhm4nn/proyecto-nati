@@ -34,11 +34,12 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       method: request.method,
       message: exception instanceof Error ? exception.message : exception,
       stack: exception instanceof Error ? exception.stack : undefined,
+      validationErrors: exception instanceof HttpException ? exception.getResponse() : undefined,
     });
 
     // Mensaje genérico para el cliente (previene information disclosure)
-    const clientMessage = typeof message === 'string' 
-      ? message 
+    const clientMessage = typeof message === 'string'
+      ? message
       : (message as any).message || 'Ha ocurrido un error';
 
     response.status(status).json({

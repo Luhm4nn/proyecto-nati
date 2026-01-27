@@ -1,0 +1,198 @@
+/* Novedad Form Specific */
+.novedad-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Preview Section - Estilo del carrusel */
+.novedad-preview-section {
+  margin: 2rem 0;
+  padding: 4rem 2rem 3rem;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+}
+
+.preview-label {
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.carousel-preview {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.carousel-preview-track {
+  position: relative;
+  min-height: 550px;
+}
+
+/* Preview hereda estilos base del carrusel */
+.carousel-preview .novedad-card-public {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Botones decorativos del preview */
+.carousel-preview-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  font-size: 2rem;
+  color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.carousel-preview-btn-prev {
+  left: 0;
+}
+
+.carousel-preview-btn-next {
+  right: 0;
+}
+
+/* Dots decorativos del preview */
+.carousel-preview-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 2.5rem;
+}
+
+.carousel-preview-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  background: var(--color-primary);
+}
+
+.carousel-preview-dot:not(:first-child) {
+  background: transparent;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .novedad-preview-section {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .carousel-preview {
+    padding: 0 50px;
+  }
+
+  .carousel-preview-track {
+    min-height: 500px;
+  }
+
+  /* Media queries heredan de estilos base */
+
+  .carousel-preview-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+}
+
+/* Novedad Card */
+.novedad-card {
+  background: #fafafa;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.novedad-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.novedad-imagen {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.novedad-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.novedad-content {
+  padding: 2rem;
+}
+
+.novedad-header {
+  margin-bottom: 1rem;
+}
+
+.novedad-header h3 {
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.novedad-descripcion {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.novedad-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.novedad-actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .novedad-imagen {
+    height: 200px;
+  }
+
+  .novedad-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .novedad-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .image-preview {
+    max-width: 100%;
+  }
+}

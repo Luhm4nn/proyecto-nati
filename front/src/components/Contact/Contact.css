@@ -1,29 +1,55 @@
 .contact-section {
-  background-color: var(--color-black);
-  color: white;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   padding-bottom: 8rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(244, 63, 94, 0.1));
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
 }
 
 .section-title.white {
-  color: white;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+}
+
+.section-title span.italic {
+  color: var(--color-primary);
+  font-style: italic;
 }
 
 .contact-wrapper {
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .contact-subtitle {
   text-align: center;
   margin-bottom: 3rem;
-  font-size: 1.2rem;
-  opacity: 0.8;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
 }
 
 .contact-form {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: white;
   padding: 3rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04));
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .form-grid {
@@ -33,58 +59,82 @@
   margin-bottom: 1.5rem;
 }
 
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  text-align: left;
+}
+
 .form-group input,
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 1rem;
-  background-color: white !important;
-  border: 1.5px solid #e0e0e0 !important;
-  color: #1a1a1a !important;
-  font-family: var(--font-sans);
+  padding: 0.8rem 1rem;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  color: var(--text-primary);
+  font-family: var(--font-body);
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--color-gold);
-  background-color: rgba(255, 255, 255, 0.02);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .form-group textarea {
-  resize: none;
-  min-height: 150px;
-  max-height: 150px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-gold) #e0e0e0;
+  resize: vertical;
+  min-height: 120px;
 }
 
+
+/* Scrollbar tweaks */
 .form-group textarea::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 .form-group textarea::-webkit-scrollbar-track {
-  background: #e0e0e0;
+  background: transparent;
 }
 
 .form-group textarea::-webkit-scrollbar-thumb {
-  background: var(--color-gold);
-  border-radius: 4px;
+  background: #cbd5e1;
+  border-radius: 3px;
 }
 
 .form-group textarea::-webkit-scrollbar-thumb:hover {
-  background: #b8941f;
+  background: #94a3b8;
 }
 
-
-/* Fix for select options color */
 .form-group select option {
-  background-color: var(--color-black);
-  color: white;
+  background-color: white;
+  color: var(--text-primary);
+}
+
+.test-link-wrapper {
+  margin-top: 0.5rem;
+  text-align: right;
+}
+
+.test-link {
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.test-link:hover {
+  color: var(--color-secondary);
+  text-decoration: underline;
 }
 
 .full-width {
@@ -94,35 +144,40 @@
 .submit-btn {
   width: 100%;
   padding: 1rem;
-  background-color: white;
-  color: var(--color-black);
+  background: linear-gradient(135deg, var(--color-primary), #818cf8);
+  color: white;
   border: none;
-  font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
   text-transform: uppercase;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 1rem;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
 }
 
 .submit-btn:hover:not(:disabled) {
-  background-color: var(--color-gold);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  filter: brightness(1.1);
 }
 
 .submit-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+  filter: grayscale(1);
 }
 
 @media (max-width: 768px) {
   .form-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .contact-form {
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
   }
 }

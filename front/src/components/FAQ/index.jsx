@@ -31,7 +31,7 @@ function FAQ() {
         <section id="faq" className="faq-section section-padding">
             <div className="container">
                 <h2 className="section-title">
-                    Preguntas <span className="italic">Frecuentes</span>
+                    ❓ Preguntas <span className="italic">Frecuentes</span>
                 </h2>
 
                 <div className="faq-list">

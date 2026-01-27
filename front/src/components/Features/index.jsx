@@ -2,19 +2,18 @@ import './Features.css';
 
 function Features() {
     const features = [
-        { title: 'Clases 100% Online', desc: 'Aprende desde la comodidad de tu casa, sin perder tiempo en traslados.' },
-        { title: 'Flexibilidad Horaria', desc: 'Horarios adaptados a tu ritmo de vida y compromisos.' },
-        { title: 'Material Incluido', desc: 'No necesitas comprar libros extra. Todo el material digital está incluido.' },
-        { title: 'Preparación Exámenes', desc: 'Goethe-Zertifikat, TestDaF, DSH. Entrenamiento específico.' },
-        { title: 'Enfoque Personalizado', desc: 'Cada clase está diseñada según tus objetivos y debilidades.' },
-        { title: 'Cultura Alemana', desc: 'No solo aprendes el idioma, sino también la cultura y costumbres.' }
+        { title: 'Clases 100% Online', desc: 'Clases virtuales en vivo, desde cualquier lugar.' },
+        { title: 'Material incluido', desc: 'Material incluido con una plataforma especializada, todo dinámico, sin libros tediosos.' },
+        { title: 'Profesora certificada', desc: 'Clases impartidas por una profesional certificada en la enseñanza del idioma.' },
+        { title: 'Certificación', desc: 'Se otorga certificado de finalización de cursado al terminar el nivel.' },
+        { title: 'Contenido a medida', desc: 'El contenido de vocabulario puede ser general o específico para determinados rubros (medicina, mecánica, etc.).' }
     ];
 
     return (
         <section id="features" className="features-section section-padding">
             <div className="container">
                 <h2 className="section-title">
-                    ¿Por qué elegir <span className="italic">Deutsch für dich?</span>
+                    🌟 ¿Por qué elegir <span className="italic">Deutsch für dich?</span>
                 </h2>
 
                 <div className="features-grid">
