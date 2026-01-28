@@ -12,7 +12,7 @@ import xss from 'xss';
 
 @Injectable()
 export class CursosService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   // ========== MÉTODOS PARA CURSOS ==========
 

@@ -31,21 +31,21 @@ function CursoCard({ curso, onEditar, onEliminar, onAgregarDictado, onEditarDict
         </div>
       )}
 
-      {curso.dictadosCurso && curso.dictadosCurso.length > 0 && (
+      {curso.dictados_curso && curso.dictados_curso.length > 0 && (
         <div className="dictados-section">
-          <button 
+          <button
             className="dictados-toggle"
             onClick={() => setDictadosExpanded(!dictadosExpanded)}
           >
             <div className="dictados-toggle-content">
               <strong>Dictados Programados</strong>
-              <span className="dictados-count">{curso.dictadosCurso.length}</span>
+              <span className="dictados-count">{curso.dictados_curso.length}</span>
             </div>
             <span className={`toggle-icon ${dictadosExpanded ? 'expanded' : ''}`}>
               ▼
             </span>
           </button>
-          
+
           {dictadosExpanded && (
             <div className="dictados-list">
               {curso.dictadosCurso.map((dictado) => (

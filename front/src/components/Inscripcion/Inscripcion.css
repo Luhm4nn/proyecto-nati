@@ -1,4 +1,3 @@
-
 .inscripcion-page {
     padding-top: 2rem;
     min-height: 100vh;
@@ -73,7 +72,8 @@
     background-color: transparent;
     padding: 2.5rem;
     display: flex;
-    align-items: center; /* Center the list vertically */
+    align-items: center;
+    /* Center the list vertically */
 }
 
 .inscripcion-section-title {
@@ -127,7 +127,7 @@
     background: white;
     border-radius: var(--radius-lg);
     padding: 2rem;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     box-shadow: var(--shadow-sm);
     transition: all 0.3s ease;
     display: flex;
@@ -225,10 +225,10 @@
     .inscripcion-feature-card {
         grid-template-columns: 1fr;
     }
-    
+
     .feature-card-right {
         border-left: none;
-        border-top: 1px solid rgba(0,0,0,0.05);
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
     }
 }
 
@@ -252,5 +252,125 @@
 @keyframes spin {
     to {
         transform: rotate(360deg);
+    }
+}
+
+/* Estilos para el Formulario de Inscripción */
+.inscripcion-form-section {
+    margin-top: 2rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.form-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.inscripcion-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    padding: 0.8rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.file-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.file-hint {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.form-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-submit-inscripcion {
+    padding: 1rem 3rem;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.btn-submit-inscripcion:hover:not(:disabled) {
+    background: #4f46e5;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+}
+
+.btn-submit-inscripcion:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Estado seleccionado para dictados */
+.btn-select-dictado-full.selected {
+    background: #10b981;
+    /* Verde esmeralda */
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .form-card {
+        padding: 1.5rem;
     }
 }

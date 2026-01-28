@@ -11,6 +11,7 @@ import { TestimoniosModule } from './testimonios/testimonios.module';
 import { NovedadesModule } from './novedades/novedades.module';
 import { CursosModule } from './cursos/cursos.module';
 import { envValidationSchema } from './config/env.validation';
+import { InscripcionesModule } from './inscripciones/inscripciones.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { envValidationSchema } from './config/env.validation';
     TestimoniosModule,
     NovedadesModule,
     CursosModule,
+    InscripcionesModule,
   ],
   controllers: [AppController],
   providers: [
@@ -46,4 +48,4 @@ import { envValidationSchema } from './config/env.validation';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }

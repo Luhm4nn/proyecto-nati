@@ -53,17 +53,17 @@ model Novedad {
 }
 
 model Curso {
-  id             Int              @id @default(autoincrement())
+  id             Int            @id @default(autoincrement())
   titulo         String
   descripcion    String
   items          String[]
-  createdAt      DateTime         @default(now())
+  createdAt      DateTime       @default(now())
   updatedAt      DateTime
   dictados_curso DictadoCurso[]
 }
 
 model DictadoCurso {
-  id               Int      @id @default(autoincrement())
+  id               Int           @id @default(autoincrement())
   cursoId          Int
   horarioInicio    String
   horarioFin       String
@@ -71,7 +71,21 @@ model DictadoCurso {
   fechaFin         DateTime
   duracionEstimada Int
   diasSemana       String[]
-  createdAt        DateTime @default(now())
+  createdAt        DateTime      @default(now())
   updatedAt        DateTime
-  curso           Curso   @relation(fields: [cursoId], references: [id], onDelete: Cascade)
+  curso            Curso         @relation(fields: [cursoId], references: [id], onDelete: Cascade)
+  inscripcions     Inscripcion[]
+}
+
+model Inscripcion {
+  id             Int          @id @default(autoincrement())
+  nombre         String
+  apellido       String
+  email          String
+  estado         String       @default("pendiente")
+  telefono       String?
+  dictadoCursoId Int
+  dictadoCurso   DictadoCurso @relation(fields: [dictadoCursoId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
 }
