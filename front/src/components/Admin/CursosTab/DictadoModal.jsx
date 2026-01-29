@@ -85,18 +85,45 @@ function DictadoModal({
             </div>
           </div>
 
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="duracionEstimada">Duración Estimada (meses)</label>
+              <input
+                type="number"
+                id="duracionEstimada"
+                name="duracionEstimada"
+                value={formDictado.duracionEstimada}
+                onChange={onChange}
+                min="1"
+                max="24"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="cupos">Cupos Disponibles (0 = ilimitados)</label>
+              <input
+                type="number"
+                id="cupos"
+                name="cupos"
+                value={formDictado.cupos}
+                onChange={onChange}
+                min="0"
+                required
+              />
+            </div>
+          </div>
+
           <div className="form-group">
-            <label htmlFor="duracionEstimada">Duración Estimada (meses)</label>
-            <input
-              type="number"
-              id="duracionEstimada"
-              name="duracionEstimada"
-              value={formDictado.duracionEstimada}
-              onChange={onChange}
-              min="1"
-              max="24"
-              required
-            />
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                name="activo"
+                checked={formDictado.activo}
+                onChange={(e) => onChange({ target: { name: 'activo', value: e.target.checked } })}
+              />
+              Dictado Activo (se muestra en la web)
+            </label>
           </div>
 
           <div className="form-group">
@@ -106,9 +133,8 @@ function DictadoModal({
                 <button
                   key={dia}
                   type="button"
-                  className={`dia-btn ${
-                    formDictado.diasSemana.includes(dia) ? "active" : ""
-                  }`}
+                  className={`dia-btn ${formDictado.diasSemana.includes(dia) ? "active" : ""
+                    }`}
                   onClick={() => onToggleDia(dia)}
                 >
                   {dia.charAt(0).toUpperCase() + dia.slice(1, 3)}

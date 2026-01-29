@@ -55,6 +55,15 @@ export class InscripcionesController {
   }
 
   /**
+   * Confirmar inscripción - PROTEGIDO (requiere JWT)
+   */
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id/confirmar')
+  confirmar(@Param('id') id: string) {
+    return this.inscripcionesService.confirmarInscripcion(+id);
+  }
+
+  /**
    * Eliminar solicitud - PROTEGIDO (requiere JWT)
    */
   @UseGuards(JwtAuthGuard)

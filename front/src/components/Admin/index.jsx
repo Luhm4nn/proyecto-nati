@@ -8,9 +8,11 @@ import TestimoniosTab from "./TestimoniosTab";
 import NovedadesTab from "./NovedadesTab";
 import CursosTab from "./CursosTab";
 import { useSolicitudes } from "./hooks/useSolicitudes";
+import { useInscripciones } from "./hooks/useInscripciones";
 import { useTestimonios } from "./hooks/useTestimonios";
 import { useNovedades } from "./hooks/useNovedades";
 import { useCursos } from "./hooks/useCursos";
+import InscripcionesTab from "./InscripcionesTab";
 import { formatearFecha, getEstadoColor } from "./utils/helpers";
 import LogoutConfirmationModal from "./LogoutConfirmationModal";
 import "./Admin.css";
@@ -23,6 +25,7 @@ function Admin() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const solicitudesData = useSolicitudes();
+  const inscripcionesData = useInscripciones();
   const testimoniosData = useTestimonios();
   const novedadesData = useNovedades();
   const cursosData = useCursos();
@@ -64,6 +67,26 @@ function Admin() {
             deleteModal={solicitudesData.deleteModal}
             onCerrarModalEliminar={solicitudesData.cerrarModalEliminar}
             onConfirmarEliminacion={solicitudesData.confirmarEliminacion}
+          />
+        )}
+
+        {activeTab === "inscripciones" && (
+          <InscripcionesTab
+            inscripciones={inscripcionesData.inscripciones}
+            loading={inscripcionesData.loading}
+            filtro={inscripcionesData.filtro}
+            setFiltro={inscripcionesData.setFiltro}
+            contadores={inscripcionesData.contadores}
+            paginacion={inscripcionesData.paginacion}
+            onCambiarEstado={inscripcionesData.cambiarEstado}
+            onConfirmar={inscripcionesData.confirmarInscripcion}
+            onEliminar={inscripcionesData.abrirModalEliminar}
+            onCambiarPagina={inscripcionesData.cargarInscripciones}
+            formatearFecha={formatearFecha}
+            getEstadoColor={getEstadoColor}
+            deleteModal={inscripcionesData.deleteModal}
+            onCerrarModalEliminar={inscripcionesData.cerrarModalEliminar}
+            onConfirmarEliminacion={inscripcionesData.confirmarEliminacion}
           />
         )}
 

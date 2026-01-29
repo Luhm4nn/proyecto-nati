@@ -121,7 +121,7 @@ function Inscripcion() {
                 throw new Error(errorData.message || 'Error al procesar la inscripción');
             }
 
-            showSuccess("¡Inscripción enviada con éxito! Revisa tu correo.");
+            showSuccess("¡Inscripción enviada con éxito!");
             setSelectedDictado(null);
             setInscripcionFormData({
                 nombre: '',
@@ -210,41 +210,53 @@ function Inscripcion() {
                             </p>
 
                             <div className="dictados-grid">
-                                {curso.dictados_curso && curso.dictados_curso.length > 0 ? (
-                                    curso.dictados_curso.map((dictado) => (
-                                        <div key={dictado.id} className="dictado-card-full">
-                                            <div className="dictado-header-full">
-                                                <div className="dictado-days-full">
-                                                    {dictado.diasSemana.join(" y ")}
-                                                </div>
-                                                <span className="dictado-duration-badge">
-                                                    {dictado.duracionEstimada} {dictado.duracionEstimada === 1 ? 'mes' : 'meses'}
-                                                </span>
-                                            </div>
-
-                                            <div className="dictado-body-full">
-                                                <div className="dictado-info-item">
-                                                    <span className="info-label">Horario:</span>
-                                                    <span className="info-value">
-                                                        {formatearHorario(dictado.horarioInicio)} - {formatearHorario(dictado.horarioFin)} hs
+                                {curso.dictados_curso && curso.dictados_curso.filter(d => d.activo).length > 0 ? (
+                                    curso.dictados_curso.filter(d => d.activo).map((dictado) => {
+                                        const sinCupos = dictado.cupos > 0 && (dictado._count?.inscripcions || 0) >= dictado.cupos;
+                                        return (
+                                            <div key={dictado.id} className={`dictado-card-full ${sinCupos ? 'sin-cupos' : ''}`}>
+                                                <div className="dictado-header-full">
+                                                    <div className="dictado-days-full">
+                                                        {dictado.diasSemana.join(" y ")}
+                                                    </div>
+                                                    <span className="dictado-duration-badge">
+                                                        {dictado.duracionEstimada} {dictado.duracionEstimada === 1 ? 'mes' : 'meses'}
                                                     </span>
                                                 </div>
-                                                <div className="dictado-info-item">
-                                                    <span className="info-label">Fechas:</span>
-                                                    <span className="info-value">
-                                                        {formatearFecha(dictado.fechaInicio)} al {formatearFecha(dictado.fechaFin)}
-                                                    </span>
-                                                </div>
-                                            </div>
 
-                                            <button
-                                                className={`btn-select-dictado-full ${selectedDictado?.id === dictado.id ? 'selected' : ''}`}
-                                                onClick={() => handleSelectDictado(dictado)}
-                                            >
-                                                {selectedDictado?.id === dictado.id ? 'Seleccionado' : 'Seleccionar este horario'}
-                                            </button>
-                                        </div>
-                                    ))
+                                                <div className="dictado-body-full">
+                                                    <div className="dictado-info-item">
+                                                        <span className="info-label">Horario:</span>
+                                                        <span className="info-value">
+                                                            {formatearHorario(dictado.horarioInicio)} - {formatearHorario(dictado.horarioFin)} hs
+                                                        </span>
+                                                    </div>
+                                                    <div className="dictado-info-item">
+                                                        <span className="info-label">Fechas:</span>
+                                                        <span className="info-value">
+                                                            {formatearFecha(dictado.fechaInicio)} al {formatearFecha(dictado.fechaFin)}
+                                                        </span>
+                                                    </div>
+                                                    {dictado.cupos > 0 && (
+                                                        <div className="dictado-info-item cupos-info">
+                                                            <span className="info-label">Cupos:</span>
+                                                            <span className={`info-value ${sinCupos ? 'text-error' : ''}`}>
+                                                                {sinCupos ? '¡Completo!' : `${dictado.cupos - (dictado._count?.inscripcions || 0)} disponibles`}
+                                                            </span>
+                                                        </div>
+                                                    )}
+                                                </div>
+
+                                                <button
+                                                    className={`btn-select-dictado-full ${selectedDictado?.id === dictado.id ? 'selected' : ''}`}
+                                                    onClick={() => !sinCupos && handleSelectDictado(dictado)}
+                                                    disabled={sinCupos}
+                                                >
+                                                    {sinCupos ? 'Sin cupos' : (selectedDictado?.id === dictado.id ? 'Seleccionado' : 'Seleccionar este horario')}
+                                                </button>
+                                            </div>
+                                        );
+                                    })
                                 ) : (
                                     <div className="no-dictados">
                                         <p>No hay comisiones abiertas por el momento.</p>

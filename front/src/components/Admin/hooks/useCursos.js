@@ -12,6 +12,7 @@ export function useCursos() {
     titulo: "",
     descripcion: "",
     items: [""],
+    activo: true,
   });
   const [showDictadoModal, setShowDictadoModal] = useState(false);
   const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
@@ -23,6 +24,8 @@ export function useCursos() {
     fechaFin: "",
     duracionEstimada: 1,
     diasSemana: [],
+    cupos: 0,
+    activo: true,
   });
   const [deleteModal, setDeleteModal] = useState({
     isOpen: false,
@@ -98,7 +101,7 @@ export function useCursos() {
     e.preventDefault();
 
     const itemsFiltrados = formCurso.items.filter((item) => item.trim() !== "");
-    
+
     if (!formCurso.titulo || !formCurso.descripcion || itemsFiltrados.length === 0) {
       showError("Por favor completa todos los campos");
       return;
@@ -108,6 +111,7 @@ export function useCursos() {
       titulo: formCurso.titulo,
       descripcion: formCurso.descripcion,
       items: itemsFiltrados,
+      activo: formCurso.activo,
     };
 
     try {
@@ -154,6 +158,7 @@ export function useCursos() {
       titulo: curso.titulo,
       descripcion: curso.descripcion,
       items: curso.items.length > 0 ? curso.items : [""],
+      activo: curso.activo ?? true,
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -225,6 +230,7 @@ export function useCursos() {
       titulo: "",
       descripcion: "",
       items: [""],
+      activo: true,
     });
   };
 
@@ -239,6 +245,8 @@ export function useCursos() {
         fechaFin: dictado.fechaFin.split("T")[0],
         duracionEstimada: dictado.duracionEstimada,
         diasSemana: dictado.diasSemana,
+        cupos: dictado.cupos || 0,
+        activo: dictado.activo ?? true,
       });
     } else {
       setFormDictado({
@@ -249,6 +257,8 @@ export function useCursos() {
         fechaFin: "",
         duracionEstimada: 1,
         diasSemana: [],
+        cupos: 0,
+        activo: true,
       });
     }
     setShowDictadoModal(true);
@@ -265,6 +275,8 @@ export function useCursos() {
       fechaFin: "",
       duracionEstimada: 1,
       diasSemana: [],
+      cupos: 0,
+      activo: true,
     });
   };
 
@@ -307,6 +319,8 @@ export function useCursos() {
       fechaFin: formDictado.fechaFin,
       duracionEstimada: parseInt(formDictado.duracionEstimada, 10),
       diasSemana: formDictado.diasSemana,
+      cupos: parseInt(formDictado.cupos, 10) || 0,
+      activo: formDictado.activo,
     };
 
     try {

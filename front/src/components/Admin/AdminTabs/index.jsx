@@ -2,7 +2,8 @@ import "./AdminTabs.css";
 
 function AdminTabs({ activeTab, setActiveTab }) {
   const tabs = [
-    { id: "solicitudes", label: "Solicitudes" },
+    { id: "solicitudes", label: "Consultas" },
+    { id: "inscripciones", label: "Inscripciones" },
     { id: "testimonios", label: "Testimonios" },
     { id: "novedades", label: "Novedades" },
     { id: "cursos", label: "Cursos" }
@@ -10,7 +11,7 @@ function AdminTabs({ activeTab, setActiveTab }) {
 
   return (
     <>
-      <select 
+      <select
         className="tabs-dropdown"
         value={activeTab}
         onChange={(e) => setActiveTab(e.target.value)}

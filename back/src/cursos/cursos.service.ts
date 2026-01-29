@@ -24,6 +24,7 @@ export class CursosService {
       titulo: xss(createCursoDto.titulo),
       descripcion: xss(createCursoDto.descripcion),
       items: createCursoDto.items.map((item) => xss(item)),
+      activo: createCursoDto.activo !== undefined ? createCursoDto.activo : true,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -79,6 +80,9 @@ export class CursosService {
     }
     if (updateCursoDto.items) {
       dataSanitizada.items = updateCursoDto.items.map((item) => xss(item));
+    }
+    if (updateCursoDto.activo !== undefined) {
+      dataSanitizada.activo = updateCursoDto.activo;
     }
 
     return this.prisma.curso.update({
@@ -139,6 +143,8 @@ export class CursosService {
         fechaFin: fechaFin,
         duracionEstimada: createDictadoDto.duracionEstimada,
         diasSemana: createDictadoDto.diasSemana,
+        cupos: createDictadoDto.cupos || 0,
+        activo: createDictadoDto.activo !== undefined ? createDictadoDto.activo : true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -223,6 +229,8 @@ export class CursosService {
         fechaFin: updateDictadoDto.fechaFin ? new Date(updateDictadoDto.fechaFin) : undefined,
         duracionEstimada: updateDictadoDto.duracionEstimada,
         diasSemana: updateDictadoDto.diasSemana,
+        cupos: updateDictadoDto.cupos,
+        activo: updateDictadoDto.activo,
         updatedAt: new Date(),
       },
       include: {

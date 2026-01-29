@@ -39,21 +39,35 @@ function SolicitudCard({ solicitud, onCambiarEstado, onEliminar, formatearFecha,
       </div>
 
       <div className="solicitud-actions">
-        <div style={{ width: '200px' }}>
+        <div style={{ display: 'flex', gap: '1rem', width: '100%', alignItems: 'center' }}>
+          <div style={{ width: '200px' }}>
             <CustomSelect
-                value={solicitud.estado}
-                options={ESTADO_OPTIONS}
-                onChange={(e) => onCambiarEstado(solicitud.id, e.target.value)}
-                placeholder="Estado"
-                name="estado"
+              value={solicitud.estado}
+              options={ESTADO_OPTIONS}
+              onChange={(e) => onCambiarEstado(solicitud.id, e.target.value)}
+              placeholder="Estado"
+              name="estado"
             />
+          </div>
+
+          {solicitud.estado === 'pendiente' && (
+            <button
+              onClick={() => onConfirmarInscripcion(solicitud.id)}
+              className="btn-guardar"
+              style={{ padding: '0.6rem 1rem' }}
+            >
+              Confirmar Inscripción
+            </button>
+          )}
+
+          <button
+            onClick={() => onEliminar(solicitud.id)}
+            className="btn-eliminar"
+            style={{ marginLeft: 'auto' }}
+          >
+            Eliminar
+          </button>
         </div>
-        <button
-          onClick={() => onEliminar(solicitud.id)}
-          className="btn-eliminar"
-        >
-          Eliminar
-        </button>
       </div>
     </div>
   );

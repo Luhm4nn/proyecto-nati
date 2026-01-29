@@ -75,6 +75,18 @@ function CursoForm({
           </button>
         </div>
 
+        <div className="form-group">
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              name="activo"
+              checked={formCurso.activo}
+              onChange={(e) => onChange({ target: { name: 'activo', value: e.target.checked } })}
+            />
+            Curso Activo (visible en la web)
+          </label>
+        </div>
+
         <div className="form-actions">
           <button type="submit" className="btn-guardar">
             {formCurso.id ? "Actualizar" : "Guardar"}

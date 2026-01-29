@@ -48,7 +48,7 @@ function CursoCard({ curso, onEditar, onEliminar, onAgregarDictado, onEditarDict
 
           {dictadosExpanded && (
             <div className="dictados-list">
-              {curso.dictadosCurso.map((dictado) => (
+              {curso.dictados_curso.map((dictado) => (
                 <div key={dictado.id} className="dictado-item">
                   <div className="dictado-info">
                     <div className="dictado-horario">

@@ -13,13 +13,14 @@ function Cursos() {
                 const apiUrl = import.meta.env.VITE_API_URL;
                 // Intencionalmente NO enviamos headers de auth porque queremos ver los cursos públicos
                 const response = await fetch(`${apiUrl}/cursos`);
-                
+
                 if (!response.ok) {
                     throw new Error('No se pudieron cargar los cursos');
                 }
-                
+
                 const data = await response.json();
-                setCursos(data);
+                // Filtrar solo cursos activos
+                setCursos(data.filter(c => c.activo));
             } catch (err) {
                 console.error("Error fetching cursos:", err);
                 setError("No se pudieron cargar los cursos disponibles.");
@@ -66,7 +67,9 @@ function Cursos() {
                             <div key={curso.id} className="curso-card">
                                 <div className="curso-content">
                                     <h3 className="curso-title">{curso.titulo}</h3>
-                                    
+
+                                    <p className="curso-description">{curso.descripcion}</p>
+
                                     {curso.items && curso.items.length > 0 && (
                                         <div className="curso-features-list">
                                             {curso.items.map((item, index) => (
@@ -78,7 +81,7 @@ function Cursos() {
                                         </div>
                                     )}
                                 </div>
-                                
+
                                 <div className="curso-footer">
                                     <Link to={`/inscripcion/${curso.id}`} className="btn-inscribirse">
                                         Inscribirse
