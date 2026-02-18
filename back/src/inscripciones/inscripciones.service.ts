@@ -26,7 +26,11 @@ export class InscripcionesService {
       where: { id: createInscripcionDto.dictadoCursoId },
       include: {
         _count: {
-          select: { inscripciones: true },
+          select: {
+            inscripciones: {
+              where: { estado: 'confirmada' },
+            },
+          },
         },
       },
     });

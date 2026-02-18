@@ -66,19 +66,19 @@ model Curso {
 }
 
 model DictadoCurso {
-  id               Int           @id @default(autoincrement())
-  cursoId          Int
-  horarioInicio    String
-  horarioFin       String
-  fechaInicio      DateTime
-  fechaFin         DateTime
-  diasSemana       String[]
-  cupos            Int           @default(0)
-  activo           Boolean       @default(true)
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
-  curso            Curso         @relation(fields: [cursoId], references: [id], onDelete: Cascade)
-  inscripciones    Inscripcion[]
+  id            Int           @id @default(autoincrement())
+  cursoId       Int
+  horarioInicio String
+  horarioFin    String
+  fechaInicio   DateTime
+  fechaFin      DateTime
+  diasSemana    String[]
+  cupos         Int           @default(0)
+  activo        Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  curso         Curso         @relation(fields: [cursoId], references: [id], onDelete: Cascade)
+  inscripciones Inscripcion[]
 
   @@map("dictados_curso")
 }

@@ -2,16 +2,16 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useToast } from '../../contexts/ToastContext';
 import { useLoading } from '../../contexts/LoadingContext';
-import { 
-    CheckIcon, 
-    UserIcon, 
-    EnvelopeIcon, 
-    PhoneIcon, 
-    ArrowPathIcon, 
-    DocumentTextIcon, 
-    ArrowUpTrayIcon, 
-    LightBulbIcon, 
-    ArrowLeftIcon 
+import {
+    CheckIcon,
+    UserIcon,
+    EnvelopeIcon,
+    PhoneIcon,
+    ArrowPathIcon,
+    DocumentTextIcon,
+    ArrowUpTrayIcon,
+    LightBulbIcon,
+    ArrowLeftIcon
 } from '../shared/UI/Icons';
 import Footer from '../Footer';
 import './Inscripcion.css';
@@ -173,13 +173,13 @@ function Inscripcion() {
                             <h2>¡Inscripción Exitosa!</h2>
                             <div className="success-details">
                                 <p>Muchas gracias por inscribirte en el curso <strong>{curso.titulo}</strong>.</p>
-                                <p>Te enviamos un correo a <strong>{inscripcionFormData.email}</strong> con los detalles para completar el pago.</p>
+                                <p>Tu inscripción ha sido recibida correctamente. Próximamente recibirás un correo en <strong>{inscripcionFormData.email}</strong> una vez que nuestros administrativos confirmen tu inscripción y el comprobante adjunto.</p>
                             </div>
                             <div className="success-notice">
                                 <span className="notice-icon">
                                     <LightBulbIcon className="w-6 h-6" />
                                 </span>
-                                <p>Si no encuentras el correo, por favor revisa tu carpeta de <strong>spam</strong>.</p>
+                                <p>Por favor, mantente atento a tu bandeja de entrada y revisa también la carpeta de <strong>spam</strong>.</p>
                             </div>
                             <Link to="/#cursos" className="btn-back-home">
                                 Volver al inicio
