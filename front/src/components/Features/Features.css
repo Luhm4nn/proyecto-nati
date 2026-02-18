@@ -1,12 +1,3 @@
-.section-title {
-    text-align: center;
-    font-size: 3rem;
-    margin-bottom: 4rem;
-    color: var(--text-primary);
-    font-family: var(--font-heading);
-    font-weight: 700;
-}
-
 .section-title .italic {
     font-style: italic;
     color: var(--color-primary);

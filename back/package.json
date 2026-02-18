@@ -19,7 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "create:admin": "ts-node scripts/create-admin.ts",
-    "seed:solicitudes": "ts-node scripts/seed-solicitudes.ts"
+    "seed:consultas": "ts-node scripts/seed-consultas.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -41,6 +41,7 @@
     "joi": "^18.0.2",
     "json-schema-traverse": "^1.0.0",
     "multer": "^2.0.2",
+    "nodemailer": "^7.0.13",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "prisma": "5.22.0",
@@ -57,6 +58,7 @@
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.10.7",
+    "@types/nodemailer": "^7.0.9",
     "@types/passport-jwt": "^4.0.1",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.18.0",

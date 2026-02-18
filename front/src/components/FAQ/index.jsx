@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { QuestionMarkCircleIcon, PlusIcon, MinusIcon } from '../shared/UI/Icons';
 import './FAQ.css';
 
 function FAQ() {
@@ -31,7 +32,7 @@ function FAQ() {
         <section id="faq" className="faq-section section-padding">
             <div className="container">
                 <h2 className="section-title">
-                    ❓ Preguntas <span className="italic">Frecuentes</span>
+                    <QuestionMarkCircleIcon className="section-title-icon" /> Preguntas <span className="italic">Frecuentes</span>
                 </h2>
 
                 <div className="faq-list">
@@ -45,7 +46,9 @@ function FAQ() {
                                 onClick={() => toggleAccordion(index)}
                             >
                                 {faq.question}
-                                <span className="faq-icon">{activeIndex === index ? '−' : '+'}</span>
+                                <span className="faq-icon">
+                                    {activeIndex === index ? <MinusIcon className="w-5 h-5" /> : <PlusIcon className="w-5 h-5" />}
+                                </span>
                             </button>
                             <div
                                 className="faq-answer"

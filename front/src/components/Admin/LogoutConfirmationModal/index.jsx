@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { ArrowRightOnRectangleIcon, XMarkIcon } from '../../shared/UI/Icons';
 import './LogoutConfirmationModal.css';
 
 function LogoutConfirmationModal({ isOpen, onClose, onConfirm }) {
@@ -20,13 +21,15 @@ function LogoutConfirmationModal({ isOpen, onClose, onConfirm }) {
       <div className="logout-modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="logout-modal-header">
           <h2>Cerrar Sesión</h2>
-          <button className="modal-close" onClick={onClose}>
-            ×
+          <button className="modal-close" onClick={onClose} aria-label="Cerrar">
+            <XMarkIcon className="w-6 h-6" />
           </button>
         </div>
         
         <div className="logout-modal-body">
-          <div className="logout-icon">👋</div>
+          <div className="logout-icon">
+             <ArrowRightOnRectangleIcon className="w-16 h-16 text-primary" />
+          </div>
           <p className="logout-message">
             ¿Estás seguro de que deseas cerrar sesión?
           </p>

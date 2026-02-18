@@ -1,7 +1,7 @@
 import "./NovedadesTab.css";
 import NovedadForm from "./NovedadForm";
 import NovedadCard from "./NovedadCard";
-import DeleteConfirmationModal from "../DeleteConfirmationModal";
+import DeleteConfirmationModal from "../../shared/DeleteConfirmationModal";
 
 function NovedadesTab({
   novedades,

@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
-import { SolicitudesService } from './solicitudes.service';
+import { ConsultasService } from './consultas.service';
 import { PrismaService } from '../prisma/prisma.service';
 
-describe('SolicitudesService', () => {
-  let service: SolicitudesService;
+describe('ConsultasService', () => {
+  let service: ConsultasService;
   let prismaService: PrismaService;
 
-  const mockSolicitud = {
+  const mockConsulta = {
     id: 1,
     nombre: 'Juan Pérez',
     email: 'juan@example.com',
@@ -19,7 +19,7 @@ describe('SolicitudesService', () => {
   };
 
   const mockPrismaService = {
-    solicitud: {
+    consulta: {
       findFirst: jest.fn(),
       create: jest.fn(),
       findMany: jest.fn(),
@@ -33,7 +33,7 @@ describe('SolicitudesService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        SolicitudesService,
+        ConsultasService,
         {
           provide: PrismaService,
           useValue: mockPrismaService,
@@ -41,7 +41,7 @@ describe('SolicitudesService', () => {
       ],
     }).compile();
 
-    service = module.get<SolicitudesService>(SolicitudesService);
+    service = module.get<ConsultasService>(ConsultasService);
     prismaService = module.get<PrismaService>(PrismaService);
   });
 
@@ -50,7 +50,7 @@ describe('SolicitudesService', () => {
   });
 
   describe('create', () => {
-    it('debería crear una solicitud cuando no hay duplicados recientes', async () => {
+    it('debería crear una consulta cuando no hay duplicados recientes', async () => {
       const createDto = {
         nombre: 'Juan Pérez',
         email: 'juan@example.com',
@@ -58,14 +58,14 @@ describe('SolicitudesService', () => {
         mensaje: 'Quiero aprender alemán',
       };
 
-      mockPrismaService.solicitud.findFirst.mockResolvedValue(null);
-      mockPrismaService.solicitud.create.mockResolvedValue(mockSolicitud);
+      mockPrismaService.consulta.findFirst.mockResolvedValue(null);
+      mockPrismaService.consulta.create.mockResolvedValue(mockConsulta);
 
       const result = await service.create(createDto);
 
-      expect(result).toEqual(mockSolicitud);
-      expect(prismaService.solicitud.findFirst).toHaveBeenCalled();
-      expect(prismaService.solicitud.create).toHaveBeenCalled();
+      expect(result).toEqual(mockConsulta);
+      expect(prismaService.consulta.findFirst).toHaveBeenCalled();
+      expect(prismaService.consulta.create).toHaveBeenCalled();
     });
 
     it('debería sanitizar los datos antes de crear', async () => {
@@ -76,12 +76,12 @@ describe('SolicitudesService', () => {
         mensaje: '<img src=x onerror=alert(1)>Mensaje',
       };
 
-      mockPrismaService.solicitud.findFirst.mockResolvedValue(null);
-      mockPrismaService.solicitud.create.mockResolvedValue(mockSolicitud);
+      mockPrismaService.consulta.findFirst.mockResolvedValue(null);
+      mockPrismaService.consulta.create.mockResolvedValue(mockConsulta);
 
       await service.create(createDto);
 
-      const createCall = mockPrismaService.solicitud.create.mock.calls[0][0];
+      const createCall = mockPrismaService.consulta.create.mock.calls[0][0];
       
       // Verificar que el email fue normalizado
       expect(createCall.data.email).toBe('juan@example.com');
@@ -91,7 +91,7 @@ describe('SolicitudesService', () => {
       expect(createCall.data.mensaje).not.toContain('onerror');
     });
 
-    it('debería lanzar BadRequestException si hay una solicitud reciente', async () => {
+    it('debería lanzar BadRequestException si hay una consulta reciente', async () => {
       const createDto = {
         nombre: 'Juan Pérez',
         email: 'juan@example.com',
@@ -99,18 +99,18 @@ describe('SolicitudesService', () => {
         mensaje: 'Quiero aprender alemán',
       };
 
-      // Simular que ya existe una solicitud reciente
-      mockPrismaService.solicitud.findFirst.mockResolvedValue(mockSolicitud);
+      // Simular que ya existe una consulta reciente
+      mockPrismaService.consulta.findFirst.mockResolvedValue(mockConsulta);
 
       await expect(service.create(createDto)).rejects.toThrow(
         BadRequestException,
       );
       await expect(service.create(createDto)).rejects.toThrow(
-        'Ya has enviado una solicitud recientemente',
+        'Ya has enviado una consulta recientemente',
       );
     });
 
-    it('debería permitir crear solicitud si la anterior es mayor a 24h', async () => {
+    it('debería permitir crear consulta si la anterior es mayor a 24h', async () => {
       const createDto = {
         nombre: 'Juan Pérez',
         email: 'juan@example.com',
@@ -118,31 +118,31 @@ describe('SolicitudesService', () => {
         mensaje: 'Quiero aprender alemán',
       };
 
-      // Solicitud creada hace 25 horas (más de 24h)
-      const solicitudAntigua = {
-        ...mockSolicitud,
+      // Consulta creada hace 25 horas (más de 24h)
+      const consultaAntigua = {
+        ...mockConsulta,
         createdAt: new Date(Date.now() - 25 * 60 * 60 * 1000),
       };
 
-      mockPrismaService.solicitud.findFirst.mockResolvedValue(null);
-      mockPrismaService.solicitud.create.mockResolvedValue(mockSolicitud);
+      mockPrismaService.consulta.findFirst.mockResolvedValue(null);
+      mockPrismaService.consulta.create.mockResolvedValue(mockConsulta);
 
       const result = await service.create(createDto);
 
-      expect(result).toEqual(mockSolicitud);
+      expect(result).toEqual(mockConsulta);
     });
   });
 
   describe('findAll', () => {
-    it('debería retornar todas las solicitudes ordenadas por fecha con paginación', async () => {
-      const mockSolicitudes = [mockSolicitud, { ...mockSolicitud, id: 2 }];
-      mockPrismaService.solicitud.findMany.mockResolvedValue(mockSolicitudes);
-      mockPrismaService.solicitud.count.mockResolvedValue(20);
+    it('debería retornar todas las consultas ordenadas por fecha con paginación', async () => {
+      const mockConsultas = [mockConsulta, { ...mockConsulta, id: 2 }];
+      mockPrismaService.consulta.findMany.mockResolvedValue(mockConsultas);
+      mockPrismaService.consulta.count.mockResolvedValue(20);
 
       const result = await service.findAll(undefined, 1, 10);
 
       expect(result).toEqual({
-        data: mockSolicitudes,
+        data: mockConsultas,
         pagination: {
           page: 1,
           limit: 10,
@@ -150,26 +150,26 @@ describe('SolicitudesService', () => {
           totalPages: 2,
         },
       });
-      expect(prismaService.solicitud.findMany).toHaveBeenCalledWith({
+      expect(prismaService.consulta.findMany).toHaveBeenCalledWith({
         where: undefined,
         orderBy: { createdAt: 'desc' },
         skip: 0,
         take: 10,
       });
-      expect(prismaService.solicitud.count).toHaveBeenCalledWith({
+      expect(prismaService.consulta.count).toHaveBeenCalledWith({
         where: undefined,
       });
     });
 
     it('debería filtrar por estado cuando se proporciona', async () => {
-      mockPrismaService.solicitud.findMany.mockResolvedValue([mockSolicitud]);
-      mockPrismaService.solicitud.count.mockResolvedValue(5);
+      mockPrismaService.consulta.findMany.mockResolvedValue([mockConsulta]);
+      mockPrismaService.consulta.count.mockResolvedValue(5);
 
       const result = await service.findAll('pendiente', 1, 10);
 
-      expect(result.data).toEqual([mockSolicitud]);
+      expect(result.data).toEqual([mockConsulta]);
       expect(result.pagination.total).toBe(5);
-      expect(prismaService.solicitud.findMany).toHaveBeenCalledWith({
+      expect(prismaService.consulta.findMany).toHaveBeenCalledWith({
         where: { estado: 'pendiente' },
         orderBy: { createdAt: 'desc' },
         skip: 0,
@@ -179,24 +179,24 @@ describe('SolicitudesService', () => {
   });
 
   describe('update', () => {
-    it('debería actualizar una solicitud existente', async () => {
+    it('debería actualizar una consulta existente', async () => {
       const updateDto = { estado: 'contactado' };
-      const updatedSolicitud = { ...mockSolicitud, estado: 'contactado' };
+      const updatedConsulta = { ...mockConsulta, estado: 'contactado' };
 
-      mockPrismaService.solicitud.findUnique.mockResolvedValue(mockSolicitud);
-      mockPrismaService.solicitud.update.mockResolvedValue(updatedSolicitud);
+      mockPrismaService.consulta.findUnique.mockResolvedValue(mockConsulta);
+      mockPrismaService.consulta.update.mockResolvedValue(updatedConsulta);
 
       const result = await service.update(1, updateDto);
 
-      expect(result).toEqual(updatedSolicitud);
-      expect(prismaService.solicitud.update).toHaveBeenCalledWith({
+      expect(result).toEqual(updatedConsulta);
+      expect(prismaService.consulta.update).toHaveBeenCalledWith({
         where: { id: 1 },
         data: updateDto,
       });
     });
 
-    it('debería lanzar NotFoundException si la solicitud no existe', async () => {
-      mockPrismaService.solicitud.findUnique.mockResolvedValue(null);
+    it('debería lanzar NotFoundException si la consulta no existe', async () => {
+      mockPrismaService.consulta.findUnique.mockResolvedValue(null);
 
       await expect(service.update(999, { estado: 'contactado' })).rejects.toThrow(
         NotFoundException,
@@ -205,20 +205,20 @@ describe('SolicitudesService', () => {
   });
 
   describe('remove', () => {
-    it('debería eliminar una solicitud existente', async () => {
-      mockPrismaService.solicitud.findUnique.mockResolvedValue(mockSolicitud);
-      mockPrismaService.solicitud.delete.mockResolvedValue(mockSolicitud);
+    it('debería eliminar una consulta existente', async () => {
+      mockPrismaService.consulta.findUnique.mockResolvedValue(mockConsulta);
+      mockPrismaService.consulta.delete.mockResolvedValue(mockConsulta);
 
       const result = await service.remove(1);
 
-      expect(result).toEqual(mockSolicitud);
-      expect(prismaService.solicitud.delete).toHaveBeenCalledWith({
+      expect(result).toEqual(mockConsulta);
+      expect(prismaService.consulta.delete).toHaveBeenCalledWith({
         where: { id: 1 },
       });
     });
 
-    it('debería lanzar NotFoundException si la solicitud no existe', async () => {
-      mockPrismaService.solicitud.findUnique.mockResolvedValue(null);
+    it('debería lanzar NotFoundException si la consulta no existe', async () => {
+      mockPrismaService.consulta.findUnique.mockResolvedValue(null);
 
       await expect(service.remove(999)).rejects.toThrow(NotFoundException);
     });

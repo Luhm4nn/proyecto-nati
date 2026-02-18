@@ -126,7 +126,7 @@
     color: var(--text-primary);
 }
 
-.check-icon {
+.check-icon-wrapper {
     flex-shrink: 0;
     width: 20px;
     height: 20px;
@@ -136,7 +136,6 @@
     align-items: center;
     justify-content: center;
     color: var(--color-accent);
-    font-size: 0.8rem;
     margin-top: 2px;
 }
 

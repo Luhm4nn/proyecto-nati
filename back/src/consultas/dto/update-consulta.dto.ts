@@ -1,6 +1,6 @@
 import { IsIn, IsOptional, IsString } from 'class-validator';
 
-export class UpdateSolicitudDto {
+export class UpdateConsultaDto {
   @IsOptional()
   @IsString()
   @IsIn(['pendiente', 'revisada', 'contactada'])

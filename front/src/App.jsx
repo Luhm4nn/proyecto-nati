@@ -14,6 +14,7 @@ import Login from './components/Login';
 import Inscripcion from './components/Inscripcion';
 import ProtectedRoute from './components/shared/ProtectedRoute';
 import { ToastProvider } from './contexts/ToastContext';
+import { LoadingProvider } from './contexts/LoadingContext';
 
 
 // Landing Page Composition
@@ -50,21 +51,23 @@ function LandingPage() {
 function App() {
   return (
     <ToastProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/inscripcion/:id" element={<Inscripcion />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <Admin />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      <LoadingProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/inscripcion/:id" element={<Inscripcion />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </LoadingProvider>
     </ToastProvider>
   );
 }

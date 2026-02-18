@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import DOMPurify from "dompurify";
+import { SparklesIcon } from "../shared/UI/Icons";
 import "./Novedades.css";
 
 function Novedades() {
@@ -59,7 +60,7 @@ function Novedades() {
       <section className="novedades-section">
         <div className="container">
           <h2 className="section-title">
-            ✨ Últimas <span className="italic">Novedades</span>
+            <SparklesIcon className="section-title-icon text-accent" /> Últimas <span className="italic">Novedades</span>
           </h2>
           <div className="novedades-loading">Cargando novedades...</div>
         </div>
@@ -75,7 +76,7 @@ function Novedades() {
     <section className="novedades-section" id="novedades">
       <div className="container">
         <h2 className="section-title">
-        ✨ Últimas <span className="italic">Novedades</span>
+          <SparklesIcon className="section-title-icon text-accent" /> Últimas <span className="italic">Novedades</span>
         </h2>
 
         <div className="novedades-carousel">

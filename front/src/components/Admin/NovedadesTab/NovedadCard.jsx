@@ -22,7 +22,7 @@ function NovedadCard({ novedad, onEditar, onEliminar, formatearFecha }) {
               Editar
             </button>
             <button
-              onClick={() => onEliminar(novedad.id)}
+              onClick={() => onEliminar(novedad)}
               className="btn-eliminar"
             >
               Eliminar

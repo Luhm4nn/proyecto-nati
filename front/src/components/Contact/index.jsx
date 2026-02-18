@@ -1,12 +1,15 @@
 
 import { useState } from "react";
 import { useToast } from "../../contexts/ToastContext";
+import { useLoading } from "../../contexts/LoadingContext";
+import { EnvelopeIcon } from "../shared/UI/Icons";
 import "./Contact.css";
 import CustomSelect from "../shared/CustomSelect";
 import { countries } from "../shared/CustomSelect/countries";
 
 function Contact() {
   const { showSuccess, showError, showWarning } = useToast();
+  const { startLoading, stopLoading } = useLoading();
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
@@ -34,6 +37,7 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    startLoading("Enviando tu mensaje...");
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
@@ -55,7 +59,7 @@ ${formData.mensaje}`;
         cleanData.telefono = formData.telefono.trim();
       }
 
-      const response = await fetch(`${apiUrl}/solicitudes`, {
+      const response = await fetch(`${apiUrl}/consultas`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(cleanData),
@@ -67,15 +71,16 @@ ${formData.mensaje}`;
         throw new Error(errorData.message || "Error al enviar");
       }
 
-      showSuccess("¡Solicitud enviada! Te contactaré pronto.", 5000);
+      showSuccess("¡Consulta enviada! Te contactaré pronto.", 5000);
       setSubmitted(true);
       setFormData({ nombre: "", email: "", telefono: "", nivel: "", pais: "", mensaje: "" });
       setTimeout(() => setSubmitted(false), 3000);
     } catch (err) {
       console.error("Submission error:", err);
-      showError("Hubo un error al enviar tu solicitud.");
+      showError("Hubo un error al enviar tu consulta.");
     } finally {
       setLoading(false);
+      stopLoading();
     }
   };
 
@@ -85,7 +90,7 @@ ${formData.mensaje}`;
         <div className="contact-wrapper">
           <div className="contact-header">
             <h2 className="section-title white">
-              ✉️ ¿Tienes consultas? Envianos un mensaje y te contactaré pronto.
+              <EnvelopeIcon className="inline-icon" /> ¿Tienes consultas? Envianos un mensaje y te contactaré pronto.
             </h2>
           </div>
 
@@ -173,7 +178,7 @@ ${formData.mensaje}`;
             </div>
 
             <button type="submit" className="submit-btn" disabled={loading || submitted}>
-              {loading ? "Enviando..." : submitted ? "¡Enviado!" : "Enviar Solicitud"}
+              {loading ? "Enviando..." : submitted ? "¡Enviada!" : "Enviar Consulta"}
             </button>
           </form>
         </div>

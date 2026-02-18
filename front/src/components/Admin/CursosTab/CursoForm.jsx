@@ -1,3 +1,5 @@
+import { PlusIcon, TrashIcon } from "../../shared/UI/Icons";
+
 function CursoForm({
   formCurso,
   onChange,
@@ -63,16 +65,29 @@ function CursoForm({
                   type="button"
                   onClick={() => onEliminarItem(index)}
                   className="btn-eliminar"
-                  style={{ padding: '0.4rem 0.8rem' }}
+                  style={{ padding: '0.4rem 0.8rem', minWidth: '40px' }}
+                  title="Eliminar item"
                 >
-                  ✕
+                  <TrashIcon className="w-4 h-4" />
                 </button>
               )}
             </div>
           ))}
-          <button type="button" onClick={onAgregarItem} className="btn-editar">
-            + Agregar Item
+          <button type="button" onClick={onAgregarItem} className="btn-editar btn-add-item">
+            <PlusIcon className="w-4 h-4" /> Agregar Item
           </button>
+        </div>
+
+        <div className="checkbox-group">
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              name="activo"
+              checked={formCurso.activo}
+              onChange={(e) => onChange({ target: { name: 'activo', value: e.target.checked } })}
+            />
+            Curso Activo (visible en la web)
+          </label>
         </div>
 
         <div className="form-actions">

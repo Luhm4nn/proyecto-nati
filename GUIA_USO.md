@@ -2,7 +2,7 @@
 
 ## 🎯 Para Natalia Luhmann
 
-Esta guía explica cómo usar el sistema de gestión de solicitudes de clases de alemán.
+Esta guía explica cómo usar el sistema de gestión de consultas de clases de alemán.
 
 ---
 
@@ -25,24 +25,24 @@ Esta guía explica cómo usar el sistema de gestión de solicitudes de clases de
 Al iniciar sesión, verás:
 
 - **Barra superior:** Tu nombre y botón de "Cerrar Sesión"
-- **Filtros:** Botones para filtrar solicitudes por estado
-- **Lista de solicitudes:** Todas las peticiones de clases
+- **Filtros:** Botones para filtrar consultas por estado
+- **Lista de consultas:** Todas las peticiones de clases
 
-### Estados de Solicitudes
+### Estados de Consultas
 
-Cada solicitud puede tener 3 estados:
+Cada consulta puede tener 3 estados:
 
-1. **🟡 Pendiente** - Nueva solicitud sin revisar
-2. **🔵 Revisada** - Ya leíste la solicitud
+1. **🟡 Pendiente** - Nueva consulta sin revisar
+2. **🔵 Revisada** - Ya leíste la consulta
 3. **🟢 Contactada** - Ya contactaste al alumno
 
 ---
 
-## 📝 Gestionar Solicitudes
+## 📝 Gestionar Consultas
 
-### Ver Solicitudes
+### Ver Consultas
 
-**Todas las solicitudes:**
+**Todas las consultas:**
 
 - Click en el botón "Todas" (muestra el número total)
 
@@ -52,7 +52,7 @@ Cada solicitud puede tener 3 estados:
 - Click en "Revisadas" - las que ya leíste
 - Click en "Contactadas" - alumnos ya contactados
 
-### Información de Cada Solicitud
+### Información de Cada Consulta
 
 Cada tarjeta muestra:
 
@@ -60,26 +60,26 @@ Cada tarjeta muestra:
 - ✅ Email de contacto
 - ✅ Teléfono (si lo proporcionó)
 - ✅ Mensaje / consulta
-- ✅ Fecha y hora de la solicitud
+- ✅ Fecha y hora de la consulta
 - ✅ Estado actual
 
 ### Cambiar Estado
 
-1. Ubicar la solicitud
+1. Ubicar la consulta
 2. En el menú desplegable de la tarjeta, seleccionar el nuevo estado:
    - Pendiente
    - Revisada
    - Contactada
 3. El cambio se guarda automáticamente
 
-### Eliminar Solicitud
+### Eliminar Consulta
 
 ⚠️ **Usar con cuidado - esta acción no se puede deshacer**
 
-1. Ubicar la solicitud a eliminar
+1. Ubicar la consulta a eliminar
 2. Click en botón "Eliminar"
 3. Confirmar en el mensaje que aparece
-4. La solicitud se borrará permanentemente
+4. La consulta se borrará permanentemente
 
 ---
 
@@ -88,8 +88,8 @@ Cada tarjeta muestra:
 ### ✅ El sistema te protege de:
 
 - Intentos de hackeo (máximo 5 intentos de login por minuto)
-- Spam de solicitudes (máximo 3 por hora por persona)
-- Solicitudes duplicadas (no se puede enviar la misma solicitud 2 veces en 24h)
+- Spam de consultas (máximo 3 por hora por persona)
+- Consultas duplicadas (no se puede enviar la misma consulta 2 veces en 24h)
 - Ataques XSS (el código malicioso se limpia automáticamente)
 - Acceso no autorizado (todos los endpoints admin requieren login)
 
@@ -127,7 +127,7 @@ Solo necesitas un navegador moderno (Chrome, Firefox, Safari, Edge).
 - Vuelve a iniciar sesión
 - La sesión dura 30 minutos desde la última actividad
 
-### "Demasiadas solicitudes"
+### "Demasiadas consultas"
 
 - Estás haciendo muchas acciones muy rápido
 - Espera 1 minuto e intenta de nuevo
@@ -145,16 +145,16 @@ Solo necesitas un navegador moderno (Chrome, Firefox, Safari, Edge).
 ### Diariamente:
 
 1. Iniciar sesión en el panel
-2. Click en "Pendientes" para ver nuevas solicitudes
-3. Leer cada solicitud
+2. Click en "Pendientes" para ver nuevas consultas
+3. Leer cada consulta
 4. Cambiar estado a "Revisada"
 5. Contactar al alumno por email o teléfono
 6. Cambiar estado a "Contactada"
 
 ### Semanalmente:
 
-- Revisar solicitudes "Revisadas" que aún no fueron contactadas
-- Limpiar solicitudes antiguas (opcional)
+- Revisar consultas "Revisadas" que aún no fueron contactadas
+- Limpiar consultas antiguas (opcional)
 
 ### Tips:
 
@@ -198,7 +198,7 @@ npm run create:admin
 ## 🎓 Recordatorios
 
 - ✅ Tu contraseña está encriptada (nadie puede verla)
-- ✅ El sistema registra la fecha de cada solicitud
+- ✅ El sistema registra la fecha de cada consulta
 - ✅ Los datos están en una base de datos segura (PostgreSQL)
 - ✅ Todo el tráfico debe ser HTTPS en producción
 - ✅ El sistema previene spam y duplicados automáticamente
@@ -209,10 +209,10 @@ npm run create:admin
 
 En la vista "Todas", el número entre paréntesis muestra:
 
-- Total de solicitudes en el sistema
+- Total de consultas en el sistema
 
-Ejemplo: **Todas (15)** significa que hay 15 solicitudes en total.
+Ejemplo: **Todas (15)** significa que hay 15 consultas en total.
 
 ---
 
-¡Listo! Ya puedes gestionar las solicitudes de tus alumnos de forma segura y organizada. 🎉
+¡Listo! Ya puedes gestionar las consultas de tus alumnos de forma segura y organizada. 🎉

@@ -1,4 +1,4 @@
-import { IsArray, IsDateString, IsInt, IsNotEmpty, IsString, Matches, Min } from 'class-validator';
+import { IsArray, IsBoolean, IsDateString, IsInt, IsNotEmpty, IsOptional, IsString, Matches, Min } from 'class-validator';
 
 export class CreateDictadoCursoDto {
   @IsInt()
@@ -27,11 +27,16 @@ export class CreateDictadoCursoDto {
   @IsNotEmpty()
   fechaFin: string;
 
-  @IsInt()
-  @Min(1)
-  duracionEstimada: number;
-
   @IsArray()
   @IsString({ each: true })
   diasSemana: string[];
+
+  @IsInt()
+  @Min(0)
+  @IsOptional()
+  cupos?: number;
+
+  @IsBoolean()
+  @IsOptional()
+  activo?: boolean;
 }

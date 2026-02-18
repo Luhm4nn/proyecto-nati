@@ -29,7 +29,7 @@ npm run test:cov        # Con cobertura
 ```
 back/src/
 ├── auth/auth.service.spec.ts           # Tests de autenticación
-├── solicitudes/solicitudes.service.spec.ts  # Tests de solicitudes
+├── consultas/consultas.service.spec.ts  # Tests de consultas
 ├── prisma/prisma.service.spec.ts       # Tests de Prisma
 └── test/app.e2e-spec.ts               # Tests end-to-end
 ```
@@ -38,7 +38,7 @@ back/src/
 
 - ✅ **35 tests pasando**
 - ✅ **Auth:** Login, validación, JWT, rate limiting
-- ✅ **Solicitudes:** CRUD, paginación, validación duplicados, sanitización XSS
+- ✅ **Consultas:** CRUD, paginación, validación duplicados, sanitización XSS
 - ✅ **Testimonios:** CRUD completo, sanitización XSS, toggle activo/inactivo
 - ✅ **E2E:** Endpoints completos con autenticación
 
@@ -159,8 +159,8 @@ if (errorData.message.includes("Ya has enviado")) {
 **Operación completada:**
 
 ```jsx
-showSuccess("Solicitud eliminada correctamente");
-cargarSolicitudes();
+showSuccess("Consulta eliminada correctamente");
+cargarConsultas();
 ```
 
 ---

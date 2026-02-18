@@ -1,7 +1,7 @@
 import "./TestimoniosTab.css";
 import TestimonioForm from "./TestimonioForm";
 import TestimonioCard from "./TestimonioCard";
-import DeleteConfirmationModal from "../DeleteConfirmationModal";
+import DeleteConfirmationModal from "../../shared/DeleteConfirmationModal";
 
 function TestimoniosTab({
   testimonios,

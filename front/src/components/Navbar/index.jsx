@@ -43,9 +43,6 @@ function Navbar() {
         </div>
 
         <div className={`navbar-links ${menuOpen ? "active" : ""}`}>
-          <button onClick={() => scrollToSection("hero")} className="nav-link">
-            Inicio
-          </button>
           <button
             onClick={() => scrollToSection("novedades")}
             className="nav-link"

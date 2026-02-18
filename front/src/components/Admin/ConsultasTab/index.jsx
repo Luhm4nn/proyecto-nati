@@ -1,11 +1,11 @@
-import "./SolicitudesTab.css";
-import FiltrosSolicitudes from "./FiltrosSolicitudes";
-import SolicitudCard from "./SolicitudCard";
+import "./ConsultasTab.css";
+import FiltrosConsultas from "./FiltrosConsultas";
+import ConsultaCard from "./ConsultaCard";
 import Paginacion from "./Paginacion";
-import DeleteConfirmationModal from "../DeleteConfirmationModal";
+import DeleteConfirmationModal from "../../shared/DeleteConfirmationModal";
 
-function SolicitudesTab({
-  solicitudes,
+function ConsultasTab({
+  consultas,
   loading,
   filtro,
   setFiltro,
@@ -22,26 +22,26 @@ function SolicitudesTab({
 }) {
   return (
     <div className="tab-content">
-      <FiltrosSolicitudes
+      <FiltrosConsultas
         filtro={filtro}
         setFiltro={setFiltro}
         contadores={contadores}
       />
 
       {loading ? (
-        <div className="loading">Cargando solicitudes...</div>
-      ) : solicitudes.length === 0 ? (
+        <div className="loading">Cargando consultas...</div>
+      ) : consultas.length === 0 ? (
         <div className="empty-state">
-          No hay solicitudes{" "}
+          No hay consultas{" "}
           {filtro !== "todas" ? `en estado "${filtro}"` : ""}
         </div>
       ) : (
         <>
-          <div className="solicitudes-table">
-            {solicitudes.map((sol) => (
-              <SolicitudCard
-                key={sol.id}
-                solicitud={sol}
+          <div className="consultas-grid">
+            {consultas.map((con) => (
+              <ConsultaCard
+                key={con.id}
+                consulta={con}
                 onCambiarEstado={onCambiarEstado}
                 onEliminar={onEliminar}
                 formatearFecha={formatearFecha}
@@ -61,13 +61,13 @@ function SolicitudesTab({
         isOpen={deleteModal.isOpen}
         onClose={onCerrarModalEliminar}
         onConfirm={onConfirmarEliminacion}
-        title="Eliminar Solicitud"
-        message="¿Estás seguro de que deseas eliminar esta solicitud?"
+        title="Eliminar Consulta"
+        message="¿Estás seguro de que deseas eliminar esta consulta?"
         itemName={deleteModal.name}
       />
     </div>
   );
 }
 
-export default SolicitudesTab;
+export default ConsultasTab;
 

@@ -1,7 +1,7 @@
 import CursoForm from "./CursoForm";
 import CursoCard from "./CursoCard";
 import DictadoModal from "./DictadoModal";
-import DeleteConfirmationModal from "../DeleteConfirmationModal";
+import DeleteConfirmationModal from "../../shared/DeleteConfirmationModal";
 import "./CursosTab.css";
 
 function CursosTab({

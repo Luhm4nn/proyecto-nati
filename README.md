@@ -1,6 +1,6 @@
 # 🇩🇪 Proyecto Natalia Luhmann
 
-Sistema de gestión de solicitudes para clases de alemán con autenticación JWT y panel de administración.
+Sistema de gestión de consultas para clases de alemán con autenticación JWT y panel de administración.
 
 🔗 Live Demo: https://deutsch-fur-dich.vercel.app
 
@@ -65,7 +65,7 @@ La creación de administradores está protegida y desacoplada de la API pública
 
 ### ✅ Implementadas
 
-- **Sistema de Solicitudes**
+- **Gestión de Consultas**
   - Formulario de contacto público
   - Paginación (10 por página)
   - Filtros por estado (pendiente/revisada/contactada)
@@ -78,12 +78,12 @@ La creación de administradores está protegida y desacoplada de la API pública
   - Validación cliente y servidor
 - **Panel de Administración**
   - Autenticación JWT
-  - Tabs: Solicitudes y Testimonios
+  - Tabs: Consultas, Inscripciones, Cursos, Novedades y Testimonios
   - Session timeout (30 minutos)
   - Toast notifications
   - Responsive design
 - **Seguridad**
-  - Rate limiting (5 login/min, 10 solicitudes/hora)
+  - Rate limiting (5 login/min, 10 consultas/hora)
   - Sanitización XSS (backend y frontend)
   - Validación de variables de entorno
   - Headers seguros (Helmet)
@@ -103,17 +103,17 @@ La creación de administradores está protegida y desacoplada de la API pública
 ### Públicos
 
 - `POST /auth/login` - Login de admin
-- `POST /solicitudes` - Crear solicitud (rate limited: 10/hora)
+- `POST /consultas` - Crear consulta (rate limited: 10/hora)
 - `GET /testimonios` - Listar testimonios activos
 
 ### Protegidos (requieren JWT)
 
-**Solicitudes:**
+**Consultas:**
 
-- `GET /solicitudes?estado=pendiente&page=1&limit=10` - Listar con paginación
-- `GET /solicitudes/:id` - Ver detalle
-- `PATCH /solicitudes/:id` - Actualizar estado
-- `DELETE /solicitudes/:id` - Eliminar
+- `GET /consultas?estado=pendiente&page=1&limit=10` - Listar con paginación
+- `GET /consultas/:id` - Ver detalle
+- `PATCH /consultas/:id` - Actualizar estado
+- `DELETE /consultas/:id` - Eliminar
 
 **Testimonios:**
 
@@ -134,7 +134,7 @@ npm run test:cov      # Con cobertura
 
 - ✅ 35 tests pasando
 - ✅ Auth: Login, validación, JWT
-- ✅ Solicitudes: CRUD, paginación, sanitización XSS
+- ✅ Consultas: CRUD, paginación, sanitización XSS
 - ✅ Testimonios: CRUD completo, sanitización
 - ✅ E2E: Endpoints con autenticación
 
@@ -147,7 +147,7 @@ npm run start:dev        # Desarrollo
 npm run build            # Build producción
 npm test                 # Tests
 npm run create:admin     # Crea admin desde ENV vars
-npm run seed:solicitudes # Crea 20 solicitudes de prueba
+npm run seed:consultas   # Crea 20 consultas de prueba
 
 # Frontend
 cd front

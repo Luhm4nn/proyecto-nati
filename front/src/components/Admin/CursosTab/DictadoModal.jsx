@@ -1,3 +1,6 @@
+import { XMarkIcon } from "../../shared/UI/Icons";
+import { calculateMonthDuration } from "../../../utils/dateUtils";
+
 const DIAS_SEMANA = [
   "lunes",
   "martes",
@@ -20,6 +23,8 @@ function DictadoModal({
 }) {
   if (!show) return null;
 
+  const duracion = calculateMonthDuration(formDictado.fechaInicio, formDictado.fechaFin);
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -27,8 +32,8 @@ function DictadoModal({
           <h2>
             {formDictado.id ? "Editar Dictado" : "Nuevo Dictado"} - {curso?.titulo}
           </h2>
-          <button className="modal-close" onClick={onClose}>
-            ✕
+          <button className="modal-close" onClick={onClose} aria-label="Cerrar">
+            <XMarkIcon className="w-6 h-6" />
           </button>
         </div>
 
@@ -85,18 +90,51 @@ function DictadoModal({
             </div>
           </div>
 
+          <div className="form-row">
+            <div className="form-group">
+              <label>Duración Estimada</label>
+              <div
+                className="duration-display"
+                style={{
+                  padding: "0.75rem",
+                  background: "#f3f4f6",
+                  borderRadius: "8px",
+                  fontSize: "1rem",
+                  color: "var(--text-primary)",
+                  fontWeight: "500",
+                  height: "45px",
+                  display: "flex",
+                  alignItems: "center"
+                }}
+              >
+                {duracion} {duracion === 1 ? "mes" : "meses"}
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="cupos">Cupos Disponibles (0 = ilimitados)</label>
+              <input
+                type="number"
+                id="cupos"
+                name="cupos"
+                value={formDictado.cupos}
+                onChange={onChange}
+                min="0"
+                required
+              />
+            </div>
+          </div>
+
           <div className="form-group">
-            <label htmlFor="duracionEstimada">Duración Estimada (meses)</label>
-            <input
-              type="number"
-              id="duracionEstimada"
-              name="duracionEstimada"
-              value={formDictado.duracionEstimada}
-              onChange={onChange}
-              min="1"
-              max="24"
-              required
-            />
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                name="activo"
+                checked={formDictado.activo}
+                onChange={(e) => onChange({ target: { name: 'activo', value: e.target.checked } })}
+              />
+              Dictado Activo (se muestra en la web)
+            </label>
           </div>
 
           <div className="form-group">
@@ -106,9 +144,8 @@ function DictadoModal({
                 <button
                   key={dia}
                   type="button"
-                  className={`dia-btn ${
-                    formDictado.diasSemana.includes(dia) ? "active" : ""
-                  }`}
+                  className={`dia-btn ${formDictado.diasSemana.includes(dia) ? "active" : ""
+                    }`}
                   onClick={() => onToggleDia(dia)}
                 >
                   {dia.charAt(0).toUpperCase() + dia.slice(1, 3)}

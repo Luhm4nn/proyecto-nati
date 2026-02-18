@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../contexts/ToastContext";
+import { useLoading } from "../../contexts/LoadingContext";
 import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
   const { showSuccess, showError } = useToast();
+  const { startLoading, stopLoading } = useLoading();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,6 +26,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    startLoading("Iniciando sesión...");
     setError("");
 
     try {
@@ -56,6 +59,7 @@ function Login() {
       showError(err.message || "Credenciales inválidas");
     } finally {
       setLoading(false);
+      stopLoading();
     }
   };
 
@@ -69,7 +73,7 @@ function Login() {
             className="login-logo"
           />
           <h1>Panel de Administración</h1>
-          <p>Inicia sesión para gestionar las solicitudes</p>
+          <p>Inicia sesión para gestionar consultas e inscripciones</p>
         </div>
 
         <form className="login-form" onSubmit={handleSubmit}>

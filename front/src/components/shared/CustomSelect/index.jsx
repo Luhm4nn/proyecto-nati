@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useRef } from 'react';
+import { ChevronDownIcon } from '../UI/Icons';
 import './CustomSelect.css';
 
 const CustomSelect = ({ value, onChange, options, placeholder, required, name }) => {
@@ -84,7 +85,7 @@ const CustomSelect = ({ value, onChange, options, placeholder, required, name })
                     required={required}
                     name={name} // Pass name for compatibility if needed, though onChange handles it
                 />
-                <span className="custom-select-icon">▼</span>
+                <ChevronDownIcon className="custom-select-icon" />
             </div>
 
             {isOpen && (

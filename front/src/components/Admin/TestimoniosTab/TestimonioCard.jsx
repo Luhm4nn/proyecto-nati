@@ -23,7 +23,7 @@ function TestimonioCard({ testimonio, onEditar, onEliminar, formatearFecha }) {
             Editar
           </button>
           <button
-            onClick={() => onEliminar(testimonio.id)}
+            onClick={() => onEliminar(testimonio)}
             className="btn-eliminar"
           >
             Eliminar

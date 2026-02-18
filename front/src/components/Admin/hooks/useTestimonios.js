@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../../contexts/ToastContext";
+import { useLoading } from "../../../contexts/LoadingContext";
 
 export function useTestimonios() {
   const navigate = useNavigate();
   const { showSuccess, showError } = useToast();
+  const { startLoading, stopLoading } = useLoading();
   const [testimonios, setTestimonios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [formTestimonio, setFormTestimonio] = useState({
@@ -29,6 +31,7 @@ export function useTestimonios() {
 
   const cargarTestimonios = async () => {
     setLoading(true);
+    startLoading("Cargando testimonios...");
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/testimonios?todos=true`, {
@@ -48,6 +51,7 @@ export function useTestimonios() {
       showError("Error al cargar los testimonios");
     } finally {
       setLoading(false);
+      stopLoading();
     }
   };
 
@@ -82,6 +86,7 @@ export function useTestimonios() {
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const isEdit = formTestimonio.id !== null;
+      startLoading(isEdit ? "Actualizando testimonio..." : "Creando testimonio...");
       const url = isEdit
         ? `${apiUrl}/testimonios/${formTestimonio.id}`
         : `${apiUrl}/testimonios`;
@@ -110,7 +115,7 @@ export function useTestimonios() {
           texto: "",
           activo: true,
         });
-        cargarTestimonios();
+        await cargarTestimonios();
       } else {
         const error = await response.json();
         if (error.message && Array.isArray(error.message)) {
@@ -121,6 +126,8 @@ export function useTestimonios() {
       }
     } catch (error) {
       showError("Error de conexión. Verifica tu red e intenta nuevamente.");
+    } finally {
+      stopLoading();
     }
   };
 
@@ -156,6 +163,7 @@ export function useTestimonios() {
   };
 
   const eliminarTestimonio = async (id) => {
+    startLoading("Eliminando testimonio...");
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/testimonios/${id}`, {
@@ -165,10 +173,12 @@ export function useTestimonios() {
 
       if (response.ok) {
         showSuccess("Testimonio eliminado correctamente");
-        cargarTestimonios();
+        await cargarTestimonios();
       }
     } catch (error) {
       showError("Error al eliminar el testimonio");
+    } finally {
+      stopLoading();
     }
   };
 

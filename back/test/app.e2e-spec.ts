@@ -4,7 +4,7 @@ import request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { PrismaService } from '../src/prisma/prisma.service';
 
-describe('Solicitudes API (e2e)', () => {
+describe('Consultas API (e2e)', () => {
   let app: INestApplication;
   let prisma: PrismaService;
   let authToken: string;
@@ -22,7 +22,7 @@ describe('Solicitudes API (e2e)', () => {
     prisma = app.get<PrismaService>(PrismaService);
 
     // Limpiar la base de datos de test
-    await prisma.solicitud.deleteMany();
+    await prisma.consulta.deleteMany();
     await prisma.user.deleteMany();
 
     // Crear usuario admin para los tests
@@ -82,12 +82,12 @@ describe('Solicitudes API (e2e)', () => {
     });
   });
 
-  describe('Solicitudes Endpoints', () => {
-    let solicitudId: number;
+  describe('Consultas Endpoints', () => {
+    let consultaId: number;
 
-    it('/solicitudes (POST) - debería crear una nueva solicitud', () => {
+    it('/consultas (POST) - debería crear una nueva consulta', () => {
       return request(app.getHttpServer())
-        .post('/solicitudes')
+        .post('/consultas')
         .send({
           nombre: 'Juan Pérez',
           email: 'juan@example.com',
@@ -99,28 +99,28 @@ describe('Solicitudes API (e2e)', () => {
           expect(res.body).toHaveProperty('id');
           expect(res.body.nombre).toBe('Juan Pérez');
           expect(res.body.estado).toBe('pendiente');
-          solicitudId = res.body.id;
+          consultaId = res.body.id;
         });
     });
 
-    it('/solicitudes (POST) - debería rechazar solicitudes duplicadas en 24h', () => {
+    it('/consultas (POST) - debería rechazar consultas duplicadas en 24h', () => {
       return request(app.getHttpServer())
-        .post('/solicitudes')
+        .post('/consultas')
         .send({
           nombre: 'Juan Pérez',
           email: 'juan@example.com',
           telefono: '123456789',
-          mensaje: 'Otra solicitud',
+          mensaje: 'Otra consulta',
         })
         .expect(400)
         .expect((res) => {
-          expect(res.body.message).toContain('Ya has enviado una solicitud');
+          expect(res.body.message).toContain('Ya has enviado una consulta');
         });
     });
 
-    it('/solicitudes (POST) - debería sanitizar contenido XSS', async () => {
+    it('/consultas (POST) - debería sanitizar contenido XSS', async () => {
       const response = await request(app.getHttpServer())
-        .post('/solicitudes')
+        .post('/consultas')
         .send({
           nombre: '<script>alert("XSS")</script>María',
           email: 'maria@example.com',
@@ -132,9 +132,9 @@ describe('Solicitudes API (e2e)', () => {
       expect(response.body.mensaje).not.toContain('onerror');
     });
 
-    it('/solicitudes (POST) - debería validar email válido', () => {
+    it('/consultas (POST) - debería validar email válido', () => {
       return request(app.getHttpServer())
-        .post('/solicitudes')
+        .post('/consultas')
         .send({
           nombre: 'Test',
           email: 'invalid-email',
@@ -143,13 +143,13 @@ describe('Solicitudes API (e2e)', () => {
         .expect(400);
     });
 
-    it('/solicitudes (GET) - debería requerir autenticación', () => {
+    it('/consultas (GET) - debería requerir autenticación', () => {
       return request(app.getHttpServer())
-        .get('/solicitudes')
+        .get('/consultas')
         .expect(401);
     });
 
-    it('/solicitudes (GET) - debería retornar todas las solicitudes con auth', async () => {
+    it('/consultas (GET) - debería retornar todas las consultas con auth', async () => {
       // Primero hacer login
       const loginRes = await request(app.getHttpServer())
         .post('/auth/login')
@@ -161,7 +161,7 @@ describe('Solicitudes API (e2e)', () => {
       const token = loginRes.body.access_token;
 
       return request(app.getHttpServer())
-        .get('/solicitudes')
+        .get('/consultas')
         .set('Authorization', `Bearer ${token}`)
         .expect(200)
         .expect((res) => {
@@ -170,7 +170,7 @@ describe('Solicitudes API (e2e)', () => {
         });
     });
 
-    it('/solicitudes/:id (PATCH) - debería actualizar estado con auth', async () => {
+    it('/consultas/:id (PATCH) - debería actualizar estado con auth', async () => {
       const loginRes = await request(app.getHttpServer())
         .post('/auth/login')
         .send({
@@ -181,16 +181,16 @@ describe('Solicitudes API (e2e)', () => {
       const token = loginRes.body.access_token;
 
       return request(app.getHttpServer())
-        .patch(`/solicitudes/${solicitudId}`)
+        .patch(`/consultas/${consultaId}`)
         .set('Authorization', `Bearer ${token}`)
-        .send({ estado: 'contactado' })
+        .send({ estado: 'revisada' })
         .expect(200)
         .expect((res) => {
-          expect(res.body.estado).toBe('contactado');
+          expect(res.body.estado).toBe('revisada');
         });
     });
 
-    it('/solicitudes/:id (DELETE) - debería eliminar solicitud con auth', async () => {
+    it('/consultas/:id (DELETE) - debería eliminar consulta con auth', async () => {
       const loginRes = await request(app.getHttpServer())
         .post('/auth/login')
         .send({
@@ -201,12 +201,12 @@ describe('Solicitudes API (e2e)', () => {
       const token = loginRes.body.access_token;
 
       return request(app.getHttpServer())
-        .delete(`/solicitudes/${solicitudId}`)
+        .delete(`/consultas/${consultaId}`)
         .set('Authorization', `Bearer ${token}`)
         .expect(200);
     });
 
-    it('/solicitudes/:id (GET) - debería retornar 404 para solicitud inexistente', async () => {
+    it('/consultas/:id (GET) - debería retornar 404 para consulta inexistente', async () => {
       const loginRes = await request(app.getHttpServer())
         .post('/auth/login')
         .send({
@@ -217,7 +217,7 @@ describe('Solicitudes API (e2e)', () => {
       const token = loginRes.body.access_token;
 
       return request(app.getHttpServer())
-        .delete('/solicitudes/99999')
+        .delete('/consultas/99999')
         .set('Authorization', `Bearer ${token}`)
         .expect(404);
     });

@@ -1,8 +1,14 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { 
+  CheckIcon, 
+  XMarkIcon, 
+  ExclamationTriangleIcon, 
+  InformationCircleIcon 
+} from "../UI/Icons";
 import "./Toast.css";
 
-const Toast = ({ message, type = "info", onClose, duration = 4000 }) => {
+const Toast = ({ message, type = "info", onClose }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
@@ -23,13 +29,13 @@ const Toast = ({ message, type = "info", onClose, duration = 4000 }) => {
   const getIcon = () => {
     switch (type) {
       case "success":
-        return "✓";
+        return <CheckIcon className="w-5 h-5" />;
       case "error":
-        return "✕";
+        return <XMarkIcon className="w-5 h-5" />;
       case "warning":
-        return "⚠";
+        return <ExclamationTriangleIcon className="w-5 h-5" />;
       default:
-        return "ℹ";
+        return <InformationCircleIcon className="w-5 h-5" />;
     }
   };
 
@@ -48,7 +54,7 @@ const Toast = ({ message, type = "info", onClose, duration = 4000 }) => {
         onClick={handleClose}
         aria-label="Cerrar notificación"
       >
-        ×
+        <XMarkIcon className="w-5 h-5" />
       </button>
     </div>
   );

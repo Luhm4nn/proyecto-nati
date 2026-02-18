@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../../contexts/ToastContext";
+import { useLoading } from "../../../contexts/LoadingContext";
 
 export function useNovedades() {
   const navigate = useNavigate();
   const { showSuccess, showError } = useToast();
+  const { startLoading, stopLoading } = useLoading();
   const [novedades, setNovedades] = useState([]);
   const [loading, setLoading] = useState(true);
   const [formNovedad, setFormNovedad] = useState({
@@ -29,6 +31,7 @@ export function useNovedades() {
 
   const cargarNovedades = async () => {
     setLoading(true);
+    startLoading("Cargando novedades...");
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/novedades`, {
@@ -48,6 +51,7 @@ export function useNovedades() {
       showError("Error al cargar las novedades");
     } finally {
       setLoading(false);
+      stopLoading();
     }
   };
 
@@ -130,6 +134,8 @@ export function useNovedades() {
         formData.append('imagen', formNovedad.imagen);
       }
 
+      startLoading(isEdit ? "Actualizando novedad..." : "Creando novedad...");
+
       const url = isEdit
         ? `${apiUrl}/novedades/${formNovedad.id}`
         : `${apiUrl}/novedades`;
@@ -153,7 +159,7 @@ export function useNovedades() {
           imagen: null,
         });
         setPreviewImagen(null);
-        cargarNovedades();
+        await cargarNovedades();
         
         // Limpiar input file
         const fileInput = document.getElementById('imagen');
@@ -168,6 +174,8 @@ export function useNovedades() {
       }
     } catch (error) {
       showError("Error de conexión. Verifica tu red e intenta nuevamente.");
+    } finally {
+      stopLoading();
     }
   };
 
@@ -204,6 +212,7 @@ export function useNovedades() {
   };
 
   const eliminarNovedad = async (id) => {
+    startLoading("Eliminando novedad...");
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/novedades/${id}`, {
@@ -213,10 +222,12 @@ export function useNovedades() {
 
       if (response.ok) {
         showSuccess("Novedad eliminada correctamente");
-        cargarNovedades();
+        await cargarNovedades();
       }
     } catch (error) {
       showError("Error al eliminar la novedad");
+    } finally {
+      stopLoading();
     }
   };
 

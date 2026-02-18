@@ -1,7 +1,18 @@
 import { useEffect } from 'react';
+import { ExclamationTriangleIcon, XMarkIcon } from '../UI/Icons';
 import './DeleteConfirmationModal.css';
 
-function DeleteConfirmationModal({ isOpen, onClose, onConfirm, title, message, itemName }) {
+function DeleteConfirmationModal({
+  isOpen,
+  onClose,
+  onConfirm,
+  title,
+  message,
+  itemName,
+  confirmText = 'Eliminar',
+  confirmClass = 'btn-eliminar',
+  icon = <ExclamationTriangleIcon className="w-12 h-12 text-warning" />
+}) {
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape' && isOpen) {
@@ -20,28 +31,30 @@ function DeleteConfirmationModal({ isOpen, onClose, onConfirm, title, message, i
       <div className="delete-modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="delete-modal-header">
           <h2>{title || 'Confirmar Eliminación'}</h2>
-          <button className="modal-close" onClick={onClose}>
-            ×
+          <button className="modal-close" onClick={onClose} aria-label="Cerrar">
+            <XMarkIcon className="w-6 h-6" />
           </button>
         </div>
-        
+
         <div className="delete-modal-body">
-          <div className="delete-icon">⚠️</div>
+          <div className="delete-icon">{icon}</div>
           <p className="delete-message">
             {message || '¿Estás seguro de que deseas eliminar este elemento?'}
           </p>
           {itemName && (
             <p className="delete-item-name">"{itemName}"</p>
           )}
-          <p className="delete-warning">Esta acción no se puede deshacer.</p>
+          {confirmClass === 'btn-eliminar' && (
+            <p className="delete-warning">Esta acción no se puede deshacer.</p>
+          )}
         </div>
 
         <div className="delete-modal-actions">
           <button onClick={onClose} className="btn-cancelar">
             Cancelar
           </button>
-          <button onClick={onConfirm} className="btn-eliminar">
-            Eliminar
+          <button onClick={onConfirm} className={confirmClass}>
+            {confirmText}
           </button>
         </div>
       </div>
