@@ -65,7 +65,7 @@ function CursoForm({
                   type="button"
                   onClick={() => onEliminarItem(index)}
                   className="btn-eliminar"
-                  style={{ padding: '0.4rem 0.8rem' }}
+                  style={{ padding: '0.4rem 0.8rem', minWidth: '40px' }}
                   title="Eliminar item"
                 >
                   <TrashIcon className="w-4 h-4" />
@@ -73,12 +73,12 @@ function CursoForm({
               )}
             </div>
           ))}
-          <button type="button" onClick={onAgregarItem} className="btn-editar">
+          <button type="button" onClick={onAgregarItem} className="btn-editar btn-add-item">
             <PlusIcon className="w-4 h-4" /> Agregar Item
           </button>
         </div>
 
-        <div className="form-group">
+        <div className="checkbox-group">
           <label className="checkbox-label">
             <input
               type="checkbox"

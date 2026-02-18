@@ -75,3 +75,52 @@
   margin-bottom: 2rem;
   font-family: var(--font-heading);
 }
+
+/* Mejoras de estética para el Formulario de Cursos */
+.item-input-group {
+  display: flex !important;
+  gap: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+  width: 100% !important;
+}
+
+.item-input-group input {
+  flex: 1 !important;
+  margin-bottom: 0 !important;
+}
+
+.btn-add-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  margin: 0.5rem 0 1.5rem 0 !important;
+  font-size: 0.875rem !important;
+  padding: 0.4rem 0.8rem !important;
+  width: fit-content !important;
+}
+
+.checkbox-group {
+  margin: 1.5rem 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.checkbox-label {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 0 !important;
+  font-size: 1rem !important;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px !important;
+  height: 18px !important;
+  margin: 0 !important;
+  accent-color: var(--color-primary) !important;
+  cursor: pointer !important;
+}

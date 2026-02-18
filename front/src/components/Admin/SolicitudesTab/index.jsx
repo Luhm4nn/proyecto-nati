@@ -29,10 +29,10 @@ function SolicitudesTab({
       />
 
       {loading ? (
-        <div className="loading">Cargando solicitudes...</div>
+        <div className="loading">Cargando consultas...</div>
       ) : solicitudes.length === 0 ? (
         <div className="empty-state">
-          No hay solicitudes{" "}
+          No hay consultas{" "}
           {filtro !== "todas" ? `en estado "${filtro}"` : ""}
         </div>
       ) : (

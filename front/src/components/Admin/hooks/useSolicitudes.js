@@ -71,7 +71,7 @@ export function useSolicitudes() {
 
   const cargarSolicitudes = async (page = 1) => {
     setLoading(true);
-    startLoading("Cargando solicitudes...");
+    startLoading("Cargando consultas...");
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const params = new URLSearchParams({
