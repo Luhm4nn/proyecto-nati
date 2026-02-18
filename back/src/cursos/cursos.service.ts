@@ -31,10 +31,17 @@ export class CursosService {
     const cuposTotales = dictado.cupos || 0;
     const cuposDisponibles = Math.max(0, cuposTotales - inscripcionesConfirmadas);
 
+    // Calculamos la duración estimada (mínimo 1 mes)
+    const fechaInicio = new Date(dictado.fechaInicio);
+    const fechaFin = new Date(dictado.fechaFin);
+    let months = (fechaFin.getFullYear() - fechaInicio.getFullYear()) * 12 + (fechaFin.getMonth() - fechaInicio.getMonth());
+    const duracionEstimada = Math.max(1, months);
+
     // Creamos el objeto de retorno forzando a que sea un objeto plano
     const mapped = {
       ...dictado,
-      cuposDisponibles
+      cuposDisponibles,
+      duracionEstimada
     };
 
     // Quitamos la relación inscripciones para que no viaje al front
@@ -215,7 +222,6 @@ export class CursosService {
         horarioFin: createDictadoDto.horarioFin,
         fechaInicio: fechaInicio,
         fechaFin: fechaFin,
-        duracionEstimada: createDictadoDto.duracionEstimada,
         diasSemana: createDictadoDto.diasSemana,
         cupos: createDictadoDto.cupos || 0,
         activo: createDictadoDto.activo !== undefined ? createDictadoDto.activo : true,
@@ -318,7 +324,6 @@ export class CursosService {
         horarioFin: updateDictadoDto.horarioFin,
         fechaInicio: updateDictadoDto.fechaInicio ? new Date(updateDictadoDto.fechaInicio) : undefined,
         fechaFin: updateDictadoDto.fechaFin ? new Date(updateDictadoDto.fechaFin) : undefined,
-        duracionEstimada: updateDictadoDto.duracionEstimada,
         diasSemana: updateDictadoDto.diasSemana,
         cupos: updateDictadoDto.cupos,
         activo: updateDictadoDto.activo,

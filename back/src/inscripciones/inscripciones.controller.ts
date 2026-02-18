@@ -3,7 +3,7 @@ import { Throttle } from '@nestjs/throttler';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { InscripcionesService } from './inscripciones.service';
 import { CreateInscripcionDto } from './dto/create-inscripcion.dto';
-import { UpdateSolicitudDto } from 'src/solicitudes/dto/update-solicitud.dto';
+import { UpdateInscripcionDto } from './dto/update-inscripcion.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('inscripciones')
@@ -11,7 +11,7 @@ export class InscripcionesController {
   constructor(private readonly inscripcionesService: InscripcionesService) { }
 
   /**
-   * Crear solicitud con rate limiting: máximo 10 solicitudes por hora
+   * Crear inscripción con rate limiting: máximo 10 pedidos por hora
    * Endpoint público para el formulario de inscripción
    */
   @Throttle({ default: { limit: 10, ttl: 3600000 } })
@@ -22,7 +22,7 @@ export class InscripcionesController {
   }
 
   /**
-   * Obtener todas las solicitudes - PROTEGIDO (requiere JWT)
+   * Obtener todas las inscripciones - PROTEGIDO (requiere JWT)
    */
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -37,7 +37,7 @@ export class InscripcionesController {
   }
 
   /**
-   * Obtener una solicitud por ID - PROTEGIDO (requiere JWT)
+   * Obtener una inscripción por ID - PROTEGIDO (requiere JWT)
    */
   @UseGuards(JwtAuthGuard)
   @Get(':id')
@@ -46,11 +46,11 @@ export class InscripcionesController {
   }
 
   /**
-   * Actualizar solicitud - PROTEGIDO (requiere JWT)
+   * Actualizar inscripción - PROTEGIDO (requiere JWT)
    */
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateInscripcionDto: UpdateSolicitudDto) {
+  update(@Param('id') id: string, @Body() updateInscripcionDto: UpdateInscripcionDto) {
     return this.inscripcionesService.update(+id, updateInscripcionDto);
   }
 
@@ -64,7 +64,7 @@ export class InscripcionesController {
   }
 
   /**
-   * Eliminar solicitud - PROTEGIDO (requiere JWT)
+   * Eliminar inscripción - PROTEGIDO (requiere JWT)
    */
   @UseGuards(JwtAuthGuard)
   @Delete(':id')

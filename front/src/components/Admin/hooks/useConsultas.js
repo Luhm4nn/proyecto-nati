@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "../../../contexts/ToastContext";
 import { useLoading } from "../../../contexts/LoadingContext";
 
-export function useSolicitudes() {
+export function useConsultas() {
   const navigate = useNavigate();
   const { showSuccess, showError } = useToast();
   const { startLoading, stopLoading } = useLoading();
-  const [solicitudes, setSolicitudes] = useState([]);
+  const [consultas, setConsultas] = useState([]);
   const [filtro, setFiltro] = useState("todas");
   const [loading, setLoading] = useState(true);
   const [paginacion, setPaginacion] = useState({
@@ -43,7 +43,7 @@ export function useSolicitudes() {
 
       const requests = estados.map((estado) =>
         fetch(
-          `${apiUrl}/solicitudes?${estado !== "todas" ? `estado=${estado}&` : ""}page=1&limit=1`,
+          `${apiUrl}/consultas?${estado !== "todas" ? `estado=${estado}&` : ""}page=1&limit=1`,
           { headers: getAuthHeaders() }
         ).then(async (r) => {
           if (!r.ok) return null;
@@ -69,7 +69,7 @@ export function useSolicitudes() {
     }
   };
 
-  const cargarSolicitudes = async (page = 1) => {
+  const cargarConsultas = async (page = 1) => {
     setLoading(true);
     startLoading("Cargando consultas...");
     try {
@@ -83,7 +83,7 @@ export function useSolicitudes() {
         params.append("estado", filtro);
       }
 
-      const response = await fetch(`${apiUrl}/solicitudes?${params}`, {
+      const response = await fetch(`${apiUrl}/consultas?${params}`, {
         headers: getAuthHeaders(),
       });
 
@@ -97,7 +97,7 @@ export function useSolicitudes() {
       const result = await response.json();
 
       if (result?.data && result?.pagination) {
-        setSolicitudes(result.data);
+        setConsultas(result.data);
         setPaginacion(result.pagination);
 
         setContadores((prev) => ({
@@ -105,11 +105,11 @@ export function useSolicitudes() {
           [filtro]: result.pagination.total,
         }));
       } else {
-        setSolicitudes([]);
-        showError("Error al cargar las solicitudes");
+        setConsultas([]);
+        showError("Error al cargar las consultas");
       }
     } catch (error) {
-      showError("Error al cargar las solicitudes");
+      showError("Error al cargar las consultas");
     } finally {
       setLoading(false);
       stopLoading();
@@ -120,7 +120,7 @@ export function useSolicitudes() {
     startLoading("Actualizando estado...");
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
-      const response = await fetch(`${apiUrl}/solicitudes/${id}`, {
+      const response = await fetch(`${apiUrl}/consultas/${id}`, {
         method: "PATCH",
         headers: getAuthHeaders(),
         body: JSON.stringify({ estado: nuevoEstado }),
@@ -138,7 +138,7 @@ export function useSolicitudes() {
       } else {
         showError("Error al actualizar el estado");
       }
-      await cargarSolicitudes(paginacion.page);
+      await cargarConsultas(paginacion.page);
       await cargarContadores();
     } catch (error) {
       showError("Error al actualizar el estado");
@@ -147,11 +147,11 @@ export function useSolicitudes() {
     }
   };
 
-  const abrirModalEliminar = (solicitud) => {
+  const abrirModalEliminar = (consulta) => {
     setDeleteModal({
       isOpen: true,
-      id: solicitud.id,
-      name: solicitud.nombre,
+      id: consulta.id,
+      name: consulta.nombre,
     });
   };
 
@@ -164,15 +164,15 @@ export function useSolicitudes() {
   };
 
   const confirmarEliminacion = async () => {
-    await eliminarSolicitud(deleteModal.id);
+    await eliminarConsulta(deleteModal.id);
     cerrarModalEliminar();
   };
 
-  const eliminarSolicitud = async (id) => {
-    startLoading("Eliminando solicitud...");
+  const eliminarConsulta = async (id) => {
+    startLoading("Eliminando consulta...");
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
-      const response = await fetch(`${apiUrl}/solicitudes/${id}`, {
+      const response = await fetch(`${apiUrl}/consultas/${id}`, {
         method: "DELETE",
         headers: getAuthHeaders(),
       });
@@ -185,14 +185,14 @@ export function useSolicitudes() {
       }
 
       if (response.ok) {
-        showSuccess("Solicitud eliminada correctamente");
+        showSuccess("Consulta eliminada correctamente");
       } else {
-        showError("Error al eliminar la solicitud");
+        showError("Error al eliminar la consulta");
       }
-      await cargarSolicitudes(paginacion.page);
+      await cargarConsultas(paginacion.page);
       await cargarContadores();
     } catch (error) {
-      showError("Error al eliminar la solicitud");
+      showError("Error al eliminar la consulta");
     } finally {
       stopLoading();
     }
@@ -200,7 +200,7 @@ export function useSolicitudes() {
 
   useEffect(() => {
     setPaginacion((prev) => ({ ...prev, page: 1 }));
-    cargarSolicitudes(1);
+    cargarConsultas(1);
   }, [filtro]);
 
   useEffect(() => {
@@ -208,7 +208,7 @@ export function useSolicitudes() {
   }, []);
 
   return {
-    solicitudes,
+    consultas,
     filtro,
     setFiltro,
     loading,
@@ -216,7 +216,7 @@ export function useSolicitudes() {
     contadores,
     cambiarEstado,
     abrirModalEliminar,
-    cargarSolicitudes,
+    cargarConsultas,
     deleteModal,
     cerrarModalEliminar,
     confirmarEliminacion,

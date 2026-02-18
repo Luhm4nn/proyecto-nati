@@ -23,13 +23,13 @@ export class MailService {
             where: { id: dictadoCursoId },
         });
         const nombreCurso = dictadoCurso?.curso.titulo;
-        const adminUrl = `${process.env.FRONTEND_URL}/admin?tab=solicitudes&id=${inscripcionId}`;
+        const adminUrl = `${process.env.FRONTEND_URL}/admin?tab=inscripciones&id=${inscripcionId}`;
 
         try {
             await this.transporter.sendMail({
                 from: process.env.MAIL_FROM,
                 to: process.env.ADMIN_EMAIL || process.env.MAIL_FROM, // Notificación para Natalia (administración)
-                subject: 'Nueva Solicitud de Inscripción',
+                subject: 'Nueva Inscripción Recibida',
                 html: `
           <h1>Hola Natalia,</h1>
           <p>Te informamos que el alumno ${nombre} ${apellido} (${emailAlumno}) ha solicitado inscribirse en el curso <strong>${nombreCurso}</strong></p>

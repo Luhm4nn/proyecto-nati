@@ -5,9 +5,9 @@ function InscripcionCard({ inscripcion, onConfirmar, onEliminar, formatearFecha,
     const curso = dictado?.curso;
 
     return (
-        <div className="solicitud-card">
-            <div className="solicitud-header">
-                <div className="solicitud-nombre-estado">
+        <div className="consulta-card">
+            <div className="consulta-header">
+                <div className="consulta-nombre-estado">
                     <h3>
                         {DOMPurify.sanitize(inscripcion.nombre + ' ' + inscripcion.apellido, { ALLOWED_TAGS: [] })}
                     </h3>
@@ -18,7 +18,7 @@ function InscripcionCard({ inscripcion, onConfirmar, onEliminar, formatearFecha,
                 <span className="fecha">{formatearFecha(inscripcion.createdAt)}</span>
             </div>
 
-            <div className="solicitud-body">
+            <div className="consulta-body">
                 <p>
                     <strong>Curso:</strong> {curso?.titulo || 'Cargando...'}
                 </p>
@@ -36,7 +36,7 @@ function InscripcionCard({ inscripcion, onConfirmar, onEliminar, formatearFecha,
                 )}
             </div>
 
-            <div className="solicitud-actions">
+            <div className="consulta-actions">
                 <div style={{ display: 'flex', gap: '1rem', width: '100%', alignItems: 'center', flexWrap: 'wrap' }}>
                     {inscripcion.estado === 'pendiente' && (
                         <button

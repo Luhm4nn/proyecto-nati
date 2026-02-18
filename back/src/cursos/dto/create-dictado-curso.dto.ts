@@ -27,10 +27,6 @@ export class CreateDictadoCursoDto {
   @IsNotEmpty()
   fechaFin: string;
 
-  @IsInt()
-  @Min(1)
-  duracionEstimada: number;
-
   @IsArray()
   @IsString({ each: true })
   diasSemana: string[];

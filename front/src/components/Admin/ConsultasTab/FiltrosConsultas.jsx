@@ -1,4 +1,4 @@
-function FiltrosSolicitudes({ filtro, setFiltro, contadores }) {
+function FiltrosConsultas({ filtro, setFiltro, contadores }) {
   return (
     <div className="filtros">
       <button
@@ -29,4 +29,4 @@ function FiltrosSolicitudes({ filtro, setFiltro, contadores }) {
   );
 }
 
-export default FiltrosSolicitudes;
+export default FiltrosConsultas;

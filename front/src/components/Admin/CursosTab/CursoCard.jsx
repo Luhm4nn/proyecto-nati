@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ChevronDownIcon, PlusIcon, PencilIcon, TrashIcon } from '../../shared/UI/Icons';
+import { calculateMonthDuration } from '../../../utils/dateUtils';
 
 function CursoCard({ curso, onEditar, onEliminar, onAgregarDictado, onEditarDictado, onEliminarDictado, formatearFecha }) {
   const [dictadosExpanded, setDictadosExpanded] = useState(false);
@@ -56,7 +57,7 @@ function CursoCard({ curso, onEditar, onEliminar, onAgregarDictado, onEditarDict
                     </div>
                     <div className="dictado-detalles">
                       <span>{formatearFecha(dictado.fechaInicio)} al {formatearFecha(dictado.fechaFin)}</span>
-                      <span>• {dictado.duracionEstimada} {dictado.duracionEstimada === 1 ? "mes" : "meses"}</span>
+                      <span>• {calculateMonthDuration(dictado.fechaInicio, dictado.fechaFin)} {calculateMonthDuration(dictado.fechaInicio, dictado.fechaFin) === 1 ? "mes" : "meses"}</span>
                     </div>
                   </div>
                   <div className="dictado-actions">

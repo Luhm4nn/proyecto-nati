@@ -59,7 +59,7 @@ ${formData.mensaje}`;
         cleanData.telefono = formData.telefono.trim();
       }
 
-      const response = await fetch(`${apiUrl}/solicitudes`, {
+      const response = await fetch(`${apiUrl}/consultas`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(cleanData),
@@ -71,13 +71,13 @@ ${formData.mensaje}`;
         throw new Error(errorData.message || "Error al enviar");
       }
 
-      showSuccess("¡Solicitud enviada! Te contactaré pronto.", 5000);
+      showSuccess("¡Consulta enviada! Te contactaré pronto.", 5000);
       setSubmitted(true);
       setFormData({ nombre: "", email: "", telefono: "", nivel: "", pais: "", mensaje: "" });
       setTimeout(() => setSubmitted(false), 3000);
     } catch (err) {
       console.error("Submission error:", err);
-      showError("Hubo un error al enviar tu solicitud.");
+      showError("Hubo un error al enviar tu consulta.");
     } finally {
       setLoading(false);
       stopLoading();
@@ -178,7 +178,7 @@ ${formData.mensaje}`;
             </div>
 
             <button type="submit" className="submit-btn" disabled={loading || submitted}>
-              {loading ? "Enviando..." : submitted ? "¡Enviado!" : "Enviar Solicitud"}
+              {loading ? "Enviando..." : submitted ? "¡Enviada!" : "Enviar Consulta"}
             </button>
           </form>
         </div>

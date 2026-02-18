@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 
-export class CreateSolicitudDto {
+export class CreateConsultaDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(2)

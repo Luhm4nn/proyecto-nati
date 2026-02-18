@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useSessionTimeout } from "../../hooks/useSessionTimeout";
 import AdminHeader from "./AdminHeader";
 import AdminTabs from "./AdminTabs";
-import SolicitudesTab from "./SolicitudesTab";
+import ConsultasTab from "./ConsultasTab";
 import TestimoniosTab from "./TestimoniosTab";
 import NovedadesTab from "./NovedadesTab";
 import CursosTab from "./CursosTab";
-import { useSolicitudes } from "./hooks/useSolicitudes";
+import { useConsultas } from "./hooks/useConsultas";
 import { useInscripciones } from "./hooks/useInscripciones";
 import { useTestimonios } from "./hooks/useTestimonios";
 import { useNovedades } from "./hooks/useNovedades";
@@ -20,11 +20,11 @@ import "./Admin.css";
 function Admin() {
   const navigate = useNavigate();
   useSessionTimeout();
-  const [activeTab, setActiveTab] = useState("solicitudes");
+  const [activeTab, setActiveTab] = useState("consultas");
   const [user, setUser] = useState(null);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  const solicitudesData = useSolicitudes();
+  const consultasData = useConsultas();
   const inscripcionesData = useInscripciones();
   const testimoniosData = useTestimonios();
   const novedadesData = useNovedades();
@@ -51,22 +51,22 @@ function Admin() {
 
         <AdminTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
-        {activeTab === "solicitudes" && (
-          <SolicitudesTab
-            solicitudes={solicitudesData.solicitudes}
-            loading={solicitudesData.loading}
-            filtro={solicitudesData.filtro}
-            setFiltro={solicitudesData.setFiltro}
-            contadores={solicitudesData.contadores}
-            paginacion={solicitudesData.paginacion}
-            onCambiarEstado={solicitudesData.cambiarEstado}
-            onEliminar={solicitudesData.abrirModalEliminar}
-            onCambiarPagina={solicitudesData.cargarSolicitudes}
+        {activeTab === "consultas" && (
+          <ConsultasTab
+            consultas={consultasData.consultas}
+            loading={consultasData.loading}
+            filtro={consultasData.filtro}
+            setFiltro={consultasData.setFiltro}
+            contadores={consultasData.contadores}
+            paginacion={consultasData.paginacion}
+            onCambiarEstado={consultasData.cambiarEstado}
+            onEliminar={consultasData.abrirModalEliminar}
+            onCambiarPagina={consultasData.cargarConsultas}
             formatearFecha={formatearFecha}
             getEstadoColor={getEstadoColor}
-            deleteModal={solicitudesData.deleteModal}
-            onCerrarModalEliminar={solicitudesData.cerrarModalEliminar}
-            onConfirmarEliminacion={solicitudesData.confirmarEliminacion}
+            deleteModal={consultasData.deleteModal}
+            onCerrarModalEliminar={consultasData.cerrarModalEliminar}
+            onConfirmarEliminacion={consultasData.confirmarEliminacion}
           />
         )}
 

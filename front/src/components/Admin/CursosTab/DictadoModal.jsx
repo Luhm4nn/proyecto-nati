@@ -1,4 +1,5 @@
 import { XMarkIcon } from "../../shared/UI/Icons";
+import { calculateMonthDuration } from "../../../utils/dateUtils";
 
 const DIAS_SEMANA = [
   "lunes",
@@ -21,6 +22,8 @@ function DictadoModal({
   onEliminarDictado,
 }) {
   if (!show) return null;
+
+  const duracion = calculateMonthDuration(formDictado.fechaInicio, formDictado.fechaFin);
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -89,17 +92,23 @@ function DictadoModal({
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="duracionEstimada">Duración Estimada (meses)</label>
-              <input
-                type="number"
-                id="duracionEstimada"
-                name="duracionEstimada"
-                value={formDictado.duracionEstimada}
-                onChange={onChange}
-                min="1"
-                max="24"
-                required
-              />
+              <label>Duración Estimada</label>
+              <div
+                className="duration-display"
+                style={{
+                  padding: "0.75rem",
+                  background: "#f3f4f6",
+                  borderRadius: "8px",
+                  fontSize: "1rem",
+                  color: "var(--text-primary)",
+                  fontWeight: "500",
+                  height: "45px",
+                  display: "flex",
+                  alignItems: "center"
+                }}
+              >
+                {duracion} {duracion === 1 ? "mes" : "meses"}
+              </div>
             </div>
 
             <div className="form-group">

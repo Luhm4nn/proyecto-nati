@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { EnvelopeIcon } from "../../shared/UI/Icons";
-import "../SolicitudesTab/SolicitudesTab.css";
+import "../ConsultasTab/ConsultasTab.css";
 import FiltrosInscripciones from "./FiltrosInscripciones";
 import InscripcionCard from "./InscripcionCard";
-import Paginacion from "../SolicitudesTab/Paginacion";
+import Paginacion from "../ConsultasTab/Paginacion";
 import DeleteConfirmationModal from "../../shared/DeleteConfirmationModal";
 
 function InscripcionesTab({
@@ -53,7 +53,7 @@ function InscripcionesTab({
                 </div>
             ) : (
                 <>
-                    <div className="solicitudes-table">
+                    <div className="consultas-grid">
                         {(() => {
                             const gruposAgrupados = (() => {
                                 const grupos = {};

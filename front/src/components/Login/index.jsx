@@ -73,7 +73,7 @@ function Login() {
             className="login-logo"
           />
           <h1>Panel de Administración</h1>
-          <p>Inicia sesión para gestionar las solicitudes</p>
+          <p>Inicia sesión para gestionar consultas e inscripciones</p>
         </div>
 
         <form className="login-form" onSubmit={handleSubmit}>

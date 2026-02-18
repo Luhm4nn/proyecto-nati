@@ -15,6 +15,7 @@ import {
 } from '../shared/UI/Icons';
 import Footer from '../Footer';
 import './Inscripcion.css';
+import { calculateMonthDuration } from '../../utils/dateUtils';
 
 function Inscripcion() {
 
@@ -264,7 +265,7 @@ function Inscripcion() {
                                                         {dictado.diasSemana.join(" y ")}
                                                     </div>
                                                     <span className="dictado-duration-badge">
-                                                        {dictado.duracionEstimada} {dictado.duracionEstimada === 1 ? 'mes' : 'meses'}
+                                                        {calculateMonthDuration(dictado.fechaInicio, dictado.fechaFin)} {calculateMonthDuration(dictado.fechaInicio, dictado.fechaFin) === 1 ? 'mes' : 'meses'}
                                                     </span>
                                                 </div>
 

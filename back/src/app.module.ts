@@ -5,7 +5,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
-import { SolicitudesModule } from './solicitudes/solicitudes.module';
+import { ConsultasModule } from './consultas/consultas.module';
 import { AuthModule } from './auth/auth.module';
 import { TestimoniosModule } from './testimonios/testimonios.module';
 import { NovedadesModule } from './novedades/novedades.module';
@@ -24,7 +24,7 @@ import { InscripcionesModule } from './inscripciones/inscripciones.module';
       },
     }),
     // Rate limiting global: máximo 100 requests por minuto por IP
-    // Los endpoints críticos (login, crear solicitud) tienen sus propios límites más estrictos
+    // Los endpoints críticos (login, crear consulta) tienen sus propios límites más estrictos
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
@@ -32,7 +32,7 @@ import { InscripcionesModule } from './inscripciones/inscripciones.module';
       },
     ]),
     PrismaModule,
-    SolicitudesModule,
+    ConsultasModule,
     AuthModule,
     TestimoniosModule,
     NovedadesModule,

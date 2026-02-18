@@ -5,9 +5,9 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateInscripcionDto } from './dto/create-inscripcion.dto';
+import { UpdateInscripcionDto } from './dto/update-inscripcion.dto';
 import xss from 'xss';
 import { MailService } from 'src/utils/mail.service';
-import { UpdateSolicitudDto } from 'src/solicitudes/dto/update-solicitud.dto';
 
 @Injectable()
 export class InscripcionesService {
@@ -17,7 +17,7 @@ export class InscripcionesService {
   ) { }
 
   /**
-   * Crea una nueva inscripcion verificando que no exista una duplicada en las últimas 24h
+   * Crea una nueva inscripción verificando que no exista una duplicada en las últimas 24h
    * y que queden cupos disponibles.
    */
   async create(createInscripcionDto: CreateInscripcionDto, file: Express.Multer.File) {
@@ -45,7 +45,7 @@ export class InscripcionesService {
     // const hace24Horas = new Date();
     // hace24Horas.setHours(hace24Horas.getHours() - 24);
 
-    // const solicitudReciente = await this.prisma.inscripcion.findFirst({
+    // const consultaReciente = await this.prisma.consulta.findFirst({
     //   where: {
     //     email: createInscripcionDto.email,
     //     createdAt: {
@@ -54,9 +54,9 @@ export class InscripcionesService {
     //   },
     // });
 
-    // if (solicitudReciente) {
+    // if (consultaReciente) {
     //   throw new BadRequestException(
-    //     'Ya has enviado una solicitud recientemente. Por favor, espera 24 horas antes de enviar otra.',
+    //     'Ya has enviado una consulta recientemente. Por favor, espera 24 horas antes de enviar otra.',
     //   );
     // }
 
@@ -165,7 +165,7 @@ export class InscripcionesService {
     });
   }
 
-  async update(id: number, updateInscripcionDto: any) {
+  async update(id: number, updateInscripcionDto: UpdateInscripcionDto) {
     const inscripcion = await this.prisma.inscripcion.findUnique({
       where: { id },
     });

@@ -49,7 +49,7 @@ const mensajesBase = [
 const estados = ['pendiente', 'revisada', 'contactada'];
 
 async function main() {
-  console.log('🌱 Creando 20 solicitudes de prueba...\n');
+  console.log('🌱 Creando 20 consultas de prueba...\n');
 
   for (let i = 0; i < 20; i++) {
     const nivel = niveles[Math.floor(Math.random() * niveles.length)];
@@ -70,7 +70,7 @@ ${mensajeBase}`;
     fecha.setDate(fecha.getDate() - diasAtras);
     fecha.setHours(fecha.getHours() - horasAtras);
 
-    const solicitud = await prisma.solicitud.create({
+    const consulta = await prisma.consulta.create({
       data: {
         nombre: nombres[i],
         email: `${nombres[i].toLowerCase().replace(/\s/g, '.')}@mail.com`,
@@ -81,10 +81,10 @@ ${mensajeBase}`;
       },
     });
 
-    console.log(`✅ ${i + 1}. ${solicitud.nombre} - ${solicitud.estado}`);
+    console.log(`✅ ${i + 1}. ${consulta.nombre} - ${consulta.estado}`);
   }
 
-  console.log('\n✨ ¡20 solicitudes creadas exitosamente!');
+  console.log('\n✨ ¡20 consultas creadas exitosamente!');
 }
 
 main()
