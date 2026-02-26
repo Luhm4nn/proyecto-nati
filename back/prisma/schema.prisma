@@ -56,11 +56,11 @@ model Curso {
   id            Int            @id @default(autoincrement())
   titulo        String
   descripcion   String
-  valor         Float          @default(0)
   items         String[]
   activo        Boolean        @default(true)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
+  valor         Float          @default(0)
   dictadosCurso DictadoCurso[]
 
   @@map("cursos")
@@ -100,10 +100,10 @@ model Inscripcion {
 }
 
 model DatosTransferencia {
-  id       Int    @id @default(autoincrement())
-  alias    String
-  cvu String
-  nombreCuenta   String
+  id           Int    @id @default(autoincrement())
+  alias        String
+  cvu          String
+  nombreCuenta String
 
   @@map("datos_transferencia")
 }
