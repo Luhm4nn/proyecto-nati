@@ -2,10 +2,10 @@ import './AdminTabs.css';
 
 function AdminTabs({ activeTab, setActiveTab }) {
   const tabs = [
-    { id: 'consultas', label: 'Consultas' },
     { id: 'inscripciones', label: 'Inscripciones' },
     { id: 'cursos', label: 'Cursos' },
     { id: 'novedades', label: 'Novedades' },
+    { id: 'consultas', label: 'Consultas' },
     { id: 'testimonios', label: 'Testimonios' },
     { id: 'transferencia', label: 'Transferencia' },
   ];
