@@ -88,6 +88,43 @@ export class InscripcionesService {
     );
   }
 
+  /**
+   * Crea una inscripción directamente desde el panel de admin (ya confirmada)
+   */
+  async createAdmin(createInscripcionDto: CreateInscripcionDto) {
+    // 1. Verificar cupos
+    const dictado = await this.prisma.dictadoCurso.findUnique({
+      where: { id: createInscripcionDto.dictadoCursoId },
+      include: {
+        _count: {
+          select: {
+            inscripciones: {
+              where: { estado: 'confirmada' },
+            },
+          },
+        },
+      },
+    });
+
+    if (!dictado) {
+      throw new NotFoundException('Dictado no encontrado');
+    }
+
+    if (dictado.cupos > 0 && dictado._count.inscripciones >= dictado.cupos) {
+      throw new BadRequestException('No quedan cupos disponibles.');
+    }
+
+    // Separar campos que no van a la base de datos
+    const { emailConfirmacion, ...dataToSave } = createInscripcionDto;
+
+    return this.prisma.inscripcion.create({
+      data: {
+        ...dataToSave,
+        estado: 'confirmada' // Forzamos estado confirmada
+      },
+    });
+  }
+
   async confirmarInscripcion(id: number) {
     const inscripcion = await this.prisma.inscripcion.findUnique({
       where: { id },

@@ -10,15 +10,20 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class InscripcionesController {
   constructor(private readonly inscripcionesService: InscripcionesService) { }
 
-  /**
-   * Crear inscripción con rate limiting: máximo 10 pedidos por hora
-   * Endpoint público para el formulario de inscripción
-   */
   @Throttle({ default: { limit: 10, ttl: 3600000 } })
   @Post()
   @UseInterceptors(FileInterceptor('comprobante'))
   create(@Body() createInscripcionDto: CreateInscripcionDto, @UploadedFile() file: Express.Multer.File) {
     return this.inscripcionesService.create(createInscripcionDto, file);
+  }
+
+  /**
+   * Crear inscripción desde el panel de admin - PROTEGIDO
+   */
+  @UseGuards(JwtAuthGuard)
+  @Post('admin')
+  createAdmin(@Body() createInscripcionDto: CreateInscripcionDto) {
+    return this.inscripcionesService.createAdmin(createInscripcionDto);
   }
 
   /**

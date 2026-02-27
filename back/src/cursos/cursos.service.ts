@@ -40,6 +40,7 @@ export class CursosService {
     // Creamos el objeto de retorno forzando a que sea un objeto plano
     const mapped = {
       ...dictado,
+      cuposOcupados: inscripcionesConfirmadas,
       cuposDisponibles,
       duracionEstimada
     };

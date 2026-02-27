@@ -1,8 +1,22 @@
 import { useState } from 'react';
-import { ChevronDownIcon, PlusIcon, PencilIcon, TrashIcon } from '../../shared/UI/Icons';
+import {
+  ChevronDownIcon,
+  PlusIcon,
+  PencilIcon,
+  TrashIcon,
+  UserGroupIcon,
+} from '../../shared/UI/Icons';
 import { calculateMonthDuration } from '../../../utils/dateUtils';
 
-function CursoCard({ curso, onEditar, onEliminar, onAgregarDictado, onEditarDictado, onEliminarDictado, formatearFecha }) {
+function CursoCard({
+  curso,
+  onEditar,
+  onEliminar,
+  onAgregarDictado,
+  onEditarDictado,
+  onEliminarDictado,
+  formatearFecha,
+}) {
   const [dictadosExpanded, setDictadosExpanded] = useState(false);
 
   return (
@@ -22,7 +36,6 @@ function CursoCard({ curso, onEditar, onEliminar, onAgregarDictado, onEditarDict
       <div className="curso-value-badge">
         <strong>Valor: </strong> AR$ {curso.valor?.toLocaleString('es-AR')}
       </div>
-
 
       <p className="curso-descripcion">{curso.descripcion}</p>
 
@@ -45,9 +58,13 @@ function CursoCard({ curso, onEditar, onEliminar, onAgregarDictado, onEditarDict
           >
             <div className="dictados-toggle-content">
               <strong>Dictados Programados</strong>
-              <span className="dictados-count">{curso.dictadosCurso.length || 0}</span>
+              <span className="dictados-count">
+                {curso.dictadosCurso.length || 0}
+              </span>
             </div>
-            <ChevronDownIcon className={`toggle-icon ${dictadosExpanded ? 'expanded' : ''}`} />
+            <ChevronDownIcon
+              className={`toggle-icon ${dictadosExpanded ? 'expanded' : ''}`}
+            />
           </button>
 
           {dictadosExpanded && (
@@ -56,12 +73,38 @@ function CursoCard({ curso, onEditar, onEliminar, onAgregarDictado, onEditarDict
                 <div key={dictado.id} className="dictado-item">
                   <div className="dictado-info">
                     <div className="dictado-horario">
-                      <strong>{dictado.horarioInicio} - {dictado.horarioFin}</strong>
-                      <span className="dictado-dias">{dictado.diasSemana.join(", ")}</span>
+                      <strong>
+                        {dictado.horarioInicio} - {dictado.horarioFin}
+                      </strong>
+                      <span className="dictado-dias">
+                        {dictado.diasSemana.join(', ')}
+                      </span>
                     </div>
                     <div className="dictado-detalles">
-                      <span>{formatearFecha(dictado.fechaInicio)} al {formatearFecha(dictado.fechaFin)}</span>
-                      <span>• {calculateMonthDuration(dictado.fechaInicio, dictado.fechaFin)} {calculateMonthDuration(dictado.fechaInicio, dictado.fechaFin) === 1 ? "mes" : "meses"}</span>
+                      <span>
+                        {formatearFecha(dictado.fechaInicio)} al{' '}
+                        {formatearFecha(dictado.fechaFin)}
+                      </span>
+                      <span>
+                        •{' '}
+                        {calculateMonthDuration(
+                          dictado.fechaInicio,
+                          dictado.fechaFin
+                        )}{' '}
+                        {calculateMonthDuration(
+                          dictado.fechaInicio,
+                          dictado.fechaFin
+                        ) === 1
+                          ? 'mes'
+                          : 'meses'}
+                      </span>
+                    </div>
+                    <div className="dictado-cupos-status">
+                      <UserGroupIcon className="w-4 h-4" />
+                      <span>
+                        {dictado.cuposOcupados || 0} / {dictado.cupos || 0}{' '}
+                        alumnos
+                      </span>
                     </div>
                   </div>
                   <div className="dictado-actions">
@@ -78,7 +121,6 @@ function CursoCard({ curso, onEditar, onEliminar, onAgregarDictado, onEditarDict
                       <TrashIcon className="w-4 h-4" />
                     </button>
                   </div>
-
                 </div>
               ))}
             </div>

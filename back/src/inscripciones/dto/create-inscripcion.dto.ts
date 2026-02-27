@@ -19,8 +19,8 @@ export class CreateInscripcionDto {
   email: string;
 
   @IsEmail()
-  @IsNotEmpty()
-  emailConfirmacion: string;
+  @IsOptional()
+  emailConfirmacion?: string;
 
   @IsOptional()
   @IsString()

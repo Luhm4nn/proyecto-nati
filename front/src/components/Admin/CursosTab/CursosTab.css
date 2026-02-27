@@ -262,6 +262,21 @@
   flex-wrap: wrap;
   color: var(--text-secondary);
   font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.dictado-cupos-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius-sm);
+  width: fit-content;
+  border: 1px solid rgba(99, 102, 241, 0.1);
 }
 
 .dictado-actions {
