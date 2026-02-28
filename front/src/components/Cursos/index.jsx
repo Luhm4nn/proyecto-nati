@@ -43,9 +43,7 @@ function Cursos() {
                 <div className="cursos-header">
                     <span className="cursos-subtitle">Nuestros Programas</span>
                     <h2 className="cursos-title">Cursos Disponibles</h2>
-                    <p className="text-secondary">
-                        Descubre el camino perfecto para dominar el idioma alemán con nuestra metodología estructurada.
-                    </p>
+
                 </div>
 
                 {loading ? (
