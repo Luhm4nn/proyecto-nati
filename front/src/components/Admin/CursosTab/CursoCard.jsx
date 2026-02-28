@@ -6,7 +6,8 @@ import {
   TrashIcon,
   UserGroupIcon,
 } from '../../shared/UI/Icons';
-import { calculateMonthDuration } from '../../../utils/dateUtils';
+import { calculateMonthDuration, formatearRangoHorario, formatearFechaSinHora } from '../../../utils/dateUtils';
+import ReactCountryFlag from 'react-country-flag';
 
 function CursoCard({
   curso,
@@ -34,7 +35,7 @@ function CursoCard({
       </div>
 
       <div className="curso-value-badge">
-        <strong>Valor: </strong> AR$ {curso.valor?.toLocaleString('es-AR')}
+        <strong>Valor: </strong> AR$ {curso.valor?.toLocaleString('es-AR')} | € {curso.valorInternacional?.toLocaleString('es-ES')}
       </div>
 
       <p className="curso-descripcion">{curso.descripcion}</p>
@@ -73,17 +74,25 @@ function CursoCard({
                 <div key={dictado.id} className="dictado-item">
                   <div className="dictado-info">
                     <div className="dictado-horario">
-                      <strong>
-                        {dictado.horarioInicio} - {dictado.horarioFin}
-                      </strong>
-                      <span className="dictado-dias">
-                        {dictado.diasSemana.join(', ')}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        {formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin) && (
+                          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontWeight: 'bold' }}>
+                            {formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin).horarioArg}
+                            <ReactCountryFlag countryCode="AR" svg style={{ width: '1.2em', height: '1.2em' }} /> /
+                            {formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin).horarioEur}
+                            <ReactCountryFlag countryCode="ES" svg style={{ width: '1.2em', height: '1.2em' }} />
+                            <ReactCountryFlag countryCode="DE" svg style={{ width: '1.2em', height: '1.2em' }} />
+                          </div>
+                        )}
+                      </div>
+                      <span className="dictado-dias" style={{ flexShrink: 0 }}>
+                        {dictado.diasSemana.map(d => d.charAt(0).toUpperCase() + d.slice(1, 3)).join(', ')}
                       </span>
                     </div>
                     <div className="dictado-detalles">
                       <span>
-                        {formatearFecha(dictado.fechaInicio)} al{' '}
-                        {formatearFecha(dictado.fechaFin)}
+                        {formatearFechaSinHora(dictado.fechaInicio)} al{' '}
+                        {formatearFechaSinHora(dictado.fechaFin)}
                       </span>
                       <span>
                         •{' '}
@@ -126,7 +135,8 @@ function CursoCard({
             </div>
           )}
         </div>
-      )}
+      )
+      }
 
       <div className="curso-footer">
         <span className="fecha">Creado: {formatearFecha(curso.createdAt)}</span>
@@ -134,7 +144,7 @@ function CursoCard({
           <PlusIcon className="w-4 h-4" /> Agregar Dictado
         </button>
       </div>
-    </div>
+    </div >
   );
 }
 

@@ -14,6 +14,7 @@ export function useCursos() {
     titulo: '',
     descripcion: '',
     valor: 0,
+    valorInternacional: 0,
     items: [''],
     activo: true,
   });
@@ -119,6 +120,7 @@ export function useCursos() {
       titulo: formCurso.titulo,
       descripcion: formCurso.descripcion,
       valor: parseFloat(formCurso.valor) || 0,
+      valorInternacional: parseFloat(formCurso.valorInternacional) || 0,
       items: itemsFiltrados,
       activo: formCurso.activo,
     };
@@ -173,6 +175,7 @@ export function useCursos() {
       titulo: curso.titulo,
       descripcion: curso.descripcion,
       valor: curso.valor || 0,
+      valorInternacional: curso.valorInternacional || 0,
       items: curso.items.length > 0 ? curso.items : [''],
       activo: curso.activo ?? true,
     });
@@ -253,6 +256,7 @@ export function useCursos() {
       titulo: '',
       descripcion: '',
       valor: 0,
+      valorInternacional: 0,
       items: [''],
       activo: true,
     });

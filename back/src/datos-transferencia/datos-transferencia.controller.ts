@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Patch, UseGuards } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { DatosTransferenciaService } from './datos-transferencia.service';
 import { UpdateDatosTransferenciaDto } from './dto/update-datos-transferencia.dto';
@@ -13,8 +13,11 @@ export class DatosTransferenciaController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Patch()
-    updateDatos(@Body() updateDto: UpdateDatosTransferenciaDto) {
-        return this.datosTransferenciaService.updateDatos(updateDto);
+    @Patch(':id')
+    updateDatos(
+        @Param('id', ParseIntPipe) id: number,
+        @Body() updateDto: UpdateDatosTransferenciaDto,
+    ) {
+        return this.datosTransferenciaService.updateDatos(id, updateDto);
     }
 }

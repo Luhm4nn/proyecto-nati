@@ -1,5 +1,5 @@
 import { XMarkIcon } from '../../shared/UI/Icons';
-
+import { formatearRangoHorario } from "../../../utils/dateUtils";
 function InscripcionModal({ show, onClose, form, onChange, onSubmit, cursos }) {
   if (!show) return null;
 
@@ -91,8 +91,7 @@ function InscripcionModal({ show, onClose, form, onChange, onSubmit, cursos }) {
                 <option value="">Seleccionar dictado</option>
                 {dictados.map((dictado) => (
                   <option key={dictado.id} value={dictado.id}>
-                    {dictado.diasSemana.join(', ')} ({dictado.horarioInicio} -{' '}
-                    {dictado.horarioFin})
+                    {dictado.diasSemana.join(', ')} ({formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin)?.textoPlano})
                   </option>
                 ))}
               </select>

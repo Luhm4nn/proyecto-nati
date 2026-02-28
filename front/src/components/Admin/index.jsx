@@ -193,9 +193,11 @@ function Admin() {
 
         {activeTab === 'transferencia' && (
           <TransferenciaTab
-            datos={transferenciaData.datos}
+            datosNacional={transferenciaData.datosNacional}
+            datosInternacional={transferenciaData.datosInternacional}
             loading={transferenciaData.loading}
-            onChange={transferenciaData.handleChange}
+            onChangeNacional={transferenciaData.handleChangeNacional}
+            onChangeInternacional={transferenciaData.handleChangeInternacional}
             onSubmit={transferenciaData.guardarDatos}
           />
         )}

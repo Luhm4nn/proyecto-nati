@@ -15,12 +15,8 @@ function FAQ() {
             answer: "Utilizamos una plataforma interactiva con pizarra virtual, ejercicios en vivo y material multimedia."
         },
         {
-            question: "¿Preparan para exámenes oficiales?",
-            answer: "Sí, preparamos para todos los exámenes del Goethe-Institut, TestDaF y Telc."
-        },
-        {
             question: "¿Qué métodos de pago aceptan?",
-            answer: "Aceptamos transferencias bancarias, Mercado Pago y PayPal para pagos internacionales."
+            answer: "Aceptamos transferencias bancarias, tanto para cuentas nacionales como internacionales."
         }
     ];
 

@@ -22,6 +22,11 @@ export class CreateCursoDto {
   @Min(0)
   valor: number;
 
+  @IsNumber()
+  @IsNotEmpty()
+  @Min(0)
+  valorInternacional: number;
+
   @IsBoolean()
   @IsOptional()
   activo?: boolean;

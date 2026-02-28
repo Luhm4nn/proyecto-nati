@@ -15,7 +15,8 @@ import {
 } from '../shared/UI/Icons';
 import Footer from '../Footer';
 import './Inscripcion.css';
-import { calculateMonthDuration } from '../../utils/dateUtils';
+import ReactCountryFlag from 'react-country-flag';
+import { calculateMonthDuration, formatearRangoHorario, formatearFechaSinHora } from '../../utils/dateUtils';
 
 function Inscripcion() {
   const { id } = useParams();
@@ -198,7 +199,7 @@ function Inscripcion() {
                 </p>
                 <p>
                   Valor del curso:{' '}
-                  <strong>AR$ {curso.valor?.toLocaleString('es-AR')}</strong>
+                  <strong>AR$ {curso.valor?.toLocaleString('es-AR')} | € {curso.valorInternacional?.toLocaleString('es-ES')}</strong>
                 </p>
                 <p>
                   Tu inscripción ha sido recibida correctamente. Próximamente
@@ -266,7 +267,7 @@ function Inscripcion() {
                 <div className="inscripcion-price-tag">
                   <span className="price-label">Valor del curso:</span>
                   <span className="price-amount">
-                    AR$ {curso.valor?.toLocaleString('es-AR')}
+                    AR$ {curso.valor?.toLocaleString('es-AR')} | € {curso.valorInternacional?.toLocaleString('es-ES')}
                   </span>
                 </div>
               </div>
@@ -296,7 +297,7 @@ function Inscripcion() {
 
               <div className="dictados-grid">
                 {curso.dictadosCurso &&
-                curso.dictadosCurso.filter((d) => d.activo).length > 0 ? (
+                  curso.dictadosCurso.filter((d) => d.activo).length > 0 ? (
                   curso.dictadosCurso
                     .filter((d) => d.activo)
                     .map((dictado) => {
@@ -328,16 +329,23 @@ function Inscripcion() {
                           <div className="dictado-body-full">
                             <div className="dictado-info-item">
                               <span className="info-label">Horario:</span>
-                              <span className="info-value">
-                                {formatearHorario(dictado.horarioInicio)} -{' '}
-                                {formatearHorario(dictado.horarioFin)} hs
+                              <span className="info-value" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                {formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin) && (
+                                  <>
+                                    {formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin).horarioArg}
+                                    <ReactCountryFlag countryCode="AR" svg style={{ width: '1.2em', height: '1.2em' }} /> /
+                                    {formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin).horarioEur}
+                                    <ReactCountryFlag countryCode="ES" svg style={{ width: '1.2em', height: '1.2em' }} />
+                                    <ReactCountryFlag countryCode="DE" svg style={{ width: '1.2em', height: '1.2em' }} />
+                                  </>
+                                )}
                               </span>
                             </div>
                             <div className="dictado-info-item">
                               <span className="info-label">Fechas:</span>
                               <span className="info-value">
-                                {formatearFecha(dictado.fechaInicio)} al{' '}
-                                {formatearFecha(dictado.fechaFin)}
+                                {formatearFechaSinHora(dictado.fechaInicio)} al{' '}
+                                {formatearFechaSinHora(dictado.fechaFin)}
                               </span>
                             </div>
                             {dictado.cupos > 0 && (
@@ -419,33 +427,80 @@ function Inscripcion() {
                     </div>
                   </div>
 
-                  {datosTransferencia && (
+                  {datosTransferencia && datosTransferencia.length > 0 && (
                     <div className="datos-pago-box">
                       <h3>Información de Pago</h3>
                       <p>
-                        Realiza la transferencia a la siguiente cuenta y adjunta
+                        Realiza la transferencia a la cuenta que corresponda según tu moneda y adjunta
                         el comprobante debajo:
                       </p>
-                      <div className="datos-pago-grid">
-                        <div className="dato-pago-item">
-                          <span className="dato-label">Titular:</span>
-                          <span className="dato-value">
-                            {datosTransferencia.nombreCuenta}
-                          </span>
-                        </div>
-                        <div className="dato-pago-item">
-                          <span className="dato-label">Alias:</span>
-                          <span className="dato-value">
-                            {datosTransferencia.alias}
-                          </span>
-                        </div>
-                        <div className="dato-pago-item">
-                          <span className="dato-label">CVU/CBU:</span>
-                          <span className="dato-value">
-                            {datosTransferencia.cvu}
-                          </span>
-                        </div>
-                      </div>
+
+                      {/* Nacional */}
+                      {(() => {
+                        const nacional = datosTransferencia.find(d => d.tipo === 'nacional') || datosTransferencia.find(d => d.id === 1);
+                        return nacional && nacional.nombreCuenta ? (
+                          <div className="datos-pago-grid" style={{ marginBottom: '1.5rem' }}>
+                            <div className="dato-pago-item" style={{ gridColumn: '1 / -1' }}>
+                              <span className="dato-label" style={{ fontWeight: 700, fontSize: '1.05rem', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                <ReactCountryFlag countryCode="AR" svg style={{ width: '1.4em', height: '1.4em' }} /> Transferencia Nacional (ARS)
+                              </span>
+                            </div>
+                            <div className="dato-pago-item">
+                              <span className="dato-label">Titular:</span>
+                              <span className="dato-value">
+                                {nacional.nombreCuenta}
+                              </span>
+                            </div>
+                            <div className="dato-pago-item">
+                              <span className="dato-label">Alias:</span>
+                              <span className="dato-value">
+                                {nacional.alias}
+                              </span>
+                            </div>
+                            <div className="dato-pago-item">
+                              <span className="dato-label">CVU/CBU:</span>
+                              <span className="dato-value">
+                                {nacional.cvu}
+                              </span>
+                            </div>
+                          </div>
+                        ) : null;
+                      })()}
+
+                      {/* Internacional */}
+                      {(() => {
+                        const internacional = datosTransferencia.find(d => d.tipo === 'internacional') || datosTransferencia.find(d => d.id === 2);
+                        return internacional && internacional.nombreCuenta ? (
+                          <div className="datos-pago-grid">
+                            <div className="dato-pago-item" style={{ gridColumn: '1 / -1' }}>
+                              <span className="dato-label" style={{ fontWeight: 700, fontSize: '1.05rem', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                <ReactCountryFlag countryCode="EU" svg style={{ width: '1.4em', height: '1.4em' }} />
+                                <ReactCountryFlag countryCode="ES" svg style={{ width: '1.4em', height: '1.4em' }} />
+                                <ReactCountryFlag countryCode="DE" svg style={{ width: '1.4em', height: '1.4em' }} />
+                                Transferencia Internacional (EUR)
+                              </span>
+                            </div>
+                            <div className="dato-pago-item">
+                              <span className="dato-label">Titular:</span>
+                              <span className="dato-value">
+                                {internacional.nombreCuenta}
+                              </span>
+                            </div>
+                            <div className="dato-pago-item">
+                              <span className="dato-label">SWIFT / BIC:</span>
+                              <span className="dato-value">
+                                {internacional.alias}
+                              </span>
+                            </div>
+                            <div className="dato-pago-item">
+                              <span className="dato-label">IBAN:</span>
+                              <span className="dato-value">
+                                {internacional.cvu}
+                              </span>
+                            </div>
+                          </div>
+                        ) : null;
+                      })()}
                     </div>
                   )}
 

@@ -72,6 +72,7 @@ export class CursosService {
       titulo: xss(createCursoDto.titulo),
       descripcion: xss(createCursoDto.descripcion),
       valor: createCursoDto.valor,
+      valorInternacional: createCursoDto.valorInternacional,
       items: createCursoDto.items.map((item) => xss(item)),
       activo: createCursoDto.activo !== undefined ? createCursoDto.activo : true,
       createdAt: new Date(),
@@ -157,6 +158,9 @@ export class CursosService {
     }
     if (updateCursoDto.valor !== undefined) {
       dataSanitizada.valor = updateCursoDto.valor;
+    }
+    if (updateCursoDto.valorInternacional !== undefined) {
+      dataSanitizada.valorInternacional = updateCursoDto.valorInternacional;
     }
 
     const curso = await this.prisma.curso.update({

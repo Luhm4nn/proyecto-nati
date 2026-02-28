@@ -1,32 +1,51 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateDatosTransferenciaDto } from './dto/update-datos-transferencia.dto';
 
 @Injectable()
-export class DatosTransferenciaService {
+export class DatosTransferenciaService implements OnModuleInit {
     constructor(private prisma: PrismaService) { }
 
-    async getDatos() {
-        let datos = await this.prisma.datosTransferencia.findFirst();
-
-        // Si no existe ninguno, creamos uno por defecto vacío para que siempre haya algo
-        if (!datos) {
-            datos = await this.prisma.datosTransferencia.create({
-                data: {
-                    alias: '',
-                    cvu: '',
-                    nombreCuenta: '',
-                },
-            });
-        }
-
-        return datos;
+    async onModuleInit() {
+        await this.ensureDatosExist();
     }
 
-    async updateDatos(updateDto: UpdateDatosTransferenciaDto) {
-        const current = await this.getDatos();
+    private async ensureDatosExist() {
+        // Asegurar que existan los registros de transferencia nacional e internacional
+        await this.prisma.datosTransferencia.upsert({
+            where: { id: 1 },
+            update: {},
+            create: {
+                id: 1,
+                alias: '',
+                cvu: '',
+                nombreCuenta: '',
+                tipo: 'nacional',
+            },
+        });
+
+        await this.prisma.datosTransferencia.upsert({
+            where: { id: 2 },
+            update: {},
+            create: {
+                id: 2,
+                alias: '',
+                cvu: '',
+                nombreCuenta: '',
+                tipo: 'internacional',
+            },
+        });
+    }
+
+    async getDatos() {
+        return this.prisma.datosTransferencia.findMany({
+            orderBy: { id: 'asc' },
+        });
+    }
+
+    async updateDatos(id: number, updateDto: UpdateDatosTransferenciaDto) {
         return this.prisma.datosTransferencia.update({
-            where: { id: current.id },
+            where: { id },
             data: updateDto,
         });
     }

@@ -1,5 +1,6 @@
 import DOMPurify from "dompurify";
-
+import ReactCountryFlag from 'react-country-flag';
+import { formatearRangoHorario } from "../../../utils/dateUtils";
 function InscripcionCard({ inscripcion, onConfirmar, onEliminar, formatearFecha, getEstadoColor }) {
     const dictado = inscripcion.dictadoCurso;
     const curso = dictado?.curso;
@@ -22,9 +23,19 @@ function InscripcionCard({ inscripcion, onConfirmar, onEliminar, formatearFecha,
                 <p>
                     <strong>Curso:</strong> {curso?.titulo || 'Cargando...'}
                 </p>
-                <p>
-                    <strong>Horario:</strong> {dictado?.horarioInicio} - {dictado?.horarioFin} ({dictado?.diasSemana.join(', ')})
-                </p>
+                <div style={{ marginBottom: '10px' }}>
+                    <strong style={{ marginRight: '4px' }}>Horario:</strong>
+                    {dictado && formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin) ? (
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                            {formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin).horarioArg}
+                            <ReactCountryFlag countryCode="AR" svg style={{ width: '1.2em', height: '1.2em' }} /> /
+                            {formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin).horarioEur}
+                            <ReactCountryFlag countryCode="ES" svg style={{ width: '1.2em', height: '1.2em' }} />
+                            <ReactCountryFlag countryCode="DE" svg style={{ width: '1.2em', height: '1.2em' }} />
+                            <span style={{ marginLeft: '4px' }}>({dictado?.diasSemana.join(', ')})</span>
+                        </span>
+                    ) : ''}
+                </div>
                 <p>
                     <strong>Email:</strong> {inscripcion.email}
                 </p>
