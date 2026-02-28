@@ -49,10 +49,11 @@
 .inscripcion-feature-card {
     background: white;
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     display: grid;
     grid-template-columns: 1fr 340px;
     overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
 .feature-card-left {
@@ -92,11 +93,11 @@
 }
 
 .feature-card-right {
-    background-color: transparent;
+    background-color: #f8fafc;
     padding: 2.5rem;
     display: flex;
     align-items: center;
-    /* Center the list vertically */
+    border-left: 1px solid #f1f5f9;
 }
 
 .inscripcion-section-title {
@@ -231,7 +232,12 @@
 
 .btn-select-dictado-full:hover {
     filter: brightness(1.05);
-    box-shadow: 0 6px 15px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 6px 15px rgba(99, 102, 241, 0.35);
+}
+
+.btn-select-dictado-full.selected {
+    background: #10b981;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
 }
 
 .no-dictados {
@@ -251,7 +257,11 @@
 
     .feature-card-right {
         border-left: none;
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        border-top: 1px solid #f1f5f9;
+    }
+
+    .inscripcion-title {
+        font-size: 2rem;
     }
 }
 
@@ -699,32 +709,6 @@
     transform: translateY(-2px);
 }
 
-/* Feature Card Improvement */
-.inscripcion-feature-card {
-    background: white;
-    border-radius: var(--radius-lg);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.03);
-}
-
-.feature-card-right {
-    background-color: #f8fafc;
-    padding: 2.5rem;
-    display: flex;
-    align-items: center;
-    border-left: 1px solid #f1f5f9;
-}
-
-/* Estado seleccionado para dictados */
-.btn-select-dictado-full.selected {
-    background: #10b981;
-    /* Verde esmeralda */
-    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -740,5 +724,27 @@
 @media (max-width: 600px) {
     .form-card {
         padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .inscripcion-container {
+        padding: 1rem;
+    }
+
+    .feature-card-left,
+    .feature-card-right {
+        padding: 1.5rem;
+    }
+
+    .inscripcion-price-tag {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 0.4rem;
+    }
+
+    .price-amount {
+        font-size: 1.1rem;
     }
 }

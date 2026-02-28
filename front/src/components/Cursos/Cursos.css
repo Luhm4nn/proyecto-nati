@@ -48,15 +48,116 @@
     -webkit-text-fill-color: transparent;
 }
 
-.cursos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
-    /* Narrower cards */
-    justify-content: center;
-    /* Center cards in the container */
-    gap: 2.5rem;
+.cursos-carousel {
     position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 60px;
     z-index: 1;
+}
+
+.cursos-carousel .carousel-track {
+    position: relative;
+    height: 600px;
+    overflow: visible;
+}
+
+.cursos-carousel .carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    width: 100%;
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.cursos-carousel .carousel-slide.active {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    pointer-events: auto;
+    z-index: 3;
+}
+
+.cursos-carousel .carousel-slide.prev {
+    opacity: 0.4;
+    transform: translateX(-120%) scale(0.85);
+    z-index: 2;
+}
+
+.cursos-carousel .carousel-slide.next {
+    opacity: 0.4;
+    transform: translateX(20%) scale(0.85);
+    z-index: 2;
+}
+
+/* Carousel Buttons */
+.cursos-carousel .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-primary);
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 300;
+}
+
+.cursos-carousel .carousel-btn:hover {
+    background: var(--color-primary);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.cursos-carousel .carousel-btn-prev {
+    left: 0;
+}
+
+.cursos-carousel .carousel-btn-next {
+    right: 0;
+}
+
+/* Carousel Dots */
+.cursos-carousel .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 2.5rem;
+}
+
+.cursos-carousel .carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.cursos-carousel .carousel-dot:hover {
+    transform: scale(1.2);
+    background: var(--color-primary);
+    opacity: 0.7;
+}
+
+.cursos-carousel .carousel-dot.active {
+    background: var(--color-primary);
+    transform: scale(1.3);
 }
 
 .curso-card {
@@ -70,6 +171,7 @@
     flex-direction: column;
     position: relative;
     overflow: hidden;
+    height: 100%;
 }
 
 .curso-card:hover {
@@ -110,6 +212,8 @@
     margin-bottom: 2rem;
     line-height: 1.6;
     font-size: 0.95rem;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .curso-features-list {
@@ -117,6 +221,8 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    max-height: 250px;
+    overflow-y: auto;
 }
 
 .curso-feature-item {
@@ -201,7 +307,45 @@
         font-size: 2rem;
     }
 
+    .cursos-carousel {
+        padding: 0 40px;
+    }
+
+    .cursos-carousel .carousel-track {
+        height: 650px;
+    }
+
+    .cursos-carousel .carousel-slide.prev,
+    .cursos-carousel .carousel-slide.next {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.8);
+    }
+
     .loading-container {
         grid-template-columns: 1fr;
+    }
+
+    .cursos-carousel .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+
+    .cursos-carousel .carousel-btn-prev {
+        left: -10px;
+    }
+
+    .cursos-carousel .carousel-btn-next {
+        right: -10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cursos-carousel {
+        padding: 0 30px;
+    }
+
+    .cursos-carousel .carousel-track {
+        height: 600px;
     }
 }

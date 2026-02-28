@@ -7,12 +7,12 @@ function Cursos() {
     const [cursos, setCursos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
         const fetchCursos = async () => {
             try {
                 const apiUrl = import.meta.env.VITE_API_URL;
-                // Intencionalmente NO enviamos headers de auth porque queremos ver los cursos públicos
                 const response = await fetch(`${apiUrl}/cursos`);
 
                 if (!response.ok) {
@@ -20,7 +20,6 @@ function Cursos() {
                 }
 
                 const data = await response.json();
-                // Filtrar solo cursos activos
                 setCursos(data.filter(c => c.activo));
             } catch (err) {
                 console.error("Error fetching cursos:", err);
@@ -33,9 +32,19 @@ function Cursos() {
         fetchCursos();
     }, []);
 
-    // Si hay error o no hay cursos y no está cargando, tal vez mostrar mensaje o nada?
-    // Por diseño, si no hay cursos, podríamos ocultar la sección o mostrar un mensaje amigable.
-    // Aquí mostraré un mensaje si no hay cursos para feedback visual durante desarrollo.
+    const goToSlide = (index) => {
+        setCurrentIndex(index);
+    };
+
+    const goToPrevious = () => {
+        setCurrentIndex((prev) =>
+            prev === 0 ? cursos.length - 1 : prev - 1
+        );
+    };
+
+    const goToNext = () => {
+        setCurrentIndex((prev) => (prev + 1) % cursos.length);
+    };
 
     return (
         <section className="cursos section-padding" id="cursos">
@@ -43,7 +52,6 @@ function Cursos() {
                 <div className="cursos-header">
                     <span className="cursos-subtitle">Nuestros Programas</span>
                     <h2 className="cursos-title">Cursos Disponibles</h2>
-
                 </div>
 
                 {loading ? (
@@ -61,35 +69,75 @@ function Cursos() {
                         <p>Próximamente nuevos cursos.</p>
                     </div>
                 ) : (
-                    <div className="cursos-grid">
-                        {cursos.map((curso) => (
-                            <div key={curso.id} className="curso-card">
-                                <div className="curso-content">
-                                    <h3 className="curso-title">{curso.titulo}</h3>
+                    <div className="cursos-carousel">
+                        <button
+                            className="carousel-btn carousel-btn-prev"
+                            onClick={goToPrevious}
+                            aria-label="Anterior"
+                        >
+                            ‹
+                        </button>
 
-                                    <p className="curso-description">{curso.descripcion}</p>
+                        <div className="carousel-track">
+                            {cursos.map((curso, index) => (
+                                <div
+                                    key={curso.id}
+                                    className={`carousel-slide ${index === currentIndex ? "active" : ""
+                                        } ${index === (currentIndex - 1 + cursos.length) % cursos.length
+                                            ? "prev"
+                                            : ""
+                                        } ${index === (currentIndex + 1) % cursos.length ? "next" : ""
+                                        }`}
+                                >
+                                    <div className="curso-card">
+                                        <div className="curso-content">
+                                            <h3 className="curso-title">{curso.titulo}</h3>
 
-                                    {curso.items && curso.items.length > 0 && (
-                                        <div className="curso-features-list">
-                                            {curso.items.map((item, index) => (
-                                                <div key={index} className="curso-feature-item">
-                                                    <span className="check-icon-wrapper">
-                                                        <CheckIcon className="w-3 h-3 text-accent" />
-                                                    </span>
-                                                    <span>{item}</span>
+                                            <p className="curso-description">{curso.descripcion}</p>
+
+                                            {curso.items && curso.items.length > 0 && (
+                                                <div className="curso-features-list">
+                                                    {curso.items.map((item, idx) => (
+                                                        <div key={idx} className="curso-feature-item">
+                                                            <span className="check-icon-wrapper">
+                                                                <CheckIcon className="w-3 h-3 text-accent" />
+                                                            </span>
+                                                            <span>{item}</span>
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            ))}
+                                            )}
                                         </div>
-                                    )}
-                                </div>
 
-                                <div className="curso-footer">
-                                    <Link to={`/inscripcion/${curso.id}`} className="btn-inscribirse">
-                                        Inscribirse
-                                    </Link>
+                                        <div className="curso-footer">
+                                            <Link to={`/inscripcion/${curso.id}`} className="btn-inscribirse">
+                                                Inscribirse
+                                            </Link>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
+
+                        <button
+                            className="carousel-btn carousel-btn-next"
+                            onClick={goToNext}
+                            aria-label="Siguiente"
+                        >
+                            ›
+                        </button>
+
+                        <div className="carousel-dots">
+                            {cursos.map((_, index) => (
+                                <button
+                                    key={index}
+                                    className={`carousel-dot ${index === currentIndex ? "active" : ""
+                                        }`}
+                                    onClick={() => goToSlide(index)}
+                                    aria-label={`Ir a curso ${index + 1}`}
+                                />
+                            ))}
+                        </div>
                     </div>
                 )}
             </div>
