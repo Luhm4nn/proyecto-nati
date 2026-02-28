@@ -23,9 +23,9 @@ export function useNovedades() {
   });
 
   const getAuthHeaders = () => {
-    const token = localStorage.getItem("token");
+    const Token = localStorage.getItem("token");
     return {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${Token}`,
     };
   };
 
@@ -34,7 +34,9 @@ export function useNovedades() {
     startLoading("Cargando novedades...");
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
-      const response = await fetch(`${apiUrl}/novedades`, {
+      const url = `${apiUrl}/novedades`
+      console.log(url)
+      const response = await fetch(url, {
         headers: getAuthHeaders(),
       });
 
@@ -65,7 +67,7 @@ export function useNovedades() {
 
   const handleImagenChange = (e) => {
     const file = e.target.files[0];
-    
+
     if (!file) {
       setFormNovedad({ ...formNovedad, imagen: null });
       setPreviewImagen(null);
@@ -88,7 +90,7 @@ export function useNovedades() {
     }
 
     setFormNovedad({ ...formNovedad, imagen: file });
-    
+
     // Crear preview
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -118,7 +120,7 @@ export function useNovedades() {
     }
 
     const isEdit = formNovedad.id !== null;
-    
+
     if (!isEdit && !formNovedad.imagen) {
       showError("Debes seleccionar una imagen");
       return;
@@ -129,7 +131,7 @@ export function useNovedades() {
       const formData = new FormData();
       formData.append('titulo', formNovedad.titulo.trim());
       formData.append('descripcion', formNovedad.descripcion.trim());
-      
+
       if (formNovedad.imagen) {
         formData.append('imagen', formNovedad.imagen);
       }
@@ -160,7 +162,7 @@ export function useNovedades() {
         });
         setPreviewImagen(null);
         await cargarNovedades();
-        
+
         // Limpiar input file
         const fileInput = document.getElementById('imagen');
         if (fileInput) fileInput.value = '';
@@ -239,7 +241,7 @@ export function useNovedades() {
       imagen: null,
     });
     setPreviewImagen(null);
-    
+
     // Limpiar input file
     const fileInput = document.getElementById('imagen');
     if (fileInput) fileInput.value = '';
