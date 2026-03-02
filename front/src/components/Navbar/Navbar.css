@@ -20,6 +20,7 @@
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -72,8 +73,8 @@
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
-    margin-left: auto;
-    margin-right: 1.5rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
 
 .navbar.scrolled .navbar-links {
@@ -109,56 +110,34 @@
 .navbar-actions {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.35rem;
 }
 
 .nav-login {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    color: white;
+    opacity: 0.35;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.35);
-    transition: all 0.3s ease;
-    background: transparent;
-    padding: 0.4rem 0.6rem;
-    border-radius: var(--radius-full);
     text-decoration: none;
-    margin-left: 1.5rem;
+    transition: all 0.3s ease;
+    padding: 0.3rem;
+}
+
+.nav-link-admin-mobile {
+    display: none;
 }
 
 .nav-login:hover {
-    color: rgba(255, 255, 255, 0.8);
+    opacity: 0.8;
 }
 
 .navbar.scrolled .nav-login {
-    color: rgba(0, 0, 0, 0.2);
-    background: transparent;
+    color: var(--text-primary);
+    opacity: 0.25;
 }
 
 .navbar.scrolled .nav-login:hover {
-    color: var(--text-primary);
-}
-
-.nav-materiales {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: white;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-full);
-    text-decoration: none;
-}
-
-.nav-materiales:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.navbar.scrolled .nav-materiales {
-    color: var(--text-primary);
-    background: transparent;
-}
-
-.navbar.scrolled .nav-materiales:hover {
-    color: var(--color-primary);
+    opacity: 0.7;
 }
 
 .nav-link-materiales-mobile {
@@ -259,8 +238,8 @@
 }
 
 @media (max-width: 768px) {
-    .nav-materiales {
-        display: none;
+    .nav-login {
+        display: none !important;
     }
 
     .nav-link-materiales-mobile {
@@ -344,5 +323,29 @@
 
     .menu-toggle {
         display: block;
+    }
+
+    .nav-login {
+        display: none;
+    }
+
+    .nav-link-admin-mobile {
+        display: block;
+        width: 100%;
+        padding: 0.8rem;
+        margin-top: 2rem;
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-decoration: none;
+        opacity: 0.6;
+        transition: all 0.3s ease;
+        border-top: 1px dashed #eee;
+    }
+
+    .nav-link-admin-mobile:hover {
+        opacity: 1;
+        color: var(--color-primary);
     }
 }

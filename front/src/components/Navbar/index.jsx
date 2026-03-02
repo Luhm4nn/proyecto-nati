@@ -70,11 +70,7 @@ function Navbar() {
           <button onClick={() => scrollToSection('faq')} className="nav-link">
             Preguntas
           </button>
-          <Link
-            to="/materiales"
-            className="nav-link nav-link-materiales-mobile"
-            onClick={() => setMenuOpen(false)}
-          >
+          <Link to="/materiales" className="nav-link">
             Materiales
           </Link>
           <button
@@ -83,11 +79,18 @@ function Navbar() {
           >
             Empezar Ahora
           </button>
+          <Link
+            to="/admin"
+            className="nav-link-admin-mobile"
+            onClick={() => setMenuOpen(false)}
+          >
+            Admin
+          </Link>
         </div>
 
         <div className="navbar-actions">
-          <Link to="/materiales" className="nav-materiales">
-            Materiales
+          <Link to="/admin" className="nav-login">
+            Admin
           </Link>
           <button onClick={() => scrollToSection('cursos')} className="nav-cta">
             Empezar
@@ -98,9 +101,6 @@ function Navbar() {
           >
             <span className="hamburger"></span>
           </button>
-          <Link to="/admin" className="nav-login">
-            Admin
-          </Link>
         </div>
       </div>
     </nav>
