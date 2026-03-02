@@ -57,9 +57,9 @@ function Admin() {
       <div className="admin-container">
         <AdminHeader user={user} onLogout={() => setShowLogoutModal(true)} />
 
-        <AdminTabs 
-          activeTab={activeTab} 
-          setActiveTab={setActiveTab} 
+        <AdminTabs
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
           hasPendingInscripciones={inscripcionesData.contadores?.pendiente > 0}
           hasPendingConsultas={consultasData.contadores?.pendiente > 0}
         />
@@ -94,6 +94,7 @@ function Admin() {
             onCambiarEstado={inscripcionesData.cambiarEstado}
             onConfirmar={inscripcionesData.abrirModalConfirmar}
             onEliminar={inscripcionesData.abrirModalEliminar}
+            onVer={inscripcionesData.abrirPreview}
             onCambiarPagina={inscripcionesData.cargarInscripciones}
             formatearFecha={formatearFecha}
             getEstadoColor={getEstadoColor}
@@ -103,6 +104,8 @@ function Admin() {
             confirmModal={inscripcionesData.confirmModal}
             onCerrarModalConfirmar={inscripcionesData.cerrarModalConfirmar}
             onConfirmarAceptacion={inscripcionesData.confirmarAceptacion}
+            previewModal={inscripcionesData.previewModal}
+            onCerrarPreview={inscripcionesData.cerrarPreview}
             showModalInscripcion={inscripcionesData.showModalInscripcion}
             onAbrirModalInscripcion={inscripcionesData.abrirModalInscripcion}
             onCerrarModalInscripcion={inscripcionesData.cerrarModalInscripcion}

@@ -1,7 +1,7 @@
 import DOMPurify from "dompurify";
 import ReactCountryFlag from 'react-country-flag';
 import { formatearRangoHorario } from "../../../utils/dateUtils";
-function InscripcionCard({ inscripcion, onConfirmar, onEliminar, formatearFecha, getEstadoColor }) {
+function InscripcionCard({ inscripcion, onConfirmar, onEliminar, onVer, formatearFecha, getEstadoColor }) {
     const dictado = inscripcion.dictadoCurso;
     const curso = dictado?.curso;
 
@@ -16,7 +16,14 @@ function InscripcionCard({ inscripcion, onConfirmar, onEliminar, formatearFecha,
                         {inscripcion.estado}
                     </span>
                 </div>
-                <span className="fecha">{formatearFecha(inscripcion.createdAt)}</span>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
+                    <span className="fecha">{formatearFecha(inscripcion.createdAt)}</span>
+                    {inscripcion.comprobanteUrl && (
+                        <span className="estado-badge" style={{ backgroundColor: '#e3f2fd', color: '#1976d2', borderColor: '#bbdefb' }}>
+                            Con comprobante
+                        </span>
+                    )}
+                </div>
             </div>
 
             <div className="consulta-body">
@@ -56,6 +63,27 @@ function InscripcionCard({ inscripcion, onConfirmar, onEliminar, formatearFecha,
                             style={{ padding: '0.6rem 1rem' }}
                         >
                             Confirmar Inscripción
+                        </button>
+                    )}
+
+                    {inscripcion.comprobanteUrl && (
+                        <button
+                            onClick={() => onVer(inscripcion)}
+                            className="btn-ver"
+                            style={{
+                                padding: '0.6rem 1rem',
+                                color: '#1976d2',
+                                backgroundColor: '#e3f2fd',
+                                border: '1px solid #bbdefb',
+                                borderRadius: '4px',
+                                fontWeight: '500',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s'
+                            }}
+                            onMouseOver={(e) => e.target.style.backgroundColor = '#bbdefb'}
+                            onMouseOut={(e) => e.target.style.backgroundColor = '#e3f2fd'}
+                        >
+                            Ver Comprobante
                         </button>
                     )}
 

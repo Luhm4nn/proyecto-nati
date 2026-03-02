@@ -93,10 +93,12 @@ model Inscripcion {
   email          String
   estado         String       @default("pendiente")
   telefono       String?
-  dictadoCursoId Int
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-  dictadoCurso   DictadoCurso @relation(fields: [dictadoCursoId], references: [id], onDelete: Cascade)
+  comprobanteUrl      String?
+  comprobantePublicId String?
+  dictadoCursoId      Int
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  dictadoCurso        DictadoCurso @relation(fields: [dictadoCursoId], references: [id], onDelete: Cascade)
 
   @@map("inscripciones")
 }

@@ -7,7 +7,9 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateInscripcionDto } from './dto/create-inscripcion.dto';
 import { UpdateInscripcionDto } from './dto/update-inscripcion.dto';
 import xss from 'xss';
+import { v2 as cloudinary } from 'cloudinary';
 import { MailService } from 'src/utils/mail.service';
+import * as path from 'path';
 
 @Injectable()
 export class InscripcionesService {
@@ -15,6 +17,58 @@ export class InscripcionesService {
     private prisma: PrismaService,
     private mailService: MailService
   ) { }
+
+  /**
+   * Subir archivo a Cloudinary
+   */
+  private async uploadToCloudinary(
+    file: Express.Multer.File,
+  ): Promise<{ url: string; publicId: string }> {
+    return new Promise((resolve, reject) => {
+      // Determinar el resource_type basado en el mimetype
+      const isImage = file.mimetype.startsWith('image/');
+      const resourceType = isImage ? 'image' : 'raw';
+
+      // Para archivos raw, necesitamos incluir la extensión en el public_id 
+      // para que Cloudinary la sirva correctamente en el enlace
+      const extension = path.extname(file.originalname);
+      const nombreBase = path.parse(file.originalname).name.replace(/[^a-zA-Z0-9]/g, '_');
+      const publicId = `${nombreBase}_${Date.now()}${extension}`;
+
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'inscripciones',
+          resource_type: resourceType,
+          public_id: publicId,
+        },
+        (error, result) => {
+          if (error) {
+            console.error('Error en Cloudinary:', error);
+            return reject(error);
+          }
+          if (!result) return reject(new Error('Error al subir el archivo'));
+          resolve({
+            url: result.secure_url,
+            publicId: result.public_id,
+          });
+        },
+      );
+
+      uploadStream.end(file.buffer);
+    });
+  }
+
+  /**
+   * Eliminar archivo de Cloudinary
+   */
+  private async deleteFromCloudinary(publicId: string): Promise<void> {
+    try {
+      await cloudinary.uploader.destroy(publicId, { resource_type: 'raw' });
+      await cloudinary.uploader.destroy(publicId, { resource_type: 'image' });
+    } catch (error) {
+      console.error('Error al eliminar archivo de Cloudinary:', error);
+    }
+  }
 
   /**
    * Crea una nueva inscripción verificando que no exista una duplicada en las últimas 24h
@@ -45,30 +99,25 @@ export class InscripcionesService {
       );
     }
 
-    // 2. Verificar si ya existe una inscripcion del mismo email en las últimas 24 horas
-    // const hace24Horas = new Date();
-    // hace24Horas.setHours(hace24Horas.getHours() - 24);
+    // 2. Subir a Cloudinary si hay archivo
+    let comprobanteUrl: string | undefined = undefined;
+    let comprobantePublicId: string | undefined = undefined;
 
-    // const consultaReciente = await this.prisma.consulta.findFirst({
-    //   where: {
-    //     email: createInscripcionDto.email,
-    //     createdAt: {
-    //       gte: hace24Horas,
-    //     },
-    //   },
-    // });
-
-    // if (consultaReciente) {
-    //   throw new BadRequestException(
-    //     'Ya has enviado una consulta recientemente. Por favor, espera 24 horas antes de enviar otra.',
-    //   );
-    // }
+    if (file) {
+      const uploadResult = await this.uploadToCloudinary(file);
+      comprobanteUrl = uploadResult.url;
+      comprobantePublicId = uploadResult.publicId;
+    }
 
     // Separar campos que no van a la base de datos
     const { emailConfirmacion, ...dataToSave } = createInscripcionDto;
 
     let result = await this.prisma.inscripcion.create({
-      data: dataToSave,
+      data: {
+        ...dataToSave,
+        comprobanteUrl,
+        comprobantePublicId,
+      },
     });
 
     if (!result) {
@@ -84,7 +133,7 @@ export class InscripcionesService {
       createInscripcionDto.nombre,
       createInscripcionDto.apellido,
       createInscripcionDto.dictadoCursoId,
-      file,
+      comprobanteUrl, // Pasar la URL
     ).catch(error => console.error('Error enviando mail de notificación:', error));
 
     return result;
@@ -230,6 +279,10 @@ export class InscripcionesService {
 
     if (!inscripcion) {
       throw new NotFoundException(`Inscripción con ID ${id} no encontrada`);
+    }
+
+    if (inscripcion.comprobantePublicId) {
+      await this.deleteFromCloudinary(inscripcion.comprobantePublicId);
     }
 
     return this.prisma.inscripcion.delete({

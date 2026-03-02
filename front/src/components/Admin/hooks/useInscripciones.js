@@ -32,6 +32,11 @@ export function useInscripciones(options = {}) {
     id: null,
     name: '',
   });
+  const [previewModal, setPreviewModal] = useState({
+    isOpen: false,
+    url: '',
+    name: '',
+  });
 
   const [showModalInscripcion, setShowModalInscripcion] = useState(false);
   const [formInscripcion, setFormInscripcion] = useState({
@@ -387,6 +392,22 @@ export function useInscripciones(options = {}) {
     cargarContadores();
   }, []);
 
+  const abrirPreview = (inscripcion) => {
+    setPreviewModal({
+      isOpen: true,
+      url: inscripcion.comprobanteUrl,
+      name: `${inscripcion.nombre} ${inscripcion.apellido}`,
+    });
+  };
+
+  const cerrarPreview = () => {
+    setPreviewModal({
+      isOpen: false,
+      url: '',
+      name: '',
+    });
+  };
+
   return {
     inscripciones,
     filtro,
@@ -401,6 +422,9 @@ export function useInscripciones(options = {}) {
     cargarInscripciones,
     deleteModal,
     confirmModal,
+    previewModal,
+    abrirPreview,
+    cerrarPreview,
     cerrarModalEliminar,
     cerrarModalConfirmar,
     confirmarEliminacion,
