@@ -77,15 +77,17 @@ export class InscripcionesService {
       );
     }
 
-    // Notificar a la administración
-    await this.mailService.sendMailNotificacionInscripcion(
+    // Notificar a la administración (en segundo plano)
+    this.mailService.sendMailNotificacionInscripcion(
       result.id, // Pasamos el ID para el link de confirmación
       createInscripcionDto.email,
       createInscripcionDto.nombre,
       createInscripcionDto.apellido,
       createInscripcionDto.dictadoCursoId,
       file,
-    );
+    ).catch(error => console.error('Error enviando mail de notificación:', error));
+
+    return result;
   }
 
   /**
@@ -150,12 +152,12 @@ export class InscripcionesService {
       data: { estado: 'confirmada' },
     });
 
-    // Enviar mail de confirmación al alumno
-    await this.mailService.sendMailConfirmacionExito(
+    // Enviar mail de confirmación al alumno (en segundo plano)
+    this.mailService.sendMailConfirmacionExito(
       inscripcion.email,
       inscripcion.nombre,
       inscripcion.dictadoCurso.curso.titulo
-    );
+    ).catch(error => console.error('Error enviando mail de confirmación:', error));
 
     return updated;
   }
