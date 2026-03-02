@@ -8,6 +8,7 @@ import { CreateMaterialDto } from './dto/create-material.dto';
 import { UpdateMaterialDto } from './dto/update-material.dto';
 import { v2 as cloudinary } from 'cloudinary';
 import xss from 'xss';
+import * as path from 'path';
 
 @Injectable()
 export class MaterialesService {
@@ -20,13 +21,27 @@ export class MaterialesService {
     file: Express.Multer.File,
   ): Promise<{ url: string; publicId: string }> {
     return new Promise((resolve, reject) => {
+      // Determinar el resource_type basado en el mimetype
+      const isImage = file.mimetype.startsWith('image/');
+      const resourceType = isImage ? 'image' : 'raw';
+
+      // Para archivos raw, necesitamos incluir la extensión en el public_id 
+      // para que Cloudinary la sirva correctamente en el enlace
+      const extension = path.extname(file.originalname);
+      const nombreBase = path.parse(file.originalname).name.replace(/[^a-zA-Z0-9]/g, '_');
+      const publicId = `${nombreBase}_${Date.now()}${extension}`;
+
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: 'materiales',
-          resource_type: 'auto', // Permite PDF, Word, etc.
+          resource_type: resourceType,
+          public_id: publicId,
         },
         (error, result) => {
-          if (error) return reject(error);
+          if (error) {
+            console.error('Error en Cloudinary:', error);
+            return reject(error);
+          }
           if (!result) return reject(new Error('Error al subir el archivo'));
           resolve({
             url: result.secure_url,

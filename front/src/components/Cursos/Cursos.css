@@ -161,6 +161,31 @@
     transform: scale(1.3);
 }
 
+.cursos-carousel.single {
+    padding: 0;
+    max-width: 600px;
+}
+
+.cursos-carousel.single .carousel-track {
+    min-height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.cursos-carousel.single .carousel-slide {
+    position: relative;
+    left: auto;
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+    width: 100%;
+}
+
+.cursos-carousel.single .carousel-slide.active {
+    transform: none;
+    left: auto;
+}
+
 .curso-card {
     background: white;
     border-radius: var(--radius-lg);
@@ -204,8 +229,15 @@
 
 .curso-title {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     color: var(--text-primary);
+}
+
+.curso-price {
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
 }
 
 .curso-description {
@@ -258,8 +290,8 @@
 .btn-inscribirse {
     width: 100%;
     padding: 1rem;
-    background: linear-gradient(135deg, var(--color-primary), #818cf8);
-    color: white;
+    background: linear-gradient(135deg, var(--color-primary), #fbbf24);
+    color: #1e293b;
     border: none;
     border-radius: var(--radius-md);
     font-weight: 600;

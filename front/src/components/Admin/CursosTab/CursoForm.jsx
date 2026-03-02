@@ -84,6 +84,23 @@ function CursoForm({
         </div>
 
         <div className="form-group">
+          <label htmlFor="valorDolares">
+            Valor en Dólares (USD $)
+          </label>
+          <input
+            type="number"
+            id="valorDolares"
+            name="valorDolares"
+            value={formCurso.valorDolares}
+            onChange={onChange}
+            required
+            min={0}
+            step="0.01"
+            placeholder="Ej: 60"
+          />
+        </div>
+
+        <div className="form-group">
           <label>Contenidos del Curso</label>
           {formCurso.items.map((item, index) => (
             <div key={index} className="item-input-group">

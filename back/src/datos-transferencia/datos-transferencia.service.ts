@@ -35,6 +35,18 @@ export class DatosTransferenciaService implements OnModuleInit {
                 tipo: 'internacional',
             },
         });
+
+        await this.prisma.datosTransferencia.upsert({
+            where: { id: 3 },
+            update: {},
+            create: {
+                id: 3,
+                alias: '',
+                cvu: '',
+                nombreCuenta: '',
+                tipo: 'dolares',
+            },
+        });
     }
 
     async getDatos() {

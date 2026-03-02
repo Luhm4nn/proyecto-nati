@@ -1,12 +1,12 @@
 import './AdminTabs.css';
 
-function AdminTabs({ activeTab, setActiveTab }) {
+function AdminTabs({ activeTab, setActiveTab, hasPendingInscripciones, hasPendingConsultas }) {
   const tabs = [
-    { id: 'inscripciones', label: 'Inscripciones' },
+    { id: 'inscripciones', label: 'Inscripciones', hasBadge: hasPendingInscripciones },
     { id: 'cursos', label: 'Cursos' },
     { id: 'novedades', label: 'Novedades' },
     { id: 'materiales', label: 'Materiales' },
-    { id: 'consultas', label: 'Consultas' },
+    { id: 'consultas', label: 'Consultas', hasBadge: hasPendingConsultas },
     { id: 'testimonios', label: 'Testimonios' },
     { id: 'transferencia', label: 'Transferencia' },
   ];
@@ -20,7 +20,7 @@ function AdminTabs({ activeTab, setActiveTab }) {
       >
         {tabs.map((tab) => (
           <option key={tab.id} value={tab.id}>
-            {tab.label}
+            {tab.label} {tab.hasBadge ? '●' : ''}
           </option>
         ))}
       </select>
@@ -33,6 +33,7 @@ function AdminTabs({ activeTab, setActiveTab }) {
             onClick={() => setActiveTab(tab.id)}
           >
             {tab.label}
+            {tab.hasBadge && <span className="pending-badge" />}
           </button>
         ))}
       </div>

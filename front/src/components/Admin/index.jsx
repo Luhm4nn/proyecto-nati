@@ -57,7 +57,12 @@ function Admin() {
       <div className="admin-container">
         <AdminHeader user={user} onLogout={() => setShowLogoutModal(true)} />
 
-        <AdminTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        <AdminTabs 
+          activeTab={activeTab} 
+          setActiveTab={setActiveTab} 
+          hasPendingInscripciones={inscripcionesData.contadores?.pendiente > 0}
+          hasPendingConsultas={consultasData.contadores?.pendiente > 0}
+        />
 
         {activeTab === 'consultas' && (
           <ConsultasTab
@@ -155,10 +160,13 @@ function Admin() {
             onCancelar={materialesData.cancelarEdicion}
             onEditar={materialesData.editarMaterial}
             onEliminar={materialesData.abrirModalEliminar}
+            onVer={materialesData.abrirPreview}
             formatearFecha={formatearFecha}
             deleteModal={materialesData.deleteModal}
             onCerrarModalEliminar={materialesData.cerrarModalEliminar}
             onConfirmarEliminacion={materialesData.confirmarEliminacion}
+            previewModal={materialesData.previewModal}
+            onCerrarPreview={materialesData.cerrarPreview}
           />
         )}
 
@@ -195,9 +203,11 @@ function Admin() {
           <TransferenciaTab
             datosNacional={transferenciaData.datosNacional}
             datosInternacional={transferenciaData.datosInternacional}
+            datosDolares={transferenciaData.datosDolares}
             loading={transferenciaData.loading}
             onChangeNacional={transferenciaData.handleChangeNacional}
             onChangeInternacional={transferenciaData.handleChangeInternacional}
+            onChangeDolares={transferenciaData.handleChangeDolares}
             onSubmit={transferenciaData.guardarDatos}
           />
         )}

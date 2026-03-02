@@ -2,7 +2,16 @@ import React from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import './TransferenciaTab.css';
 
-function TransferenciaTab({ datosNacional, datosInternacional, loading, onChangeNacional, onChangeInternacional, onSubmit }) {
+function TransferenciaTab({
+    datosNacional,
+    datosInternacional,
+    datosDolares,
+    loading,
+    onChangeNacional,
+    onChangeInternacional,
+    onChangeDolares,
+    onSubmit
+}) {
     if (loading) {
         return <div className="tab-content loading">Cargando datos...</div>;
     }
@@ -125,6 +134,65 @@ function TransferenciaTab({ datosNacional, datosInternacional, loading, onChange
                     <div className="form-actions">
                         <button type="submit" className="btn-primary">
                             Guardar Internacional
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            {/* Dólares */}
+            <div className="form-card" style={{ marginTop: '2rem' }}>
+                <h2 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <ReactCountryFlag countryCode="US" svg style={{ width: '1.4em', height: '1.4em' }} /> Transferencia en Dólares (USD)
+                </h2>
+                <p className="form-instruction">
+                    Datos para alumnos que pagan en dólares estadounidenses (Ej: Wise, Revolut, etc).
+                </p>
+
+                <form onSubmit={(e) => onSubmit(e, 'dolares')} className="admin-form">
+                    <div className="form-grid">
+                        <div className="form-group">
+                            <label htmlFor="nombreCuentaDol">Nombre del Titular</label>
+                            <input
+                                type="text"
+                                id="nombreCuentaDol"
+                                name="nombreCuenta"
+                                value={datosDolares.nombreCuenta}
+                                onChange={onChangeDolares}
+                                placeholder="Ej: Natalia Luhmann"
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="aliasDol">Info Adicional (Swift/Email/etc)</label>
+                            <input
+                                type="text"
+                                id="aliasDol"
+                                name="alias"
+                                value={datosDolares.alias}
+                                onChange={onChangeDolares}
+                                placeholder="Ej: natalialuhmann@email.com"
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="cvuDol">Número de Cuenta / IBAN / ACH</label>
+                            <input
+                                type="text"
+                                id="cvuDol"
+                                name="cvu"
+                                value={datosDolares.cvu}
+                                onChange={onChangeDolares}
+                                placeholder="Ej: 123456789"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div className="form-actions">
+                        <button type="submit" className="btn-primary">
+                            Guardar Dólares
                         </button>
                     </div>
                 </form>

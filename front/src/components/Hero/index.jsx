@@ -34,10 +34,6 @@ function Hero() {
     return () => clearInterval(interval);
   }, [images.length]);
 
-  const scrollToCursos = () => {
-    document.getElementById('cursos').scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section id="hero" className="hero-section">
       <div className="hero-background">
@@ -52,7 +48,10 @@ function Hero() {
       </div>
       <div className="hero-header container">
         <div className="hero-logo-title-container">
-          <h1 className="hero-brand-name">Alemán para vos<span className="hero-brand-subtitle">Natalia Luhmann</span></h1>
+          <h1 className="hero-brand-name">
+            Alemán para vos
+            <span className="hero-brand-subtitle">Natalia Luhmann</span>
+          </h1>
         </div>
       </div>
     </section>

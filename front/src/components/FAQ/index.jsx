@@ -8,16 +8,32 @@ function FAQ() {
     const faqs = [
         {
             question: "¿Necesito conocimientos previos?",
-            answer: "No, ofrecemos cursos para personas sin conocimientos (nivel A1) hasta C2 (perfeccionamiento)."
+            answer: "No 😊 El curso está pensado para principiantes absolutos. Empezamos desde cero y avanzamos paso a paso, sin necesidad de experiencia previa con el alemán."
         },
         {
             question: "¿Cómo son las clases online?",
-            answer: "Utilizamos una plataforma interactiva con pizarra virtual, ejercicios en vivo y material multimedia."
+            answer: "Las clases son en vivo, en grupos reducidos y por Zoom. Trabajamos con explicaciones claras, práctica oral desde el inicio y acceso a una plataforma con materiales para seguir aprendiendo entre clases."
         },
         {
             question: "¿Qué métodos de pago aceptan?",
-            answer: "Aceptamos transferencias bancarias, tanto para cuentas nacionales como internacionales."
-        }
+            answer: "Podés abonar mediante transferencia bancaria o medios digitales. Los detalles se envían al momento de la inscripción."
+        },
+        {
+            question: "¿Cuántos alumnos hay por curso?",
+            answer: "Los grupos son pequeños para que cada persona tenga su espacio para hablar y participar. Con el tiempo se arma algo más que una clase: un grupo que aprende, se acompaña y crece junto."
+        },
+        {
+            question: "¿Dan certificados?",
+            answer: "Al finalizar el curso se entrega un certificado de asistencia que acredita la participación y el recorrido realizado durante la cursada. No se trata de un certificado oficial de examen internacional."
+        },
+        {
+            question: "¿Hay exámenes?",
+            answer: "No hay exámenes formales. Realizamos una evaluación interna al finalizar el curso para acompañar el proceso de aprendizaje y ver los avances alcanzados, sin generar presión ni estrés."
+        },
+        {
+            question: "¿Qué pasa si falto a una clase o me voy de viaje?",
+            answer: "El curso es un proceso que se construye clase a clase y en grupo. Por eso, el lugar queda reservado durante toda la cursada y las clases se abonan de manera mensual, incluso si en algún momento no podés asistir. Siempre vas a contar con los materiales para seguir el ritmo del curso."
+        },
     ];
 
     const toggleAccordion = (index) => {

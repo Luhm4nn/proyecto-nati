@@ -1,6 +1,17 @@
 import DOMPurify from 'dompurify';
+import {
+  ArrowDownTrayIcon,
+  PencilIcon,
+  TrashIcon,
+} from '../../shared/UI/Icons';
 
-function MaterialCard({ material, onEditar, onEliminar, formatearFecha }) {
+function MaterialCard({
+  material,
+  onEditar,
+  onEliminar,
+  onVer,
+  formatearFecha,
+}) {
   // Función para obtener la extensión o tipo de archivo para mostrar un icono
   const getFileIcon = (url) => {
     if (!url) return '📄';
@@ -35,22 +46,34 @@ function MaterialCard({ material, onEditar, onEliminar, formatearFecha }) {
             Subido el: {formatearFecha(material.createdAt)}
           </span>
           <div className="material-actions">
+            <button onClick={() => onVer(material)} className="btn-ver">
+              Ver Archivo
+            </button>
             <a
               href={material.docUrl}
+              download={material.nombre}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-ver"
+              className="btn-descargar"
+              title="Descargar"
             >
-              Ver Archivo
+              <ArrowDownTrayIcon />
             </a>
-            <button onClick={() => onEditar(material)} className="btn-editar">
-              Editar
+            <button
+              onClick={() => onEditar(material)}
+              className="btn-editar"
+              title="Editar"
+            >
+              <PencilIcon />
+              <span className="btn-label">Editar</span>
             </button>
             <button
               onClick={() => onEliminar(material)}
               className="btn-eliminar"
+              title="Eliminar"
             >
-              Eliminar
+              <TrashIcon />
+              <span className="btn-label">Eliminar</span>
             </button>
           </div>
         </div>

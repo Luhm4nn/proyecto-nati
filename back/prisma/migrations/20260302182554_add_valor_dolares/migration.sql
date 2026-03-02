@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "cursos" ADD COLUMN     "valorDolares" DOUBLE PRECISION NOT NULL DEFAULT 0;

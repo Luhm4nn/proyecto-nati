@@ -141,16 +141,6 @@ ${formData.mensaje}`;
                   options={levelOptions}
                   placeholder="Selecciona tu nivel"
                 />
-                <div className="test-link-wrapper">
-                  <a
-                    href="https://www.esl-idiomas.com/es/test-idiomas/aleman/test-linea"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="test-link"
-                  >
-                    ¿No sabes tu nivel? Haz un test rápido aquí
-                  </a>
-                </div>
               </div>
               <div className="form-group">
                 <label>¿Desde dónde tomarás las clases?</label>

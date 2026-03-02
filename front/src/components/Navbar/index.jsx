@@ -70,12 +70,22 @@ function Navbar() {
           <button onClick={() => scrollToSection('faq')} className="nav-link">
             Preguntas
           </button>
+          <Link to="/materiales" className="nav-link">
+            Materiales
+          </Link>
           <button
             onClick={() => scrollToSection('cursos')}
             className="nav-cta-mobile"
           >
             Empezar Ahora
           </button>
+          <Link
+            to="/admin"
+            className="nav-link-admin-mobile"
+            onClick={() => setMenuOpen(false)}
+          >
+            Admin
+          </Link>
         </div>
 
         <div className="navbar-actions">

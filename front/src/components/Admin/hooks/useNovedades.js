@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useToast } from "../../../contexts/ToastContext";
-import { useLoading } from "../../../contexts/LoadingContext";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useToast } from '../../../contexts/ToastContext';
+import { useLoading } from '../../../contexts/LoadingContext';
 
 export function useNovedades() {
   const navigate = useNavigate();
@@ -11,19 +11,19 @@ export function useNovedades() {
   const [loading, setLoading] = useState(true);
   const [formNovedad, setFormNovedad] = useState({
     id: null,
-    titulo: "",
-    descripcion: "",
+    titulo: '',
+    descripcion: '',
     imagen: null,
   });
   const [previewImagen, setPreviewImagen] = useState(null);
   const [deleteModal, setDeleteModal] = useState({
     isOpen: false,
     id: null,
-    name: "",
+    name: '',
   });
 
   const getAuthHeaders = () => {
-    const Token = localStorage.getItem("token");
+    const Token = localStorage.getItem('token');
     return {
       Authorization: `Bearer ${Token}`,
     };
@@ -31,26 +31,25 @@ export function useNovedades() {
 
   const cargarNovedades = async () => {
     setLoading(true);
-    startLoading("Cargando novedades...");
+    startLoading('Cargando novedades...');
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
-      const url = `${apiUrl}/novedades`
-      console.log(url)
+      const url = `${apiUrl}/novedades`;
       const response = await fetch(url, {
         headers: getAuthHeaders(),
       });
 
       if (response.status === 401) {
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        navigate("/login");
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        navigate('/login');
         return;
       }
 
       const data = await response.json();
       setNovedades(data);
     } catch (error) {
-      showError("Error al cargar las novedades");
+      showError('Error al cargar las novedades');
     } finally {
       setLoading(false);
       stopLoading();
@@ -77,14 +76,14 @@ export function useNovedades() {
     // Validar tipo de archivo
     const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
     if (!validTypes.includes(file.type)) {
-      showError("Formato de imagen no válido. Usa JPEG, PNG o WebP");
+      showError('Formato de imagen no válido. Usa JPEG, PNG o WebP');
       e.target.value = '';
       return;
     }
 
     // Validar tamaño (5MB)
     if (file.size > 5 * 1024 * 1024) {
-      showError("La imagen no debe superar 5MB");
+      showError('La imagen no debe superar 5MB');
       e.target.value = '';
       return;
     }
@@ -103,26 +102,26 @@ export function useNovedades() {
     e.preventDefault();
 
     if (formNovedad.titulo.trim().length < 5) {
-      showError("El título debe tener al menos 5 caracteres");
+      showError('El título debe tener al menos 5 caracteres');
       return;
     }
     if (formNovedad.titulo.trim().length > 100) {
-      showError("El título no puede superar 100 caracteres");
+      showError('El título no puede superar 100 caracteres');
       return;
     }
     if (formNovedad.descripcion.trim().length < 10) {
-      showError("La descripción debe tener al menos 10 caracteres");
+      showError('La descripción debe tener al menos 10 caracteres');
       return;
     }
     if (formNovedad.descripcion.trim().length > 500) {
-      showError("La descripción no puede superar 500 caracteres");
+      showError('La descripción no puede superar 500 caracteres');
       return;
     }
 
     const isEdit = formNovedad.id !== null;
 
     if (!isEdit && !formNovedad.imagen) {
-      showError("Debes seleccionar una imagen");
+      showError('Debes seleccionar una imagen');
       return;
     }
 
@@ -136,14 +135,14 @@ export function useNovedades() {
         formData.append('imagen', formNovedad.imagen);
       }
 
-      startLoading(isEdit ? "Actualizando novedad..." : "Creando novedad...");
+      startLoading(isEdit ? 'Actualizando novedad...' : 'Creando novedad...');
 
       const url = isEdit
         ? `${apiUrl}/novedades/${formNovedad.id}`
         : `${apiUrl}/novedades`;
 
       const response = await fetch(url, {
-        method: isEdit ? "PATCH" : "POST",
+        method: isEdit ? 'PATCH' : 'POST',
         headers: getAuthHeaders(),
         body: formData,
       });
@@ -151,13 +150,13 @@ export function useNovedades() {
       if (response.ok) {
         showSuccess(
           isEdit
-            ? "Novedad actualizada correctamente"
-            : "Novedad creada correctamente"
+            ? 'Novedad actualizada correctamente'
+            : 'Novedad creada correctamente'
         );
         setFormNovedad({
           id: null,
-          titulo: "",
-          descripcion: "",
+          titulo: '',
+          descripcion: '',
           imagen: null,
         });
         setPreviewImagen(null);
@@ -171,11 +170,11 @@ export function useNovedades() {
         if (error.message && Array.isArray(error.message)) {
           error.message.forEach((msg) => showError(msg));
         } else {
-          showError(error.message || "Error al guardar la novedad");
+          showError(error.message || 'Error al guardar la novedad');
         }
       }
     } catch (error) {
-      showError("Error de conexión. Verifica tu red e intenta nuevamente.");
+      showError('Error de conexión. Verifica tu red e intenta nuevamente.');
     } finally {
       stopLoading();
     }
@@ -189,7 +188,7 @@ export function useNovedades() {
       imagen: null,
     });
     setPreviewImagen(novedad.imagenUrl);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const abrirModalEliminar = (novedad) => {
@@ -204,7 +203,7 @@ export function useNovedades() {
     setDeleteModal({
       isOpen: false,
       id: null,
-      name: "",
+      name: '',
     });
   };
 
@@ -214,20 +213,20 @@ export function useNovedades() {
   };
 
   const eliminarNovedad = async (id) => {
-    startLoading("Eliminando novedad...");
+    startLoading('Eliminando novedad...');
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/novedades/${id}`, {
-        method: "DELETE",
+        method: 'DELETE',
         headers: getAuthHeaders(),
       });
 
       if (response.ok) {
-        showSuccess("Novedad eliminada correctamente");
+        showSuccess('Novedad eliminada correctamente');
         await cargarNovedades();
       }
     } catch (error) {
-      showError("Error al eliminar la novedad");
+      showError('Error al eliminar la novedad');
     } finally {
       stopLoading();
     }
@@ -236,8 +235,8 @@ export function useNovedades() {
   const cancelarEdicion = () => {
     setFormNovedad({
       id: null,
-      titulo: "",
-      descripcion: "",
+      titulo: '',
+      descripcion: '',
       imagen: null,
     });
     setPreviewImagen(null);

@@ -2,7 +2,7 @@
 
 :root {
   /* Modern Trust & Dynamism Palette */
-  --color-primary: #6366f1;
+  --color-primary: #fbbf24;
   /* Indigo - Trust, Wisdom */
   --color-secondary: #f43f5e;
   /* Rose - Friendly, Dynamic */
@@ -42,7 +42,7 @@
     0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
     0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-glow: 0 0 15px rgba(99, 102, 241, 0.3);
+  --shadow-glow: 0 0 15px rgba(251, 191, 36, 0.3);
 }
 
 /* Icon Utilities */
@@ -166,7 +166,7 @@ img {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-primary), #818cf8);
+  background: linear-gradient(135deg, var(--color-primary), #f6f881);
   color: white;
   box-shadow: var(--shadow-md);
 }
@@ -286,8 +286,8 @@ img {
 }
 
 .form-group input[type="file"]::file-selector-button {
-  background: linear-gradient(135deg, var(--color-primary), #818cf8);
-  color: white;
+  background: linear-gradient(135deg, var(--color-primary), #fbbf24);
+  color: #1e293b;
   padding: 0.5rem 1.2rem;
   border: none;
   border-radius: var(--radius-md);
@@ -306,8 +306,8 @@ img {
 /* --- Semantic Actions Buttons --- */
 .btn-guardar,
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-primary), #818cf8);
-  color: white;
+  background: linear-gradient(135deg, var(--color-primary), #fbbf24);
+  color: #1e293b;
   border: none;
   padding: 0.8rem 2rem;
   border-radius: var(--radius-full);
@@ -405,7 +405,7 @@ img {
 }
 
 .text-gradient-primary {
-  background: linear-gradient(135deg, var(--color-primary), #818cf8);
+  background: linear-gradient(135deg, var(--color-primary), #fbbf24);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -432,7 +432,7 @@ img {
 .spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid rgba(99, 102, 241, 0.2);
+  border: 4px solid rgba(251, 191, 36, 0.2);
   border-radius: 50%;
   border-top-color: var(--color-primary);
   animation: spin 1s ease-in-out infinite;

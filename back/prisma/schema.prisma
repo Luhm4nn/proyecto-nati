@@ -62,6 +62,7 @@ model Curso {
   updatedAt          DateTime       @updatedAt
   valor              Float          @default(0)
   valorInternacional Float          @default(0)
+  valorDolares       Float          @default(0)
   dictadosCurso      DictadoCurso[]
 
   @@map("cursos")

@@ -19,6 +19,11 @@ export function useMateriales() {
     id: null,
     name: '',
   });
+  const [previewModal, setPreviewModal] = useState({
+    isOpen: false,
+    url: '',
+    name: '',
+  });
 
   const getAuthHeaders = () => {
     const token = localStorage.getItem('token');
@@ -180,6 +185,22 @@ export function useMateriales() {
     });
   };
 
+  const abrirPreview = (material) => {
+    setPreviewModal({
+      isOpen: true,
+      url: material.docUrl,
+      name: material.nombre,
+    });
+  };
+
+  const cerrarPreview = () => {
+    setPreviewModal({
+      isOpen: false,
+      url: '',
+      name: '',
+    });
+  };
+
   const confirmarEliminacion = async () => {
     await eliminarMaterial(deleteModal.id);
     cerrarModalEliminar();
@@ -234,5 +255,8 @@ export function useMateriales() {
     deleteModal,
     cerrarModalEliminar,
     confirmarEliminacion,
+    previewModal,
+    abrirPreview,
+    cerrarPreview,
   };
 }

@@ -2,21 +2,16 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useToast } from '../../contexts/ToastContext';
 import { useLoading } from '../../contexts/LoadingContext';
-import {
-  CheckIcon,
-  UserIcon,
-  EnvelopeIcon,
-  PhoneIcon,
-  ArrowPathIcon,
-  DocumentTextIcon,
-  ArrowUpTrayIcon,
-  LightBulbIcon,
-  ArrowLeftIcon,
-} from '../shared/UI/Icons';
+import { CheckIcon, LightBulbIcon, ArrowLeftIcon } from '../shared/UI/Icons';
 import Footer from '../Footer';
+import InscripcionForm from './InscripcionForm';
 import './Inscripcion.css';
 import ReactCountryFlag from 'react-country-flag';
-import { calculateMonthDuration, formatearRangoHorario, formatearFechaSinHora } from '../../utils/dateUtils';
+import {
+  calculateMonthDuration,
+  formatearRangoHorario,
+  formatearFechaSinHora,
+} from '../../utils/dateUtils';
 
 function Inscripcion() {
   const { id } = useParams();
@@ -31,14 +26,7 @@ function Inscripcion() {
   const [selectedDictado, setSelectedDictado] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [enviado, setEnviado] = useState(false);
-  const [inscripcionFormData, setInscripcionFormData] = useState({
-    nombre: '',
-    apellido: '',
-    email: '',
-    emailConfirmacion: '',
-    telefono: '',
-  });
-  const [comprobante, setComprobante] = useState(null);
+  const [userEmail, setUserEmail] = useState('');
   const [datosTransferencia, setDatosTransferencia] = useState(null);
 
   useEffect(() => {
@@ -91,11 +79,6 @@ function Inscripcion() {
       year: 'numeric',
     });
   };
-
-  const formatearHorario = (horario) => {
-    return horario ? horario.slice(0, 5) : '';
-  };
-
   const handleSelectDictado = (dictado) => {
     setSelectedDictado(dictado);
     setTimeout(() => {
@@ -103,26 +86,13 @@ function Inscripcion() {
     }, 100);
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInscripcionFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setComprobante(e.target.files[0]);
-    }
-  };
-
-  const handleSubmitInscripcion = async (e) => {
-    e.preventDefault();
-
-    if (inscripcionFormData.email !== inscripcionFormData.emailConfirmacion) {
+  const handleSubmitInscripcion = async (formData, comprobanteFile) => {
+    if (formData.email !== formData.emailConfirmacion) {
       showError('Los correos electrónicos no coinciden');
       return;
     }
 
-    if (!comprobante) {
+    if (!comprobanteFile) {
       showError('Por favor adjunta el comprobante de pago');
       return;
     }
@@ -131,25 +101,22 @@ function Inscripcion() {
     startLoading('Procesando tu inscripción...');
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
-      const formData = new FormData();
+      const data = new FormData();
 
       // Campos del DTO
-      formData.append('nombre', inscripcionFormData.nombre);
-      formData.append('apellido', inscripcionFormData.apellido);
-      formData.append('email', inscripcionFormData.email);
-      formData.append(
-        'emailConfirmacion',
-        inscripcionFormData.emailConfirmacion
-      );
-      formData.append('telefono', inscripcionFormData.telefono);
-      formData.append('dictadoCursoId', selectedDictado.id);
+      data.append('nombre', formData.nombre);
+      data.append('apellido', formData.apellido);
+      data.append('email', formData.email);
+      data.append('emailConfirmacion', formData.emailConfirmacion);
+      data.append('telefono', formData.telefono);
+      data.append('dictadoCursoId', selectedDictado.id);
 
       // Archivo
-      formData.append('comprobante', comprobante);
+      data.append('comprobante', comprobanteFile);
 
       const response = await fetch(`${apiUrl}/inscripciones`, {
         method: 'POST',
-        body: formData,
+        body: data,
       });
 
       if (!response.ok) {
@@ -160,6 +127,7 @@ function Inscripcion() {
       }
 
       showSuccess('¡Inscripción enviada con éxito!');
+      setUserEmail(formData.email);
       setEnviado(true);
     } catch (err) {
       console.error('Error submitting inscripcion:', err);
@@ -199,13 +167,15 @@ function Inscripcion() {
                 </p>
                 <p>
                   Valor del curso:{' '}
-                  <strong>AR$ {curso.valor?.toLocaleString('es-AR')} | € {curso.valorInternacional?.toLocaleString('es-ES')}</strong>
+                  <strong>
+                    AR$ {curso.valor?.toLocaleString('es-AR')} | €{' '}
+                    {curso.valorInternacional?.toLocaleString('es-ES')}
+                  </strong>
                 </p>
                 <p>
                   Tu inscripción ha sido recibida correctamente. Próximamente
-                  recibirás un correo en{' '}
-                  <strong>{inscripcionFormData.email}</strong> una vez que
-                  nuestros administrativos confirmen tu inscripción y el
+                  recibirás un correo en <strong>{userEmail}</strong> una vez
+                  que nuestros administrativos confirmen tu inscripción y el
                   comprobante adjunto.
                 </p>
               </div>
@@ -267,7 +237,11 @@ function Inscripcion() {
                 <div className="inscripcion-price-tag">
                   <span className="price-label">Valor del curso:</span>
                   <span className="price-amount">
-                    AR$ {curso.valor?.toLocaleString('es-AR')} | € {curso.valorInternacional?.toLocaleString('es-ES')}
+                    AR$ {curso.valor?.toLocaleString('es-AR')} | €{' '}
+                    {curso.valorInternacional?.toLocaleString('es-ES')}
+                    {curso.valorDolares > 0 && (
+                      <> | US$ {curso.valorDolares?.toLocaleString('en-US')}</>
+                    )}
                   </span>
                 </div>
               </div>
@@ -297,7 +271,7 @@ function Inscripcion() {
 
               <div className="dictados-grid">
                 {curso.dictadosCurso &&
-                  curso.dictadosCurso.filter((d) => d.activo).length > 0 ? (
+                curso.dictadosCurso.filter((d) => d.activo).length > 0 ? (
                   curso.dictadosCurso
                     .filter((d) => d.activo)
                     .map((dictado) => {
@@ -310,7 +284,7 @@ function Inscripcion() {
                         >
                           <div className="dictado-header-full">
                             <div className="dictado-days-full">
-                              {dictado.diasSemana.join(' y ')}
+                              {dictado.diasSemana.join(', ')}
                             </div>
                             <span className="dictado-duration-badge">
                               {calculateMonthDuration(
@@ -329,14 +303,56 @@ function Inscripcion() {
                           <div className="dictado-body-full">
                             <div className="dictado-info-item">
                               <span className="info-label">Horario:</span>
-                              <span className="info-value" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                                {formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin) && (
+                              <span
+                                className="info-value"
+                                style={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '4px',
+                                }}
+                              >
+                                {formatearRangoHorario(
+                                  dictado.horarioInicio,
+                                  dictado.horarioFin
+                                ) && (
                                   <>
-                                    {formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin).horarioArg}
-                                    <ReactCountryFlag countryCode="AR" svg style={{ width: '1.2em', height: '1.2em' }} /> /
-                                    {formatearRangoHorario(dictado.horarioInicio, dictado.horarioFin).horarioEur}
-                                    <ReactCountryFlag countryCode="ES" svg style={{ width: '1.2em', height: '1.2em' }} />
-                                    <ReactCountryFlag countryCode="DE" svg style={{ width: '1.2em', height: '1.2em' }} />
+                                    {
+                                      formatearRangoHorario(
+                                        dictado.horarioInicio,
+                                        dictado.horarioFin
+                                      ).horarioArg
+                                    }
+                                    <ReactCountryFlag
+                                      countryCode="AR"
+                                      svg
+                                      style={{
+                                        width: '1.2em',
+                                        height: '1.2em',
+                                      }}
+                                    />{' '}
+                                    \
+                                    {
+                                      formatearRangoHorario(
+                                        dictado.horarioInicio,
+                                        dictado.horarioFin
+                                      ).horarioEur
+                                    }
+                                    <ReactCountryFlag
+                                      countryCode="ES"
+                                      svg
+                                      style={{
+                                        width: '1.2em',
+                                        height: '1.2em',
+                                      }}
+                                    />
+                                    <ReactCountryFlag
+                                      countryCode="DE"
+                                      svg
+                                      style={{
+                                        width: '1.2em',
+                                        height: '1.2em',
+                                      }}
+                                    />
                                   </>
                                 )}
                               </span>
@@ -350,7 +366,6 @@ function Inscripcion() {
                             </div>
                             {dictado.cupos > 0 && (
                               <div className="dictado-info-item cupos-info">
-                                {/* DEBUG: console.log("Dictado data:", dictado) */}
                                 <span className="info-label">Cupos:</span>
                                 <span
                                   className={`info-value ${sinCupos ? 'text-error' : ''}`}
@@ -381,7 +396,7 @@ function Inscripcion() {
                     })
                 ) : (
                   <div className="no-dictados">
-                    <p>No hay comisiones abiertas por el momento.</p>
+                    <p>No hay horarios disponibles por el momento.</p>
                     <Link
                       to="/#preguntas"
                       className="text-primary hover:underline text-sm mt-2 block"
@@ -394,262 +409,13 @@ function Inscripcion() {
             </div>
 
             {selectedDictado && (
-              <div className="inscripcion-form-section" ref={formRef}>
-                <div className="form-card">
-                  <h2 className="inscripcion-section-title">
-                    Datos Personales
-                  </h2>
-                  <p className="form-instruction">
-                    Completa tus datos para finalizar la inscripción a la
-                    comisión de los{' '}
-                    <span className="highlight-day">
-                      {selectedDictado.diasSemana.join(' y ')}
-                    </span>
-                    .
-                  </p>
-
-                  <div className="condiciones-pago-box">
-                    <h3>Condiciones de pago</h3>
-                    <div className="condiciones-pago-content">
-                      <p>
-                        Los pagos se realizan del <strong>1 al 10</strong> de
-                        cada mes.
-                      </p>
-                      <p>
-                        Pasado ese plazo, se aplicará un recargo por mora del{' '}
-                        <strong>10%</strong> sobre el valor de la cuota.
-                      </p>
-                      <p className="aranceles-nota">
-                        Los aranceles están sujetos a actualización y/o
-                        modificación trimestral, conforme a la dinámica
-                        económica vigente.
-                      </p>
-                    </div>
-                  </div>
-
-                  {datosTransferencia && datosTransferencia.length > 0 && (
-                    <div className="datos-pago-box">
-                      <h3>Información de Pago</h3>
-                      <p>
-                        Realiza la transferencia a la cuenta que corresponda según tu moneda y adjunta
-                        el comprobante debajo:
-                      </p>
-
-                      {/* Nacional */}
-                      {(() => {
-                        const nacional = datosTransferencia.find(d => d.tipo === 'nacional') || datosTransferencia.find(d => d.id === 1);
-                        return nacional && nacional.nombreCuenta ? (
-                          <div className="datos-pago-grid" style={{ marginBottom: '1.5rem' }}>
-                            <div className="dato-pago-item" style={{ gridColumn: '1 / -1' }}>
-                              <span className="dato-label" style={{ fontWeight: 700, fontSize: '1.05rem', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                                <ReactCountryFlag countryCode="AR" svg style={{ width: '1.4em', height: '1.4em' }} /> Transferencia Nacional (ARS)
-                              </span>
-                            </div>
-                            <div className="dato-pago-item">
-                              <span className="dato-label">Titular:</span>
-                              <span className="dato-value">
-                                {nacional.nombreCuenta}
-                              </span>
-                            </div>
-                            <div className="dato-pago-item">
-                              <span className="dato-label">Alias:</span>
-                              <span className="dato-value">
-                                {nacional.alias}
-                              </span>
-                            </div>
-                            <div className="dato-pago-item">
-                              <span className="dato-label">CVU/CBU:</span>
-                              <span className="dato-value">
-                                {nacional.cvu}
-                              </span>
-                            </div>
-                          </div>
-                        ) : null;
-                      })()}
-
-                      {/* Internacional */}
-                      {(() => {
-                        const internacional = datosTransferencia.find(d => d.tipo === 'internacional') || datosTransferencia.find(d => d.id === 2);
-                        return internacional && internacional.nombreCuenta ? (
-                          <div className="datos-pago-grid">
-                            <div className="dato-pago-item" style={{ gridColumn: '1 / -1' }}>
-                              <span className="dato-label" style={{ fontWeight: 700, fontSize: '1.05rem', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                                <ReactCountryFlag countryCode="EU" svg style={{ width: '1.4em', height: '1.4em' }} />
-                                <ReactCountryFlag countryCode="ES" svg style={{ width: '1.4em', height: '1.4em' }} />
-                                <ReactCountryFlag countryCode="DE" svg style={{ width: '1.4em', height: '1.4em' }} />
-                                Transferencia Internacional (EUR)
-                              </span>
-                            </div>
-                            <div className="dato-pago-item">
-                              <span className="dato-label">Titular:</span>
-                              <span className="dato-value">
-                                {internacional.nombreCuenta}
-                              </span>
-                            </div>
-                            <div className="dato-pago-item">
-                              <span className="dato-label">SWIFT / BIC:</span>
-                              <span className="dato-value">
-                                {internacional.alias}
-                              </span>
-                            </div>
-                            <div className="dato-pago-item">
-                              <span className="dato-label">IBAN:</span>
-                              <span className="dato-value">
-                                {internacional.cvu}
-                              </span>
-                            </div>
-                          </div>
-                        ) : null;
-                      })()}
-                    </div>
-                  )}
-
-                  <form
-                    className="inscripcion-form"
-                    onSubmit={handleSubmitInscripcion}
-                  >
-                    <div className="form-grid">
-                      <div className="form-group">
-                        <label htmlFor="nombre">
-                          <span className="label-icon">
-                            <UserIcon />
-                          </span>{' '}
-                          Nombre
-                        </label>
-                        <input
-                          type="text"
-                          id="nombre"
-                          name="nombre"
-                          value={inscripcionFormData.nombre}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="Tu nombre"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="apellido">
-                          <span className="label-icon">
-                            <UserIcon />
-                          </span>{' '}
-                          Apellido
-                        </label>
-                        <input
-                          type="text"
-                          id="apellido"
-                          name="apellido"
-                          value={inscripcionFormData.apellido}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="Tu apellido"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="email">
-                          <span className="label-icon">
-                            <EnvelopeIcon />
-                          </span>{' '}
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={inscripcionFormData.email}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="tu@email.com"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="emailConfirmacion">
-                          <span className="label-icon">
-                            <ArrowPathIcon />
-                          </span>{' '}
-                          Confirmar Email
-                        </label>
-                        <input
-                          type="email"
-                          id="emailConfirmacion"
-                          name="emailConfirmacion"
-                          value={inscripcionFormData.emailConfirmacion}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="Repite tu email"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="telefono">
-                          <span className="label-icon">
-                            <PhoneIcon />
-                          </span>{' '}
-                          Teléfono (WhatsApp)
-                        </label>
-                        <input
-                          type="tel"
-                          id="telefono"
-                          name="telefono"
-                          value={inscripcionFormData.telefono}
-                          onChange={handleInputChange}
-                          placeholder="+54 9 11 ..."
-                        />
-                      </div>
-                      <div className="form-group file-group">
-                        <label htmlFor="comprobante">
-                          <span className="label-icon">
-                            <DocumentTextIcon />
-                          </span>{' '}
-                          Comprobante de Pago
-                        </label>
-                        <div
-                          className={`file-upload-box ${comprobante ? 'has-file' : ''}`}
-                        >
-                          <input
-                            type="file"
-                            id="comprobante"
-                            onChange={handleFileChange}
-                            accept="image/*,.pdf"
-                            required
-                          />
-                          <div className="file-upload-content">
-                            <span className="upload-icon">
-                              {comprobante ? (
-                                <CheckIcon className="w-6 h-6" />
-                              ) : (
-                                <ArrowUpTrayIcon className="w-6 h-6" />
-                              )}
-                            </span>
-                            <div className="upload-text">
-                              <span className="primary-text">
-                                {comprobante
-                                  ? comprobante.name
-                                  : 'Elegir archivo'}
-                              </span>
-                              <span className="secondary-text">
-                                PDF o Imagen (Máx. 5MB)
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="form-actions">
-                      <button
-                        type="submit"
-                        className="btn-submit-inscripcion"
-                        disabled={submitting}
-                      >
-                        {submitting ? (
-                          <span className="btn-content">
-                            <span className="btn-spinner"></span> Enviando...
-                          </span>
-                        ) : (
-                          'Finalizar Inscripción'
-                        )}
-                      </button>
-                    </div>
-                  </form>
-                </div>
+              <div ref={formRef}>
+                <InscripcionForm
+                  selectedDictado={selectedDictado}
+                  datosTransferencia={datosTransferencia}
+                  onSubmit={handleSubmitInscripcion}
+                  submitting={submitting}
+                />
               </div>
             )}
           </div>

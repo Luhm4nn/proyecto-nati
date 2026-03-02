@@ -2,6 +2,7 @@ import './MaterialesTab.css';
 import MaterialForm from './MaterialForm';
 import MaterialCard from './MaterialCard';
 import DeleteConfirmationModal from '../../shared/DeleteConfirmationModal';
+import FilePreviewModal from '../../shared/FilePreviewModal';
 
 function MaterialesTab({
   materiales,
@@ -13,10 +14,13 @@ function MaterialesTab({
   onCancelar,
   onEditar,
   onEliminar,
+  onVer,
   formatearFecha,
   deleteModal,
   onCerrarModalEliminar,
   onConfirmarEliminacion,
+  previewModal,
+  onCerrarPreview,
 }) {
   return (
     <div className="tab-content">
@@ -42,6 +46,7 @@ function MaterialesTab({
                 material={material}
                 onEditar={onEditar}
                 onEliminar={onEliminar}
+                onVer={onVer}
                 formatearFecha={formatearFecha}
               />
             ))}
@@ -56,6 +61,12 @@ function MaterialesTab({
         title="Eliminar Material"
         message="¿Estás seguro de que deseas eliminar este material? Esta acción no se puede deshacer."
         itemName={deleteModal.name}
+      />
+      <FilePreviewModal
+        isOpen={previewModal.isOpen}
+        onClose={onCerrarPreview}
+        fileUrl={previewModal.url}
+        fileName={previewModal.name}
       />
     </div>
   );

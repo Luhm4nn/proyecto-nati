@@ -4,28 +4,28 @@ import './Features.css';
 function Features() {
   const features = [
     {
-      title: 'Clases 100% Online',
-      desc: 'Clases virtuales en vivo, desde cualquier lugar para cualquier persona.',
+      title: 'Clases en vivo desde donde estés.',
+      desc: 'Clases online en tiempo real para aprender acompañado, interactuar y practicar alemán desde cualquier lugar.',
     },
     {
-      title: 'Material incluido',
-      desc: 'Material incluido con una plataforma especializada, todo dinámico, sin libros tediosos.',
+      title: 'Todo el material incluido.',
+      desc: 'Acceso a una plataforma propia con materiales claros, dinámicos y prácticos. Sin libros obligatorios.',
     },
     {
-      title: 'Profesora certificada',
-      desc: 'Clases impartidas por una profesional certificada en la enseñanza del idioma.',
+      title: 'Aprendé con una profesora especializada.',
+      desc: 'Clases guiadas por una docente certificada y con amplia experiencia acompañando procesos reales de aprendizaje del alemán.',
     },
     {
-      title: 'Certificación',
-      desc: 'Se otorga certificado de finalización de cursado al terminar el nivel.',
+      title: 'Certificado de asistencia.',
+      desc: 'Al finalizar el curso recibís un certificado que acredita tu participación y el recorrido realizado.',
     },
     {
-      title: 'Clases didácticas',
-      desc: 'La diversión es parte del aprendizaje, por eso contamos con actividades interactivas y dinámicas.',
+      title: 'Aprender hablando desde el primer día.',
+      desc: 'Trabajamos con actividades interactivas y situaciones reales para que uses el alemán de forma natural y progresiva.',
     },
     {
-      title: 'Grupos reducidos',
-      desc: 'Grupos de con cupos limitados para una atención personalizada según los intereses del grupo.',
+      title: 'Grupos pequeños, aprendizaje real.',
+      desc: 'Cupos limitados para favorecer la participación, el seguimiento personalizado y la construcción de una verdadera comunidad de aprendizaje.',
     },
   ];
 
@@ -39,7 +39,7 @@ function Features() {
 
         <div className="features-grid">
           {features.map((feature, index) => (
-            <div key={index} className={`feature-card card-${index}`}>
+            <div key={index} className="feature-card">
               <h3>{feature.title}</h3>
               <p>{feature.desc}</p>
             </div>

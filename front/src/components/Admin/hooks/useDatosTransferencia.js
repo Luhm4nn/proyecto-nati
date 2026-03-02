@@ -21,6 +21,13 @@ export function useDatosTransferencia() {
         nombreCuenta: "",
         tipo: "internacional",
     });
+    const [datosDolares, setDatosDolares] = useState({
+        id: 3,
+        alias: "",
+        cvu: "",
+        nombreCuenta: "",
+        tipo: "dolares",
+    });
     const [loading, setLoading] = useState(true);
 
     const getAuthHeaders = () => {
@@ -42,6 +49,7 @@ export function useDatosTransferencia() {
 
             const nacional = data.find((d) => d.tipo === "nacional") || data.find((d) => d.id === 1);
             const internacional = data.find((d) => d.tipo === "internacional") || data.find((d) => d.id === 2);
+            const dolares = data.find((d) => d.tipo === "dolares") || data.find((d) => d.id === 3);
 
             if (nacional) {
                 setDatosNacional({
@@ -59,6 +67,15 @@ export function useDatosTransferencia() {
                     cvu: internacional.cvu || "",
                     nombreCuenta: internacional.nombreCuenta || "",
                     tipo: "internacional",
+                });
+            }
+            if (dolares) {
+                setDatosDolares({
+                    id: dolares.id,
+                    alias: dolares.alias || "",
+                    cvu: dolares.cvu || "",
+                    nombreCuenta: dolares.nombreCuenta || "",
+                    tipo: "dolares",
                 });
             }
         } catch (error) {
@@ -79,9 +96,22 @@ export function useDatosTransferencia() {
         setDatosInternacional((prev) => ({ ...prev, [name]: value }));
     };
 
+    const handleChangeDolares = (e) => {
+        const { name, value } = e.target;
+        setDatosDolares((prev) => ({ ...prev, [name]: value }));
+    };
+
     const guardarDatos = async (e, tipo) => {
         e.preventDefault();
-        const datos = tipo === "nacional" ? datosNacional : datosInternacional;
+        let datos;
+        if (tipo === "nacional") {
+            datos = datosNacional;
+        } else if (tipo === "internacional") {
+            datos = datosInternacional;
+        } else {
+            datos = datosDolares;
+        }
+
         startLoading("Guardando cambios...");
         try {
             const apiUrl = import.meta.env.VITE_API_URL;
@@ -107,7 +137,12 @@ export function useDatosTransferencia() {
                 throw new Error(errorData.message || "Error al guardar los datos");
             }
 
-            showSuccess(`Datos de transferencia ${tipo === "nacional" ? "nacional" : "internacional"} actualizados`);
+            let msg = "Datos de transferencia ";
+            if (tipo === "nacional") msg += "nacional actualizados";
+            else if (tipo === "internacional") msg += "internacional actualizados";
+            else msg += "en dólares actualizados";
+
+            showSuccess(msg);
         } catch (error) {
             showError(error.message || "Error al guardar los datos");
         } finally {
@@ -122,9 +157,11 @@ export function useDatosTransferencia() {
     return {
         datosNacional,
         datosInternacional,
+        datosDolares,
         loading,
         handleChangeNacional,
         handleChangeInternacional,
+        handleChangeDolares,
         guardarDatos,
         recargar: cargarDatos,
     };

@@ -12,10 +12,10 @@ import Footer from './components/Footer';
 import Admin from './components/Admin';
 import Login from './components/Login';
 import Inscripcion from './components/Inscripcion';
+import Materiales from './components/Materiales';
 import ProtectedRoute from './components/shared/ProtectedRoute';
 import { ToastProvider } from './contexts/ToastContext';
 import { LoadingProvider } from './contexts/LoadingContext';
-
 
 // Landing Page Composition
 function LandingPage() {
@@ -57,6 +57,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/inscripcion/:id" element={<Inscripcion />} />
+            <Route path="/materiales" element={<Materiales />} />
             <Route
               path="/admin"
               element={
