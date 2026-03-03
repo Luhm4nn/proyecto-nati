@@ -35,7 +35,7 @@ function CursoCard({
       </div>
 
       <div className="curso-value-badge">
-        <strong>Valor: </strong> AR$ {curso.valor?.toLocaleString('es-AR')} | € {curso.valorInternacional?.toLocaleString('es-ES')}
+        <strong>Valor mensual: </strong> AR$ {curso.valor?.toLocaleString('es-AR')} | € {curso.valorInternacional?.toLocaleString('es-ES')}
         {curso.valorDolares > 0 && ` | US$ ${curso.valorDolares?.toLocaleString('en-US')}`}
       </div>
 

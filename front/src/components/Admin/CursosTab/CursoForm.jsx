@@ -51,7 +51,7 @@ function CursoForm({
 
         <div className="form-group">
           <label htmlFor="valor">
-            Valor del Curso (AR$)
+            Valor mensual del Curso (AR$)
           </label>
           <input
             type="number"
@@ -68,7 +68,7 @@ function CursoForm({
 
         <div className="form-group">
           <label htmlFor="valorInternacional">
-            Valor Internacional (EUR €)
+            Valor mensual Internacional (EUR €)
           </label>
           <input
             type="number"
@@ -85,7 +85,7 @@ function CursoForm({
 
         <div className="form-group">
           <label htmlFor="valorDolares">
-            Valor en Dólares (USD $)
+            Valor mensual en Dólares (USD $)
           </label>
           <input
             type="number"

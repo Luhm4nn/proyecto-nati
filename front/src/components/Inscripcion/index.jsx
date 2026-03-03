@@ -166,7 +166,7 @@ function Inscripcion() {
                   <strong>{curso.titulo}</strong>.
                 </p>
                 <p>
-                  Valor del curso:{' '}
+                  Valor mensual del curso:{' '}
                   <strong>
                     AR$ {curso.valor?.toLocaleString('es-AR')} | €{' '}
                     {curso.valorInternacional?.toLocaleString('es-ES')}
@@ -235,7 +235,7 @@ function Inscripcion() {
                   {curso.descripcion}
                 </p>
                 <div className="inscripcion-price-tag">
-                  <span className="price-label">Valor del curso:</span>
+                  <span className="price-label">Valor mensual del curso:</span>
                   <span className="price-amount">
                     AR$ {curso.valor?.toLocaleString('es-AR')} | €{' '}
                     {curso.valorInternacional?.toLocaleString('es-ES')}

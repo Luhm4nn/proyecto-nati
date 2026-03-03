@@ -27,6 +27,14 @@ export class CreateInscripcionDto {
   @MaxLength(20)
   telefono?: string;
 
+  @IsOptional()
+  @IsString()
+  comprobanteUrl?: string | null;
+
+  @IsOptional()
+  @IsString()
+  comprobantePublicId?: string | null;
+
   @IsNotEmpty()
   @IsNumber()
   @Type(() => Number)

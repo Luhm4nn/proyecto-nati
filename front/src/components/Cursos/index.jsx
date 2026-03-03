@@ -104,7 +104,7 @@ function Cursos() {
 
                       <p className="curso-description">{curso.descripcion}</p>
                       <div className="curso-price">
-                        AR$ {curso.valor?.toLocaleString('es-AR')} | €{' '}
+                        Valor mensual: AR$ {curso.valor?.toLocaleString('es-AR')} | €{' '}
                         {curso.valorInternacional?.toLocaleString('es-ES')}
                         {curso.valorDolares > 0 &&
                           ` | US$ ${curso.valorDolares?.toLocaleString('en-US')}`}

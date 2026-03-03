@@ -7,6 +7,8 @@ import InscripcionModal from './InscripcionModal';
 import Paginacion from '../ConsultasTab/Paginacion';
 import DeleteConfirmationModal from '../../shared/DeleteConfirmationModal';
 
+import FilePreviewModal from '../../shared/FilePreviewModal';
+
 function InscripcionesTab({
   inscripciones,
   loading,
@@ -17,6 +19,7 @@ function InscripcionesTab({
   onCambiarEstado,
   onConfirmar,
   onEliminar,
+  onVer,
   onCambiarPagina,
   formatearFecha,
   getEstadoColor,
@@ -26,6 +29,8 @@ function InscripcionesTab({
   confirmModal,
   onCerrarModalConfirmar,
   onConfirmarAceptacion,
+  previewModal,
+  onCerrarPreview,
   showModalInscripcion,
   onAbrirModalInscripcion,
   onCerrarModalInscripcion,
@@ -222,6 +227,7 @@ function InscripcionesTab({
                               onCambiarEstado={onCambiarEstado}
                               onConfirmar={onConfirmar}
                               onEliminar={onEliminar}
+                              onVer={onVer}
                               formatearFecha={formatearFecha}
                               getEstadoColor={getEstadoColor}
                             />
@@ -269,6 +275,13 @@ function InscripcionesTab({
         onChange={onInscripcionChange}
         onSubmit={onInscripcionSubmit}
         cursos={cursosDropdown}
+      />
+
+      <FilePreviewModal
+        isOpen={previewModal.isOpen}
+        onClose={onCerrarPreview}
+        fileUrl={previewModal.url}
+        fileName={previewModal.name}
       />
     </div>
   );
