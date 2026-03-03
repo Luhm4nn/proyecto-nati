@@ -7,12 +7,12 @@ export class MailService {
     private transporter: nodemailer.Transporter;
     constructor(private prisma: PrismaService) {
         this.transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
+            host: process.env.MAIL_HOST || "smtp.gmail.com",
+            port: Number(process.env.MAIL_PORT) || 465,
+            secure: process.env.MAIL_SECURE !== 'false', // Default to true if not 'false'
             auth: {
                 user: process.env.MAIL_USER,
-                pass: process.env.MAIL_PASS, // La contraseña de aplicación
+                pass: process.env.MAIL_PASS,
             },
         });
     }
