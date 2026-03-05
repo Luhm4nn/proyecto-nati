@@ -1,102 +1,182 @@
-# 🇩🇪 Proyecto Natalia Luhmann
+# Alemán Para Vos
 
-Sistema de gestión de consultas para clases de alemán con autenticación JWT y panel de administración.
+Plataforma web completa para la gestión de cursos de alemán. Incluye sitio público, panel de administración y API REST con autenticación.
 
-🔗 Live Demo: https://deutsch-fur-dich.vercel.app
+🔗 **Sitio en producción:** [alemanparavos.com](https://alemanparavos.com)
 
-## 🚀 Inicio Rápido
+---
+
+## Tabla de contenidos
+
+- [Stack tecnológico](#stack-tecnológico)
+- [Arquitectura](#arquitectura)
+- [Funcionalidades](#funcionalidades)
+- [Instalación local](#instalación-local)
+- [Variables de entorno](#variables-de-entorno)
+- [Testing](#testing)
+- [Seguridad](#seguridad)
+
+---
+
+## Stack tecnológico
+
+| Capa | Tecnología |
+|---|---|
+| **Backend** | NestJS · Prisma ORM · PostgreSQL |
+| **Frontend** | React · Vite · React Router |
+| **Autenticación** | JWT (Passport) · bcrypt |
+| **Almacenamiento** | Cloudinary (imágenes y comprobantes) |
+| **Email** | Resend |
+| **Seguridad** | Helmet · Throttler · XSS sanitization · DOMPurify · Joi (env validation) |
+| **Testing** | Jest (backend) · Testing Library (frontend) |
+| **Infraestructura** | Vercel (frontend) · Render (backend) · PostgreSQL cloud |
+
+---
+
+## Arquitectura
+
+```
+aleman-para-vos/
+├── back/                   # API REST (NestJS)
+│   ├── src/
+│   │   ├── auth/           # Autenticación JWT
+│   │   ├── consultas/      # Mensajes de contacto
+│   │   ├── cursos/         # Cursos y dictados
+│   │   ├── inscripciones/  # Registros de alumnos
+│   │   ├── novedades/      # Anuncios y noticias
+│   │   ├── testimonios/    # Testimonios de alumnos
+│   │   ├── materiales/     # Recursos descargables
+│   │   └── datos-transferencia/ # Info bancaria para pagos
+│   └── prisma/             # Esquema y migraciones
+└── front/                  # SPA (React + Vite)
+    └── src/
+        ├── components/     # Secciones públicas y panel admin
+        ├── contexts/       # Auth, Toast
+        └── hooks/          # Lógica reutilizable
+```
+
+---
+
+## Funcionalidades
+
+### Sitio público
+
+- Landing con secciones: Hero, Características, Cursos, Testimonios, Preguntas frecuentes, Novedades y Contacto.
+- Formulario de contacto con validación de duplicados y rate limiting.
+- Visualización de cursos disponibles con precios (pesos y dólares).
+- Sistema de inscripción online con subida de comprobante de pago.
+- Materiales de estudio accesibles para alumnos.
+
+### Panel de administración (rutas protegidas)
+
+| Módulo | Capacidades |
+|---|---|
+| **Consultas** | Listado paginado, filtros por estado, actualización de estado |
+| **Inscripciones** | Gestión de alumnos, visualización de comprobantes, cambio de estado |
+| **Cursos** | CRUD de cursos, gestión de dictados con horarios y cupos |
+| **Novedades** | Publicación y edición de anuncios con imágenes |
+| **Testimonios** | CRUD, activación/desactivación de visibilidad |
+| **Materiales** | Subida y gestión de recursos descargables |
+| **Datos de cobro** | Gestión de alias/CBU para transferencias nacionales e internacionales |
+
+---
+
+## Instalación local
 
 ### Prerrequisitos
 
 - Node.js 18+
-- Docker (Opcional, para la base de datos)
-- PostgreSQL (si no usas Docker)
+- Docker (recomendado para la base de datos local)
 
-### 1. Base de Datos (Opción Docker)
-
-Si tienes Docker instalado, levantar la base de datos es trivial:
+### 1. Base de datos
 
 ```bash
 docker-compose up -d
 ```
+
+> Sin Docker, configurar una instancia de PostgreSQL local y ajustar `DATABASE_URL` en el `.env`.
 
 ### 2. Backend
 
 ```bash
 cd back
 npm install
-cp .env.example .env
-
-# Configura tu .env con la URL de la base de datos y tus credenciales de admin seguras:
-# DATABASE_URL="postgresql://admin:securepassword@localhost:5432/proyecto_nati"
-# ADMIN_EMAIL="tu@email.com"
-# ADMIN_PASSWORD="tu_password_segura"
-
+cp .env.example .env   # Completar las variables requeridas
+npx prisma generate
 npx prisma db push
-npm run create:admin  # Crea el usuario admin usando las variables del .env
-npm run start:dev     # http://localhost:3000
+npm run start:dev
 ```
+
+El servidor queda disponible en `http://localhost:3000`.
 
 ### 3. Frontend
 
 ```bash
 cd front
 npm install
-npm run dev          # http://localhost:5173
+cp .env.example .env   # Completar las variables requeridas
+npm run dev
 ```
 
-## 🛠️ Stack
+La aplicación queda disponible en `http://localhost:5173`.
 
-- **Backend:** NestJS 11 + Prisma 5 + PostgreSQL (Neon) + JWT
-- **Frontend:** React 19 + Vite 7 + React Router 7
-- **Seguridad:** Helmet, Throttler, XSS sanitization, DOMPurify
-- **Testing:** Jest (35 tests)
-- **Deployment:** Vercel (frontend) + Render (backend)
+---
 
-## 🔐 Seguridad Admin
+## Variables de entorno
 
-La creación de administradores está protegida y desacoplada de la API pública:
+### Backend (`back/.env`)
 
-1. **Sin rutas públicas:** No existe endpoint HTTP para crear admins.
-2. **Script seguro:** Se utiliza `npm run create:admin` que lee credenciales de Variables de Entorno.
-3. **Validación estricta:** El servidor no inicia si faltan las configuraciones de seguridad (`ADMIN_EMAIL`, etc).
+| Variable | Descripción |
+|---|---|
+| `DATABASE_URL` | Cadena de conexión a PostgreSQL |
+| `JWT_SECRET` | Clave secreta para firma de tokens JWT |
+| `JWT_EXPIRES_IN` | Tiempo de expiración del token |
+| `PORT` | Puerto del servidor (default: 3000) |
+| `CORS_ORIGIN` | Origen permitido para CORS |
+| `CLOUDINARY_CLOUD_NAME` | Nombre del cloud en Cloudinary |
+| `CLOUDINARY_API_KEY` | API Key de Cloudinary |
+| `CLOUDINARY_API_SECRET` | API Secret de Cloudinary |
+| `RESEND_API_KEY` | Clave para el servicio de email (Resend) |
+| `NODE_ENV` | `development` o `production` |
 
-## 🎯 Features
+### Frontend (`front/.env`)
 
-### ✅ Implementadas
+| Variable | Descripción |
+|---|---|
+| `VITE_API_URL` | URL base de la API backend |
 
-- **Gestión de Consultas**
-  - Formulario de contacto público
-  - Paginación (10 por página)
-  - Filtros por estado (pendiente/revisada/contactada)
-  - Contadores en tiempo real
-  - Validación de duplicados (24h)
-- **Gestión de Testimonios**
-  - CRUD completo
-  - Toggle activo/inactivo
-  - Vista pública filtrada
-  - Validación cliente y servidor
-- **Panel de Administración**
-  - Autenticación JWT
-  - Tabs: Consultas, Inscripciones, Cursos, Novedades y Testimonios
-  - Session timeout (30 minutos)
-  - Toast notifications
-  - Responsive design
-- **Seguridad**
-  - Rate limiting (5 login/min, 10 consultas/hora)
-  - Sanitización XSS (backend y frontend)
-  - Validación de variables de entorno
-  - Headers seguros (Helmet)
-  - CORS configurado
+---
 
-### 🚧 Roadmap
+## Testing
 
-- [ ] Notificaciones email
-- [ ] Zona horaria Argentina
-- [ ] SEO optimization (meta tags, sitemap)
-- [ ] Analytics (Google Analytics / Plausible)
-- [ ] Globo 3D de ubicaciones
-- [ ] Sistema de reservas
+```bash
+# Desde /back
+npm test              # Ejecutar todos los tests
+npm run test:watch    # Modo watch
+npm run test:cov      # Reporte de cobertura
+npm run test:e2e      # Tests end-to-end
+```
+
+Los tests cubren los módulos de autenticación, consultas, cursos, inscripciones, novedades, testimonios y materiales.
+
+---
+
+## Seguridad
+
+- **Rate limiting global** con throttling configurable por endpoint.
+- **Sanitización de entradas** en backend (`xss`) y frontend (`DOMPurify`) para prevenir ataques XSS.
+- **Validación de variables de entorno** al inicio del servidor; el proceso no levanta si falta alguna variable crítica.
+- **Headers HTTP seguros** mediante Helmet.
+- **Autenticación JWT** con guards en todos los endpoints del panel admin.
+- **Hash de contraseñas** con bcrypt.
+- **CORS** restringido al origen de producción configurado.
+
+---
+
+## Licencia
+
+Todos los derechos reservados © Natalia Luhmann.
+
 
 ## 📚 API Endpoints
 
