@@ -49,9 +49,16 @@ function Hero() {
       <div className="hero-header container">
         <div className="hero-logo-title-container">
           <h1 className="hero-brand-name">
-            Alemán para vos
+            <span className="hero-brand-main">Alemán para vos</span>
+            <span className="hero-brand-german">Deutsch für dich</span>
+            <span className="hero-separator"></span>
             <span className="hero-brand-subtitle">Natalia Luhmann</span>
           </h1>
+          <div className="hero-dots">
+            <span className="hero-dot hero-dot-black"></span>
+            <span className="hero-dot hero-dot-red"></span>
+            <span className="hero-dot hero-dot-gold"></span>
+          </div>
         </div>
       </div>
     </section>

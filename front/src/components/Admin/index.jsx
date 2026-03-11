@@ -16,7 +16,9 @@ import { useTestimonios } from './hooks/useTestimonios';
 import { useNovedades } from './hooks/useNovedades';
 import { useMateriales } from './hooks/useMateriales';
 import { useCursos } from './hooks/useCursos';
+import { useCorreosMasivos } from './hooks/useCorreosMasivos';
 import InscripcionesTab from './InscripcionesTab';
+import CorreosTab from './CorreosTab';
 import { formatearFecha, getEstadoColor } from './utils/helpers';
 import LogoutConfirmationModal from './LogoutConfirmationModal';
 import './Admin.css';
@@ -37,6 +39,7 @@ function Admin() {
   const novedadesData = useNovedades();
   const materialesData = useMateriales();
   const transferenciaData = useDatosTransferencia();
+  const correosData = useCorreosMasivos();
 
   useEffect(() => {
     const userData = localStorage.getItem('user');
@@ -212,6 +215,20 @@ function Admin() {
             onChangeInternacional={transferenciaData.handleChangeInternacional}
             onChangeDolares={transferenciaData.handleChangeDolares}
             onSubmit={transferenciaData.guardarDatos}
+          />
+        )}
+
+        {activeTab === 'correos' && (
+          <CorreosTab
+            emails={correosData.emails}
+            form={correosData.form}
+            loading={correosData.loading}
+            handleFormChange={correosData.handleFormChange}
+            toggleEmail={correosData.toggleEmail}
+            addEmail={correosData.addEmail}
+            removeEmail={correosData.removeEmail}
+            enviarCorreos={correosData.enviarCorreos}
+            copiarPrompt={correosData.copiarPrompt}
           />
         )}
 

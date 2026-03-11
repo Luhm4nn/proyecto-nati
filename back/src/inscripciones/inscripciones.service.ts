@@ -289,4 +289,69 @@ export class InscripcionesService {
       where: { id },
     });
   }
+
+  async obtenerEmailsActivos() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const inscripcionesActivas = await this.prisma.inscripcion.findMany({
+      where: {
+        estado: 'confirmada',
+        dictadoCurso: {
+          fechaFin: {
+            gte: today, // Que el curso no haya terminado
+          },
+          activo: true, // Que el dictado esté activo
+        },
+      },
+      select: {
+        email: true,
+        nombre: true,
+        apellido: true,
+      },
+    });
+
+    // Filtramos emails únicos pero conservamos el nombre
+    const emailsUnicosMap = new Map();
+
+    inscripcionesActivas.forEach(inscripcion => {
+      if (!emailsUnicosMap.has(inscripcion.email)) {
+        emailsUnicosMap.set(inscripcion.email, {
+          email: inscripcion.email,
+          nombre: `${inscripcion.nombre} ${inscripcion.apellido}`.trim()
+        });
+      }
+    });
+
+    return Array.from(emailsUnicosMap.values());
+  }
+
+  async enviarCorreoMasivo(emails: string[], asunto: string, cuerpo: string) {
+    if (!emails || emails.length === 0) {
+      throw new BadRequestException('No se proporcionaron correos electrónicos');
+    }
+
+    if (!asunto || !cuerpo) {
+      throw new BadRequestException('El asunto y el cuerpo del correo son obligatorios');
+    }
+
+    // Enviamos los correos individualmente pero en paralelo de forma controlada o simplemente uno tras otro
+    const resultados: { email: string; success: boolean }[] = [];
+
+    // Mejor iteramos y enviamos secuencialmente o usamos Promise.allSi no son demasiados, Promise.all esta bien.
+    // Si son muchísimos (>50), tal vez convenga un bucle for-of para no saturar la API
+    for (const email of emails) {
+      const resultado = await this.mailService.sendMailMasivo(email, asunto, cuerpo);
+      resultados.push({ email, success: resultado.success });
+    }
+
+    const fallidos = resultados.filter(r => !r.success);
+
+    return {
+      message: `Se enviaron ${resultados.length - fallidos.length} correos exitosamente.`,
+      enviados: resultados.length - fallidos.length,
+      fallidos: fallidos.length,
+      detalles: fallidos
+    };
+  }
 }

@@ -9,6 +9,7 @@ function AdminTabs({ activeTab, setActiveTab, hasPendingInscripciones, hasPendin
     { id: 'consultas', label: 'Consultas', hasBadge: hasPendingConsultas },
     { id: 'testimonios', label: 'Testimonios' },
     { id: 'transferencia', label: 'Transferencia' },
+    { id: 'correos', label: 'Correos' },
   ];
 
   return (

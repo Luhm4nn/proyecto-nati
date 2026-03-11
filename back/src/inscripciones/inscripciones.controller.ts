@@ -4,6 +4,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { InscripcionesService } from './inscripciones.service';
 import { CreateInscripcionDto } from './dto/create-inscripcion.dto';
 import { UpdateInscripcionDto } from './dto/update-inscripcion.dto';
+import { EnviarCorreoMasivoDto } from './dto/enviar-correo-masivo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('inscripciones')
@@ -24,6 +25,24 @@ export class InscripcionesController {
   @Post('admin')
   createAdmin(@Body() createInscripcionDto: CreateInscripcionDto) {
     return this.inscripcionesService.createAdmin(createInscripcionDto);
+  }
+
+  /**
+   * Obtener emails de alumnos confirmados en cursos en curso
+   */
+  @UseGuards(JwtAuthGuard)
+  @Get('emails-activos')
+  obtenerEmailsActivos() {
+    return this.inscripcionesService.obtenerEmailsActivos();
+  }
+
+  /**
+   * Enviar correo masivo
+   */
+  @UseGuards(JwtAuthGuard)
+  @Post('correo-masivo')
+  enviarCorreoMasivo(@Body() body: EnviarCorreoMasivoDto) {
+    return this.inscripcionesService.enviarCorreoMasivo(body.emails, body.asunto, body.cuerpo);
   }
 
   /**

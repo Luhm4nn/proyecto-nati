@@ -76,4 +76,25 @@ export class MailService {
             return { success: false, error };
         }
     }
+
+    async sendMailMasivo(emailAlumno: string, asunto: string, cuerpo: string) {
+        try {
+            const { data, error } = await this.resend.emails.send({
+                from: process.env.MAIL_FROM || 'info@alemanparavos.com',
+                to: emailAlumno,
+                subject: asunto,
+                html: cuerpo,
+            });
+
+            if (error) {
+                console.error(`🔴 Error de Resend enviando mail masivo a ${emailAlumno}:`, error);
+                return { success: false, error };
+            }
+
+            return { success: true, data };
+        } catch (error) {
+            console.error(`🔴 Excepción enviando mail masivo a ${emailAlumno}:`, error);
+            return { success: false, error };
+        }
+    }
 }
